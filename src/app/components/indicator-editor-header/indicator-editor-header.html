@@ -1,0 +1,78 @@
+<div class="mb-2 flex items-center justify-between gap-2">
+  <span class="text-primary font-mono text-xs font-bold tracking-wide">
+    INDICATOR {{ code() }} · ARACIS HEI EVALUATION
+  </span>
+  <span class="text-on-surface-variant font-mono text-xs"> Standard Ref: {{ standardRef() }} </span>
+</div>
+
+<h1
+  class="text-on-surface font-serif text-2xl leading-snug font-semibold tracking-tight"
+  tabindex="-1"
+>
+  {{ title() }}
+</h1>
+
+<div class="bg-surface-container-low border-outline-variant mt-4 rounded-lg border p-3.5">
+  <h2 class="m-0">
+    <button
+      type="button"
+      [id]="headerId"
+      [attr.aria-expanded]="open()"
+      [attr.aria-controls]="regionId"
+      class="text-on-surface-variant hover:text-on-surface focus-visible:ring-primary/50 flex w-full items-center justify-between gap-2 text-xs font-semibold focus-visible:ring-2 focus-visible:outline-none"
+      (click)="toggle()"
+    >
+      <span class="flex items-center gap-1.5">
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          class="text-primary"
+        >
+          <path d="M12 7v14" />
+          <path
+            d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"
+          />
+        </svg>
+        ARACIS Evaluation Rubric &amp; Required Evidence
+      </span>
+      <svg
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        class="shrink-0 transition-transform duration-150"
+        [class.rotate-180]="open()"
+      >
+        <path d="m6 9 6 6 6-6" />
+      </svg>
+    </button>
+  </h2>
+
+  @if (open()) {
+    <div
+      [id]="regionId"
+      role="region"
+      [attr.aria-labelledby]="headerId"
+      class="border-outline-variant text-on-surface-variant mt-2 border-t pt-2 text-xs leading-relaxed"
+    >
+      <p class="m-0">
+        <strong class="text-on-surface font-semibold">Required validation elements:</strong>
+        Institutional Carta Universitară defining governance structures; Regulation of Organization
+        and Functioning (ROF); functional organigram approved by the Senate; verification of regular
+        meeting minutes and decision traceability.
+      </p>
+    </div>
+  }
+</div>

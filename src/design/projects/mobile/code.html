@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Indicata — Projects Dashboard</title>
+<!-- Google Fonts: Newsreader & Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-surface": "#1b1c1a",
+            "on-primary-fixed-variant": "#254778",
+            "tertiary": "#363531",
+            "primary": "#0e3566",
+            "error-container": "#ffdad6",
+            "surface-container-high": "#e9e8e5",
+            "secondary-fixed-dim": "#c8c6c5",
+            "on-error": "#ffffff",
+            "primary-container": "#2b4c7e",
+            "background": "#faf9f6",
+            "primary-fixed-dim": "#a9c7ff",
+            "on-secondary-fixed-variant": "#474746",
+            "on-tertiary": "#ffffff",
+            "on-surface-variant": "#43474f",
+            "inverse-on-surface": "#f2f1ee",
+            "tertiary-container": "#4d4c48",
+            "tertiary-fixed-dim": "#c9c6c0",
+            "on-secondary-fixed": "#1b1b1c",
+            "surface-container-lowest": "#ffffff",
+            "surface-tint": "#3f5f92",
+            "primary-fixed": "#d6e3ff",
+            "on-tertiary-fixed-variant": "#474742",
+            "on-background": "#1b1c1a",
+            "tertiary-fixed": "#e5e2dc",
+            "surface-container-low": "#f4f3f0",
+            "surface-variant": "#e3e2df",
+            "secondary": "#5f5e5e",
+            "surface-container": "#efeeeb",
+            "on-tertiary-container": "#bfbcb6",
+            "outline": "#747780",
+            "on-primary-container": "#9ebdf7",
+            "on-secondary-container": "#636262",
+            "inverse-surface": "#2f312f",
+            "surface-dim": "#dbdad7",
+            "on-secondary": "#ffffff",
+            "secondary-fixed": "#e5e2e1",
+            "surface": "#faf9f6",
+            "outline-variant": "#c3c6d0",
+            "on-primary": "#ffffff",
+            "surface-bright": "#faf9f6",
+            "on-tertiary-fixed": "#1c1c18",
+            "error": "#ba1a1a",
+            "secondary-container": "#e2dfde",
+            "inverse-primary": "#a9c7ff",
+            "on-primary-fixed": "#001b3d",
+            "on-error-container": "#93000a",
+            "surface-container-highest": "#e3e2df"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-sm": "0.5rem",
+            "gutter": "1rem",
+            "margin": "1rem",
+            "space-lg": "1.5rem",
+            "margin-desktop": "3rem",
+            "margin-tablet": "2rem",
+            "space-xs": "0.25rem",
+            "space-md": "1rem",
+            "gutter-desktop": "1.5rem",
+            "space-xl": "2.5rem"
+          },
+          "fontFamily": {
+            "caption": ["Inter"],
+            "headline-lg": ["Newsreader"],
+            "body-lg": ["Inter"],
+            "headline-lg-mobile": ["Newsreader"],
+            "label-sm": ["Inter"],
+            "display": ["Newsreader"],
+            "label-md": ["Inter"],
+            "body-md": ["Inter"],
+            "body-sm": ["Inter"],
+            "headline-sm": ["Newsreader"]
+          },
+          "fontSize": {
+            "caption": ["0.6875rem", { "lineHeight": "1rem", "fontWeight": "400" }],
+            "headline-lg": ["1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.015em", "fontWeight": "400" }],
+            "body-lg": ["1rem", { "lineHeight": "1.6rem", "fontWeight": "400" }],
+            "headline-lg-mobile": ["1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+            "label-sm": ["0.75rem", { "lineHeight": "1rem", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "display": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.02em", "fontWeight": "400" }],
+            "label-md": ["0.875rem", { "lineHeight": "1.25rem", "fontWeight": "500" }],
+            "body-md": ["0.875rem", { "lineHeight": "1.45rem", "fontWeight": "400" }],
+            "body-sm": ["0.8125rem", { "lineHeight": "1.35rem", "fontWeight": "400" }],
+            "headline-sm": ["1.25rem", { "lineHeight": "1.75rem", "fontWeight": "500" }]
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+      line-height: 1;
+    }
+    .material-symbols-outlined.fill {
+      font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 20;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      display: none;
+    }
+    .custom-scroll {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    body {
+      background-color: #faf9f6;
+      -webkit-tap-highlight-color: transparent;
+      min-height: 100dvh;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased flex flex-col items-center min-h-screen">
+<!-- Mobile Viewport Shell (390px simulated container) -->
+<div class="w-full max-w-[420px] min-h-screen bg-background flex flex-col relative pb-24 shadow-sm border-x border-surface-container-high/60">
+<!-- TOP APP BAR -->
+<header class="w-full px-4 pt-4 pb-3 flex items-center justify-between bg-background sticky top-0 z-40 backdrop-blur-md bg-background/95 border-b border-surface-container-high/60">
+<div class="flex items-center gap-2.5">
+<div class="w-7 h-7 rounded bg-primary flex items-center justify-center text-on-primary shadow-xs">
+<span class="font-headline-sm text-headline-sm leading-none font-semibold">I</span>
+</div>
+<div>
+<span class="font-headline-sm text-[1.15rem] tracking-tight text-on-background font-semibold block leading-tight">Indicata</span>
+</div>
+</div>
+<!-- User Avatar & Quick switcher -->
+<div class="flex items-center gap-2 bg-surface-container-low border border-surface-container-high pl-2 pr-2.5 py-1 rounded-full cursor-pointer hover:bg-surface-container transition-colors">
+<div class="w-5 h-5 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-label-sm text-[10px] font-bold">
+        F
+      </div>
+<div class="flex flex-col text-left">
+<span class="font-label-sm text-[11px] text-on-surface leading-tight font-medium">Fares</span>
+<span class="font-caption text-[9px] text-secondary leading-tight">UPT</span>
+</div>
+<span class="material-symbols-outlined text-secondary" style="font-size: 14px;">expand_more</span>
+</div>
+</header>
+<!-- TOP SUB-HEADER / SECTION QUICK SWITCHER -->
+<div class="px-4 pt-3 pb-2 bg-background">
+<div class="flex items-center justify-between bg-surface-container-low p-1 rounded-lg border border-surface-container-high">
+<button class="flex-1 py-1.5 px-2 rounded font-label-sm text-label-sm font-medium transition-all text-center flex items-center justify-center gap-1.5 bg-primary-container text-on-primary shadow-xs" id="quick-btn-overview" onclick="switchSection('overview')">
+<span class="material-symbols-outlined" style="font-size: 15px;">dashboard</span>
+<span>Overview</span>
+</button>
+<button class="flex-1 py-1.5 px-2 rounded font-label-sm text-label-sm font-medium transition-all text-center flex items-center justify-center gap-1.5 text-secondary hover:text-on-surface" id="quick-btn-reports" onclick="switchSection('reports')">
+<span class="material-symbols-outlined" style="font-size: 15px;">folder</span>
+<span>Reports</span>
+</button>
+<button class="flex-1 py-1.5 px-2 rounded font-label-sm text-label-sm font-medium transition-all text-center flex items-center justify-center gap-1.5 text-secondary hover:text-on-surface" id="quick-btn-activity" onclick="switchSection('activity')">
+<span class="material-symbols-outlined" style="font-size: 15px;">history</span>
+<span>Activity</span>
+</button>
+</div>
+</div>
+<!-- MAIN VIEW CONTAINER: ONLY ONE SECTION ACTIVE AT A TIME -->
+<main class="px-4 pt-2 flex flex-col flex-1">
+<!-- ========================================== -->
+<!-- SECTION 1: OVERVIEW / ATTENTION (ACTIVE)   -->
+<!-- ========================================== -->
+<section class="flex flex-col gap-4 animate-in fade-in duration-200" id="section-overview">
+<!-- Greeting and Context -->
+<div class="flex flex-col gap-1 pt-1">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-semibold tracking-tight">
+          Good morning, Fares
+        </h1>
+<p class="font-body-md text-body-md text-secondary">
+          Here's your triage and high-priority actions today.
+        </p>
+</div>
+<!-- Quick Action / New Report Button -->
+<button class="w-full h-11 bg-primary text-on-primary rounded font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-primary-container active:scale-[0.99] transition-all shadow-sm" onclick="switchSection('reports')">
+<span class="material-symbols-outlined" style="font-size: 18px;">add</span>
+<span>New report</span>
+</button>
+<!-- NEEDS ATTENTION HEADER -->
+<div class="flex items-center justify-between pt-1">
+<h2 class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-1.5">
+<span>Needs your attention</span>
+<span class="bg-amber-100 text-amber-900 font-label-sm text-label-sm px-2 py-0.5 rounded-full font-medium" id="attention-counter">3</span>
+</h2>
+<button class="font-caption text-caption text-secondary hover:text-primary transition-colors" id="btn-toggle-triage" onclick="toggleOverviewCaughtUp()">Mark all reviewed</button>
+</div>
+<!-- ATTENTION CARDS -->
+<div class="flex flex-col gap-2.5" id="overview-cards-container">
+<!-- Amber Card 1 -->
+<div class="bg-surface-container-lowest border border-amber-200/80 rounded-xl p-3.5 shadow-sm flex flex-col gap-2 relative overflow-hidden">
+<div class="absolute top-0 left-0 bottom-0 w-1.5 bg-amber-500"></div>
+<div class="flex items-start justify-between gap-2 pl-1.5">
+<div class="flex items-start gap-2.5">
+<span class="material-symbols-outlined text-amber-600 mt-0.5" style="font-size: 20px;">hourglass_top</span>
+<div class="flex flex-col">
+<p class="font-body-md text-body-md font-medium text-on-surface leading-snug">7 documents waiting for review</p>
+<span class="font-caption text-caption text-secondary mt-0.5">UPT Doctorate 2026 · Standard A.1</span>
+</div>
+</div>
+</div>
+<div class="flex justify-between items-center pl-1.5 pt-2 border-t border-surface-container-low">
+<span class="font-caption text-caption text-amber-800 bg-amber-50 px-1.5 py-0.5 rounded">High priority</span>
+<a class="font-label-sm text-label-sm text-primary hover:text-primary-container font-semibold flex items-center gap-1 py-1 px-2" href="#">
+              Review documents
+              <span class="material-symbols-outlined" style="font-size: 15px;">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Amber Card 2 -->
+<div class="bg-surface-container-lowest border border-amber-200/80 rounded-xl p-3.5 shadow-sm flex flex-col gap-2 relative overflow-hidden">
+<div class="absolute top-0 left-0 bottom-0 w-1.5 bg-amber-500"></div>
+<div class="flex items-start justify-between gap-2 pl-1.5">
+<div class="flex items-start gap-2.5">
+<span class="material-symbols-outlined text-amber-600 mt-0.5" style="font-size: 20px;">link_off</span>
+<div class="flex flex-col">
+<p class="font-body-md text-body-md font-medium text-on-surface leading-snug">4 claims without a source in A.2.1.1</p>
+<span class="font-caption text-caption text-secondary mt-0.5">UPT Doctorate 2026 · Curriculum design</span>
+</div>
+</div>
+</div>
+<div class="flex justify-between items-center pl-1.5 pt-2 border-t border-surface-container-low">
+<span class="font-caption text-caption text-secondary bg-surface-container-low px-1.5 py-0.5 rounded">Evidence gap</span>
+<a class="font-label-sm text-label-sm text-primary hover:text-primary-container font-semibold flex items-center gap-1 py-1 px-2" href="#">
+              Open indicator
+              <span class="material-symbols-outlined" style="font-size: 15px;">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Blue Card 3 -->
+<div class="bg-surface-container-lowest border border-primary-fixed rounded-xl p-3.5 shadow-sm flex flex-col gap-2 relative overflow-hidden">
+<div class="absolute top-0 left-0 bottom-0 w-1.5 bg-primary-container"></div>
+<div class="flex items-start justify-between gap-2 pl-1.5">
+<div class="flex items-start gap-2.5">
+<span class="material-symbols-outlined text-primary-container mt-0.5" style="font-size: 20px;">task_alt</span>
+<div class="flex flex-col">
+<p class="font-body-md text-body-md font-medium text-on-surface leading-snug">3 indicators ready to approve</p>
+<span class="font-caption text-caption text-secondary mt-0.5">UVT Doctorate 2025 · Final compliance</span>
+</div>
+</div>
+</div>
+<div class="flex justify-between items-center pl-1.5 pt-2 border-t border-surface-container-low">
+<span class="font-caption text-caption text-primary-container bg-primary-fixed/40 px-1.5 py-0.5 rounded">Ready to sign</span>
+<a class="font-label-sm text-label-sm text-primary hover:text-primary-container font-semibold flex items-center gap-1 py-1 px-2" href="#">
+              Review &amp; Approve
+              <span class="material-symbols-outlined" style="font-size: 15px;">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Caught up banner (toggleable) -->
+<div class="hidden bg-surface-container-lowest border border-emerald-200 rounded-xl p-5 text-center flex flex-col items-center justify-center gap-2 shadow-sm" id="overview-caughtup-banner">
+<div class="w-10 h-10 rounded-full bg-emerald-50 text-emerald-700 flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-size: 22px;">check_circle</span>
+</div>
+<p class="font-body-md text-body-md font-medium text-on-surface">You are all caught up!</p>
+<p class="font-caption text-caption text-secondary max-w-[270px]">
+          No pending reviews, unsourced claims, or approvals require your urgent attention.
+        </p>
+</div>
+<!-- NEXT SUGGESTED STEP CARD -->
+<div class="bg-surface-container-low border border-surface-container-high rounded-xl p-3.5 flex items-center justify-between gap-3 shadow-xs">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded bg-surface-container-lowest border border-surface-container-high flex items-center justify-center text-primary-container flex-shrink-0">
+<span class="material-symbols-outlined" style="font-size: 20px;">lightbulb</span>
+</div>
+<div class="flex flex-col">
+<span class="font-caption text-caption text-secondary font-medium">Suggested next step</span>
+<p class="font-body-sm text-body-sm text-on-surface font-medium leading-tight">Add missing Charter document</p>
+</div>
+</div>
+<button class="h-8 px-3 rounded bg-surface-container-lowest border border-outline-variant/70 text-on-surface font-label-sm text-label-sm hover:border-primary transition-colors flex items-center gap-1 flex-shrink-0">
+<span class="material-symbols-outlined" style="font-size: 14px;">upload_file</span>
+          Upload
+        </button>
+</div>
+<!-- Switch to reports banner teaser -->
+<button class="w-full p-3 rounded-lg border border-dashed border-outline-variant/80 hover:border-primary-container bg-surface-container-lowest flex items-center justify-between text-secondary hover:text-on-surface transition-all text-left" onclick="switchSection('reports')">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container" style="font-size: 18px;">folder_open</span>
+<span class="font-body-sm text-body-sm text-on-surface font-medium">View all 4 active reports</span>
+</div>
+<span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
+</button>
+</section>
+<!-- ========================================== -->
+<!-- SECTION 2: REPORTS (HIDDEN INITIALLY)       -->
+<!-- ========================================== -->
+<section class="hidden flex flex-col gap-3.5 animate-in fade-in duration-200" id="section-reports">
+<!-- Section Header -->
+<div class="flex items-center justify-between pt-1">
+<div>
+<h1 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Your reports (4)</h1>
+<p class="font-caption text-caption text-secondary mt-0.5">Accreditation cycles and institutional benchmarks</p>
+</div>
+<button class="h-8 px-2.5 bg-primary text-on-primary rounded font-label-sm text-label-sm flex items-center gap-1 shadow-xs hover:bg-primary-container transition-all">
+<span class="material-symbols-outlined" style="font-size: 16px;">add</span>
+<span>New</span>
+</button>
+</div>
+<!-- Search Input -->
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary" style="font-size: 18px;">search</span>
+<input class="w-full h-10 pl-9 pr-4 rounded-lg bg-surface-container-lowest border border-surface-container-high text-on-surface font-body-sm text-body-sm placeholder:text-secondary focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container" placeholder="Search reports by university or field…" type="text"/>
+</div>
+<!-- Filter Pills (Scrollable) -->
+<div class="flex items-center gap-1.5 overflow-x-auto pb-1 custom-scroll -mx-4 px-4">
+<button class="px-3 py-1.5 rounded-full font-label-sm text-label-sm bg-primary-container text-on-primary whitespace-nowrap">All (4)</button>
+<button class="px-3 py-1.5 rounded-full font-label-sm text-label-sm bg-surface-container-low text-secondary hover:text-on-surface border border-surface-container-high whitespace-nowrap">Doctorate</button>
+<button class="px-3 py-1.5 rounded-full font-label-sm text-label-sm bg-surface-container-low text-secondary hover:text-on-surface border border-surface-container-high whitespace-nowrap">Master</button>
+<button class="px-3 py-1.5 rounded-full font-label-sm text-label-sm bg-surface-container-low text-secondary hover:text-on-surface border border-surface-container-high whitespace-nowrap">Bachelor</button>
+<button class="px-3 py-1.5 rounded-full font-label-sm text-label-sm bg-surface-container-low text-secondary hover:text-on-surface border border-surface-container-high whitespace-nowrap">In progress</button>
+</div>
+<!-- Report Cards List -->
+<div class="flex flex-col gap-3">
+<!-- Card 1: UPT Doctorate 2026 -->
+<div class="bg-surface-container-lowest border border-surface-container-high rounded-xl p-4 shadow-sm flex flex-col gap-3 hover:border-outline-variant transition-colors">
+<div class="flex flex-col gap-1">
+<div class="flex flex-wrap items-center gap-1.5">
+<span class="font-caption text-caption px-2 py-0.5 rounded bg-surface-container-low text-secondary font-medium">Doctorate</span>
+<span class="font-caption text-caption px-2 py-0.5 rounded bg-surface-container-low text-secondary font-medium">Accreditation</span>
+<span class="font-caption text-caption px-2 py-0.5 rounded bg-amber-50 text-amber-800 font-medium border border-amber-200/50">In progress</span>
+</div>
+<h3 class="font-headline-sm text-[1.125rem] font-semibold text-on-surface mt-1">
+              UPT · Computer Engineering · Doctorate 2026
+            </h3>
+<p class="font-caption text-caption text-secondary">
+              Universitatea Politehnica Timișoara
+            </p>
+</div>
+<!-- Segmented Progress Bar -->
+<div class="flex flex-col gap-1.5 pt-1">
+<div class="flex justify-between items-center font-caption text-caption">
+<span class="text-on-surface-variant font-medium">12 of 39 indicators approved</span>
+<span class="text-primary font-semibold">31%</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden flex">
+<div class="bg-primary-container h-full transition-all duration-300" style="width: 31%;"></div>
+<div class="bg-amber-400 h-full transition-all duration-300" style="width: 18%;"></div>
+</div>
+</div>
+<!-- Mini stats row -->
+<div class="grid grid-cols-3 gap-2 py-2 border-y border-surface-container-low">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary" style="font-size: 16px;">description</span>
+<span class="font-caption text-caption text-secondary">18 docs</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-amber-600" style="font-size: 16px;">rate_review</span>
+<span class="font-caption text-caption text-amber-800 font-medium">7 to review</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-error" style="font-size: 16px;">help_outline</span>
+<span class="font-caption text-caption text-secondary">4 unsourced</span>
+</div>
+</div>
+<!-- Footer -->
+<div class="flex items-center justify-between pt-0.5">
+<div class="flex items-center gap-2">
+<div class="w-5 h-5 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center font-caption text-[10px] font-bold">
+                F
+              </div>
+<span class="font-caption text-caption text-secondary">Edited 2h ago</span>
+</div>
+<a class="font-label-sm text-label-sm text-primary font-semibold hover:text-primary-container flex items-center gap-1 min-h-[36px] items-center" href="#">
+              Continue <span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Card 2: UVT Doctorate 2025 -->
+<div class="bg-surface-container-lowest border border-surface-container-high rounded-xl p-4 shadow-sm flex flex-col gap-3 hover:border-outline-variant transition-colors">
+<div class="flex flex-col gap-1">
+<div class="flex flex-wrap items-center gap-1.5">
+<span class="font-caption text-caption px-2 py-0.5 rounded bg-surface-container-low text-secondary font-medium">Doctorate</span>
+<span class="font-caption text-caption px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 font-medium border border-emerald-200/60">Ready for export</span>
+</div>
+<h3 class="font-headline-sm text-[1.125rem] font-semibold text-on-surface mt-1">
+              UVT · Informatică · Doctorate 2025
+            </h3>
+<p class="font-caption text-caption text-secondary">
+              Universitatea de Vest din Timișoara
+            </p>
+</div>
+<!-- Progress bar -->
+<div class="flex flex-col gap-1.5 pt-1">
+<div class="flex justify-between items-center font-caption text-caption">
+<span class="text-emerald-800 font-medium">39 of 39 approved</span>
+<span class="text-emerald-700 font-bold">100%</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="bg-emerald-600 h-full w-full"></div>
+</div>
+</div>
+<!-- Mini stats row -->
+<div class="grid grid-cols-3 gap-2 py-2 border-y border-surface-container-low">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary" style="font-size: 16px;">description</span>
+<span class="font-caption text-caption text-secondary">42 docs</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-emerald-600" style="font-size: 16px;">check_circle</span>
+<span class="font-caption text-caption text-emerald-800 font-medium">0 pending</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary" style="font-size: 16px;">verified</span>
+<span class="font-caption text-caption text-secondary">QA Validated</span>
+</div>
+</div>
+<!-- Footer -->
+<div class="flex items-center justify-between pt-0.5">
+<span class="font-caption text-caption text-secondary">Edited yesterday</span>
+<a class="font-label-sm text-label-sm text-primary font-semibold hover:text-primary-container flex items-center gap-1 min-h-[36px] items-center" href="#">
+              Open <span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Card 3: UPT Master 2025 -->
+<div class="bg-surface-container-lowest border border-surface-container-high rounded-xl p-4 shadow-sm flex flex-col gap-3 hover:border-outline-variant transition-colors">
+<div class="flex flex-col gap-1">
+<div class="flex flex-wrap items-center gap-1.5">
+<span class="font-caption text-caption px-2 py-0.5 rounded bg-surface-container-low text-secondary font-medium">Master</span>
+<span class="font-caption text-caption px-2 py-0.5 rounded bg-amber-50 text-amber-800 font-medium border border-amber-200/50">In progress</span>
+</div>
+<h3 class="font-headline-sm text-[1.125rem] font-semibold text-on-surface mt-1">
+              UPT · Automatică și Calculatoare · Master 2025
+            </h3>
+<p class="font-caption text-caption text-secondary">
+              Universitatea Politehnica Timișoara
+            </p>
+</div>
+<!-- Progress bar -->
+<div class="flex flex-col gap-1.5 pt-1">
+<div class="flex justify-between items-center font-caption text-caption">
+<span class="text-on-surface-variant font-medium">3 of 30 approved</span>
+<span class="text-primary font-semibold">10%</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="bg-primary-container h-full" style="width: 10%;"></div>
+</div>
+</div>
+<!-- Footer -->
+<div class="flex items-center justify-between pt-0.5 border-t border-surface-container-low mt-1">
+<span class="font-caption text-caption text-secondary">Edited 3 days ago</span>
+<a class="font-label-sm text-label-sm text-primary font-semibold hover:text-primary-container flex items-center gap-1 min-h-[36px] items-center" href="#">
+              Continue <span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Add Report dashed button -->
+<button class="w-full border-2 border-dashed border-outline-variant/70 hover:border-primary-container rounded-xl p-4 flex flex-col items-center justify-center gap-1.5 bg-surface-container-low/40 hover:bg-surface-container-low transition-all text-secondary hover:text-primary min-h-[84px]">
+<span class="material-symbols-outlined" style="font-size: 22px;">add_circle_outline</span>
+<span class="font-label-md text-label-md font-medium text-on-surface">+ Create a new report</span>
+<span class="font-caption text-caption text-secondary">Import from ARACIS template or scratch</span>
+</button>
+</div>
+</section>
+<!-- ========================================== -->
+<!-- SECTION 3: ACTIVITY (HIDDEN INITIALLY)     -->
+<!-- ========================================== -->
+<section class="hidden flex flex-col gap-3.5 animate-in fade-in duration-200" id="section-activity">
+<div class="flex items-center justify-between pt-1">
+<div>
+<h1 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Recent activity</h1>
+<p class="font-caption text-caption text-secondary mt-0.5">Audit log, updates and review changes</p>
+</div>
+<button class="font-caption text-caption text-primary font-medium hover:underline">Export audit</button>
+</div>
+<!-- Timeline filter buttons -->
+<div class="flex items-center gap-1.5">
+<button class="px-2.5 py-1 rounded bg-surface-container-high text-on-surface text-caption font-medium">All events</button>
+<button class="px-2.5 py-1 rounded bg-surface-container-low text-secondary text-caption hover:text-on-surface">Approvals</button>
+<button class="px-2.5 py-1 rounded bg-surface-container-low text-secondary text-caption hover:text-on-surface">Uploads</button>
+</div>
+<!-- Activity Timeline Stack -->
+<div class="bg-surface-container-lowest border border-surface-container-high rounded-xl divide-y divide-surface-container-low shadow-sm">
+<!-- Event 1 -->
+<div class="p-3.5 flex items-start gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-fixed/50 flex items-center justify-center text-primary-container flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined" style="font-size: 18px;">fact_check</span>
+</div>
+<div class="flex flex-col flex-1">
+<p class="font-body-sm text-body-sm text-on-surface leading-tight">
+<span class="font-semibold text-on-surface">Standard A.1.2</span> marked as verified
+            </p>
+<span class="font-caption text-caption text-secondary mt-1">UPT Doctorate 2026 · 1 hour ago</span>
+<span class="font-caption text-[10px] text-on-surface-variant bg-surface-container-low self-start px-1.5 py-0.5 rounded mt-1.5">By Fares M.</span>
+</div>
+</div>
+<!-- Event 2 -->
+<div class="p-3.5 flex items-start gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-secondary flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined" style="font-size: 18px;">upload_file</span>
+</div>
+<div class="flex flex-col flex-1">
+<p class="font-body-sm text-body-sm text-on-surface leading-tight">
+              Uploaded <span class="font-semibold text-on-surface">Curriculum_Plan_v3.pdf</span>
+</p>
+<span class="font-caption text-caption text-secondary mt-1">UPT Doctorate 2026 · 3 hours ago</span>
+<span class="font-caption text-[10px] text-on-surface-variant bg-surface-container-low self-start px-1.5 py-0.5 rounded mt-1.5">File size: 4.2 MB</span>
+</div>
+</div>
+<!-- Event 3 -->
+<div class="p-3.5 flex items-start gap-3">
+<div class="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined" style="font-size: 18px;">check_circle</span>
+</div>
+<div class="flex flex-col flex-1">
+<p class="font-body-sm text-body-sm text-on-surface leading-tight">
+              Final approval generated by <span class="font-medium">Dean Office</span>
+</p>
+<span class="font-caption text-caption text-secondary mt-1">UVT Doctorate 2025 · Yesterday, 16:40</span>
+<span class="font-caption text-[10px] text-emerald-800 bg-emerald-50 self-start px-1.5 py-0.5 rounded mt-1.5">Ready for export</span>
+</div>
+</div>
+<!-- Event 4 -->
+<div class="p-3.5 flex items-start gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-secondary flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined" style="font-size: 18px;">person_add</span>
+</div>
+<div class="flex flex-col flex-1">
+<p class="font-body-sm text-body-sm text-on-surface leading-tight">
+              Invited external reviewer <span class="font-semibold text-on-surface">Dr. M. Ionescu</span>
+</p>
+<span class="font-caption text-caption text-secondary mt-1">UPT Master 2025 · 2 days ago</span>
+<span class="font-caption text-[10px] text-on-surface-variant bg-surface-container-low self-start px-1.5 py-0.5 rounded mt-1.5">External Auditor</span>
+</div>
+</div>
+<!-- Event 5 -->
+<div class="p-3.5 flex items-start gap-3">
+<div class="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center text-amber-700 flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined" style="font-size: 18px;">flag</span>
+</div>
+<div class="flex flex-col flex-1">
+<p class="font-body-sm text-body-sm text-on-surface leading-tight">
+              Flagged indicator <span class="font-semibold text-on-surface">B.3.1 (Faculty Ratios)</span>
+</p>
+<span class="font-caption text-caption text-secondary mt-1">UPT Doctorate 2026 · 4 days ago</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- DOCKED BOTTOM NAVIGATION TAB BAR (INTERACTIVE SECTION SWITCHER) -->
+<nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[420px] bg-surface-container-lowest/95 backdrop-blur-md z-50 px-3 py-1.5 flex items-center justify-around border-t border-surface-container-high shadow-[0_-4px_20px_-2px_rgba(30,30,30,0.06)]">
+<!-- Tab 1: Overview / Attention -->
+<button class="flex flex-col items-center justify-center py-1.5 px-3 rounded-lg text-primary-container font-medium min-w-[72px] min-h-[48px] transition-colors relative" id="nav-btn-overview" onclick="switchSection('overview')">
+<span class="material-symbols-outlined fill" id="nav-icon-overview" style="font-size: 22px;">dashboard</span>
+<span class="font-caption text-[11px] font-semibold mt-0.5" id="nav-text-overview">Overview</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container absolute top-1 right-5" id="nav-dot-overview"></span>
+</button>
+<!-- Tab 2: Reports -->
+<button class="flex flex-col items-center justify-center py-1.5 px-3 rounded-lg text-secondary hover:text-on-surface font-normal min-w-[72px] min-h-[48px] transition-colors relative" id="nav-btn-reports" onclick="switchSection('reports')">
+<span class="material-symbols-outlined" id="nav-icon-reports" style="font-size: 22px;">folder</span>
+<span class="font-caption text-[11px] mt-0.5" id="nav-text-reports">Reports</span>
+<span class="hidden w-1.5 h-1.5 rounded-full bg-primary-container absolute top-1 right-5" id="nav-dot-reports"></span>
+</button>
+<!-- Tab 3: Activity -->
+<button class="flex flex-col items-center justify-center py-1.5 px-3 rounded-lg text-secondary hover:text-on-surface font-normal min-w-[72px] min-h-[48px] transition-colors relative" id="nav-btn-activity" onclick="switchSection('activity')">
+<span class="material-symbols-outlined" id="nav-icon-activity" style="font-size: 22px;">history</span>
+<span class="font-caption text-[11px] mt-0.5" id="nav-text-activity">Activity</span>
+<span class="hidden w-1.5 h-1.5 rounded-full bg-primary-container absolute top-1 right-5" id="nav-dot-activity"></span>
+</button>
+</nav>
+</div>
+<!-- Vanilla JS Switcher: guarantees strictly one section visible at a time -->
+<script>
+  function switchSection(sectionId) {
+    const sections = ['overview', 'reports', 'activity'];
+
+    sections.forEach(s => {
+      const sectionEl = document.getElementById(`section-${s}`);
+      const navBtn = document.getElementById(`nav-btn-${s}`);
+      const navIcon = document.getElementById(`nav-icon-${s}`);
+      const navText = document.getElementById(`nav-text-${s}`);
+      const navDot = document.getElementById(`nav-dot-${s}`);
+      const quickBtn = document.getElementById(`quick-btn-${s}`);
+
+      if (s === sectionId) {
+        // Show active section
+        sectionEl.classList.remove('hidden');
+
+        // Highlight Bottom Nav tab
+        navBtn.classList.remove('text-secondary', 'font-normal');
+        navBtn.classList.add('text-primary-container', 'font-medium');
+        navIcon.classList.add('fill');
+        navText.classList.add('font-semibold');
+        if (navDot) navDot.classList.remove('hidden');
+
+        // Highlight Quick Segment tab
+        quickBtn.className = "flex-1 py-1.5 px-2 rounded font-label-sm text-label-sm font-medium transition-all text-center flex items-center justify-center gap-1.5 bg-primary-container text-on-primary shadow-xs";
+      } else {
+        // Hide other sections
+        sectionEl.classList.add('hidden');
+
+        // Dim inactive Bottom Nav tab
+        navBtn.classList.add('text-secondary', 'font-normal');
+        navBtn.classList.remove('text-primary-container', 'font-medium');
+        navIcon.classList.remove('fill');
+        navText.classList.remove('font-semibold');
+        if (navDot) navDot.classList.add('hidden');
+
+        // Dim Quick Segment tab
+        quickBtn.className = "flex-1 py-1.5 px-2 rounded font-label-sm text-label-sm font-medium transition-all text-center flex items-center justify-center gap-1.5 text-secondary hover:text-on-surface";
+      }
+    });
+
+    // Scroll smoothly to top of view
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Helper toggle for the triage cards inside overview
+  let isCaughtUp = false;
+  function toggleOverviewCaughtUp() {
+    const cards = document.getElementById('overview-cards-container');
+    const banner = document.getElementById('overview-caughtup-banner');
+    const counter = document.getElementById('attention-counter');
+    const btn = document.getElementById('btn-toggle-triage');
+
+    isCaughtUp = !isCaughtUp;
+    if (isCaughtUp) {
+      cards.classList.add('hidden');
+      banner.classList.remove('hidden');
+      counter.textContent = '0';
+      counter.className = 'bg-emerald-100 text-emerald-800 font-label-sm text-label-sm px-2 py-0.5 rounded-full font-medium';
+      btn.textContent = 'Restore tasks';
+    } else {
+      cards.classList.remove('hidden');
+      banner.classList.add('hidden');
+      counter.textContent = '3';
+      counter.className = 'bg-amber-100 text-amber-900 font-label-sm text-label-sm px-2 py-0.5 rounded-full font-medium';
+      btn.textContent = 'Mark all reviewed';
+    }
+  }
+</script>
+</body></html>

@@ -1,0 +1,81 @@
+@if (visible() && position(); as pos) {
+  <div
+    role="toolbar"
+    aria-label="Text selection actions"
+    class="bg-inverse-surface text-inverse-on-surface fixed z-50 flex items-center gap-1.5 rounded-lg px-2 py-1.5 text-xs shadow-xl"
+    [style.top.px]="pos.top"
+    [style.left.px]="pos.left"
+  >
+    <button
+      type="button"
+      aria-label="Bold"
+      class="hover:bg-inverse-on-surface/20 rounded px-2 py-1 font-bold"
+      (click)="toggleBold()"
+    >
+      B
+    </button>
+    <button
+      type="button"
+      aria-label="Italic"
+      class="hover:bg-inverse-on-surface/20 rounded px-2 py-1 font-serif italic"
+      (click)="toggleItalic()"
+    >
+      I
+    </button>
+    <span class="bg-inverse-on-surface/30 h-3.5 w-px" aria-hidden="true"></span>
+    <button
+      type="button"
+      class="hover:bg-inverse-on-surface/20 flex items-center gap-1 rounded px-2 py-1"
+      [matMenuTriggerFor]="sourceMenu"
+      [disabled]="sources().length === 0"
+    >
+      <svg
+        width="12"
+        height="12"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+      </svg>
+      <span>Add citation</span>
+    </button>
+    <mat-menu #sourceMenu="matMenu">
+      @for (source of sources(); track source.ref) {
+        <button type="button" mat-menu-item (click)="addCitation(source.ref)">
+          <span class="font-mono">[{{ source.ref }}]</span>
+          <span class="ml-2">{{ source.documentTitle }}</span>
+        </button>
+      }
+    </mat-menu>
+    <span class="bg-inverse-on-surface/30 h-3.5 w-px" aria-hidden="true"></span>
+    <button
+      type="button"
+      class="bg-primary text-on-primary hover:bg-primary/90 flex items-center gap-1 rounded px-2 py-1 font-medium"
+      [disabled]="rewriting()"
+      (click)="rewrite()"
+    >
+      <svg
+        width="12"
+        height="12"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path
+          d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"
+        />
+      </svg>
+      <span>Ask AI to rewrite</span>
+    </button>
+  </div>
+}

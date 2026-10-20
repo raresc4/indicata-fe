@@ -1,0 +1,44 @@
+<div #host class="font-serif text-base leading-relaxed"></div>
+@if (editorRef(); as editor) {
+  <app-indicator-selection-toolbar [editor]="editor" />
+}
+@if (markerMenu(); as menu) {
+  <div
+    #markerMenuEl
+    role="menu"
+    [attr.aria-label]="
+      menu.kind === 'unsourced' ? 'Unsourced claim actions' : 'Missing document actions'
+    "
+    class="border-outline-variant bg-surface-container fixed z-50 flex min-w-44 flex-col rounded-lg border p-1 text-sm shadow-xl"
+    [style.top.px]="menu.top"
+    [style.left.px]="menu.left"
+  >
+    @if (menu.kind === 'unsourced') {
+      <button
+        type="button"
+        role="menuitem"
+        class="text-on-surface hover:bg-surface-container-high focus-visible:ring-primary/50 rounded px-3 py-2 text-left focus-visible:ring-2 focus-visible:outline-none"
+        (click)="findSource()"
+      >
+        Find source
+      </button>
+      <button
+        type="button"
+        role="menuitem"
+        class="text-on-surface hover:bg-surface-container-high focus-visible:ring-primary/50 rounded px-3 py-2 text-left focus-visible:ring-2 focus-visible:outline-none"
+        (click)="removeClaim(menu.pos)"
+      >
+        Remove claim
+      </button>
+    } @else {
+      <button
+        type="button"
+        role="menuitem"
+        class="text-on-surface hover:bg-surface-container-high focus-visible:ring-primary/50 rounded px-3 py-2 text-left focus-visible:ring-2 focus-visible:outline-none"
+        (click)="uploadDocument()"
+      >
+        Upload
+      </button>
+    }
+  </div>
+}

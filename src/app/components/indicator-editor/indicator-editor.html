@@ -1,0 +1,69 @@
+@if (view$ | async; as view) {
+  @if (view.indicator; as indicator) {
+    <app-indicator-editor-toolbar [code]="indicator.code" [viewToken]="view.token" />
+
+    <div class="flex flex-1 flex-col items-center overflow-y-auto">
+      <div class="my-6 w-full max-w-[760px] px-4 pb-24">
+        @if (view.token !== 'empty' && view.token !== 'generating') {
+          <app-indicator-editor-header [code]="indicator.code" [title]="indicator.title" />
+        }
+
+        @switch (view.token) {
+          @case ('generating') {
+            <app-indicator-generating-view />
+          }
+          @case ('draft') {
+            @if (view.content; as content) {
+              <app-indicator-draft-view [content]="content" />
+            }
+          }
+          @default {
+            <app-indicator-empty-view
+              (generate)="onGenerate()"
+              (uploadSources)="onUploadSources()"
+            />
+          }
+        }
+
+        @if ((saveStatus$ | async) === 'error') {
+          <div
+            role="alert"
+            class="border-error/40 bg-error-container text-on-error-container mt-4 flex items-center justify-between gap-3 rounded-lg border px-4 py-3 text-sm"
+          >
+            <span class="flex items-center gap-2">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" x2="12" y1="8" y2="12" />
+                <line x1="12" x2="12.01" y1="16" y2="16" />
+              </svg>
+              Couldn't save your changes.
+            </span>
+            <button
+              type="button"
+              class="border-error/50 text-on-error-container hover:bg-error/10 focus-visible:ring-error/50 focus-visible:ring-offset-error-container inline-flex items-center gap-1.5 rounded-md border px-3 py-1 text-xs font-semibold transition focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:outline-none"
+              (click)="onRetrySave()"
+            >
+              Retry
+            </button>
+          </div>
+        }
+      </div>
+    </div>
+
+    <app-indicator-action-bar />
+  } @else {
+    <div class="flex flex-1 items-center justify-center p-12">
+      <p class="text-on-surface-variant text-sm">Select an indicator to begin.</p>
+    </div>
+  }
+}

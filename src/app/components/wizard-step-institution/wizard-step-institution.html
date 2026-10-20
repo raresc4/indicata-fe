@@ -1,0 +1,120 @@
+<header class="mb-8">
+  <div class="flex items-center justify-between gap-3">
+    <h1 class="font-serif text-on-background text-2xl tracking-tight sm:text-3xl" tabindex="-1">
+      Which institution?
+    </h1>
+    <span
+      class="text-on-surface-variant bg-surface-container shrink-0 rounded-full px-2.5 py-1 text-xs"
+    >
+      Cycle: {{ cycle() }}
+    </span>
+  </div>
+  <p class="text-on-surface-variant mt-1.5 text-sm">
+    We'll use this for the report cover and to find public documents.
+  </p>
+</header>
+
+<form class="space-y-6" [formGroup]="form" (ngSubmit)="onContinue()" novalidate>
+  <div class="space-y-1.5">
+    <app-university-typeahead
+      formControlName="university"
+      [invalid]="university.touched && university.invalid"
+      errorId="university-error"
+    />
+    @if (university.touched && university.invalid) {
+      <p class="text-error text-xs" id="university-error">Select a university from the list.</p>
+    }
+  </div>
+
+  <div class="space-y-1.5">
+    <label class="text-on-surface-variant block text-xs font-medium" for="faculty">
+      Faculty or organisational component
+      <span class="text-error" aria-hidden="true">*</span>
+    </label>
+    <input
+      class="bg-surface-container-lowest text-on-background border-outline-variant focus:border-primary focus:ring-primary/20 placeholder:text-on-surface-variant/60 w-full rounded-lg border px-3.5 py-2.5 transition-colors focus:ring-2 focus:outline-none"
+      id="faculty"
+      type="text"
+      formControlName="faculty"
+      [attr.aria-invalid]="faculty.touched && faculty.invalid"
+      [attr.aria-describedby]="faculty.touched && faculty.invalid ? 'faculty-error' : null"
+    />
+    @if (faculty.touched && faculty.invalid) {
+      <p class="text-error text-xs" id="faculty-error">
+        Enter the faculty or organisational component.
+      </p>
+    }
+  </div>
+
+  <div class="space-y-1.5">
+    <mat-form-field class="w-full">
+      <mat-label>{{ copy().domainLabel }}</mat-label>
+      <mat-select
+        formControlName="domain"
+        required
+        [attr.aria-describedby]="domain.touched && domain.invalid ? 'domain-error' : null"
+      >
+        @for (option of domainOptions(); track option) {
+          <mat-option [value]="option">{{ option }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    @if (domain.touched && domain.invalid) {
+      <p class="text-error text-xs" id="domain-error">Select a {{ copy().domainLabel }}.</p>
+    }
+  </div>
+
+  <div class="space-y-1.5">
+    <label class="text-on-surface-variant block text-xs font-medium" for="website">
+      University website
+    </label>
+    <div class="relative">
+      <span
+        class="material-symbols-outlined text-on-surface-variant/70 pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-[20px] leading-none"
+        aria-hidden="true"
+      >
+        public
+      </span>
+      <input
+        class="bg-surface-container-lowest text-on-background border-outline-variant focus:border-primary focus:ring-primary/20 placeholder:text-on-surface-variant/60 w-full rounded-lg border py-2.5 pr-3.5 pl-11 transition-colors focus:ring-2 focus:outline-none"
+        id="website"
+        type="url"
+        inputmode="url"
+        formControlName="website"
+        placeholder="https://www.example.ro"
+        [class.border-error]="website.touched && website.invalid"
+        [class.focus:border-error]="website.touched && website.invalid"
+        [class.focus:ring-error/20]="website.touched && website.invalid"
+        [attr.aria-invalid]="website.touched && website.invalid"
+        [attr.aria-describedby]="
+          website.touched && website.invalid ? 'website-error' : 'website-hint'
+        "
+      />
+    </div>
+    @if (website.touched && website.invalid) {
+      <p class="text-error text-xs" id="website-error">Enter a valid URL.</p>
+    } @else {
+      <p class="text-on-surface-variant text-xs" id="website-hint">
+        Optional. Used later to find public documents such as the charter and regulations.
+      </p>
+    }
+  </div>
+
+  <div class="border-outline-variant mt-10 flex items-center justify-between border-t pt-6">
+    <button
+      class="text-on-surface-variant hover:text-on-surface focus-visible:ring-primary/40 flex min-h-11 items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:outline-none"
+      type="button"
+      (click)="onBack()"
+    >
+      <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_back</span>
+      <span>Back</span>
+    </button>
+    <button
+      class="bg-primary text-on-primary hover:bg-primary-container focus-visible:ring-primary/40 flex min-h-11 items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-medium shadow-sm transition-colors focus-visible:ring-2 focus-visible:outline-none"
+      type="submit"
+    >
+      <span>Continue</span>
+      <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span>
+    </button>
+  </div>
+</form>

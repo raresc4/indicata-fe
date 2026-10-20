@@ -1,0 +1,31 @@
+<div
+  class="bg-surface-container border-outline-variant grid grid-cols-1 gap-2 rounded-lg border p-1.5 sm:grid-cols-3"
+  role="radiogroup"
+>
+  @for (option of options(); track option.value; let i = $index) {
+    <button
+      class="focus-visible:ring-primary/40 flex min-h-11 flex-col items-center justify-center rounded px-3 py-2 text-center transition-all focus-visible:ring-2 focus-visible:outline-none"
+      type="button"
+      role="radio"
+      [attr.aria-checked]="isSelected(option)"
+      [attr.tabindex]="tabIndexFor(option)"
+      [class.bg-surface]="isSelected(option)"
+      [class.shadow-sm]="isSelected(option)"
+      [class.text-primary]="isSelected(option)"
+      [class.font-semibold]="isSelected(option)"
+      [class.text-on-surface-variant]="!isSelected(option)"
+      [class.hover:text-on-surface]="!isSelected(option)"
+      (click)="select(option)"
+      (keydown)="onKeydown($event, i)"
+    >
+      <span class="text-sm">{{ option.label }}</span>
+      <span
+        class="text-xs"
+        [class.text-primary]="isSelected(option)"
+        [class.text-on-surface-variant]="!isSelected(option)"
+      >
+        {{ option.sublabel }}
+      </span>
+    </button>
+  }
+</div>

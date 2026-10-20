@@ -1,0 +1,1043 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Indicata - Indicator Editor (Desktop)</title>
+  <!-- Tailwind CSS CDN with arbitrary values enabled -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & Newsreader / Source Serif 4 & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&amp;display=swap" rel="stylesheet">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            paper: '#FAF9F6',
+            'paper-dim': '#F4F3F0',
+            'paper-border': '#E7E5E0',
+            primary: '#2B4C7E',
+            'primary-hover': '#1F375B',
+            'primary-subtle': '#EEF3F9',
+            ink: '#1C1917',
+            'ink-muted': '#57534E',
+            'ink-subtle': '#8A857D',
+            success: '#16A34A',
+            'success-subtle': '#F0FDF4',
+            'success-border': '#BBF7D0',
+            warning: '#D97706',
+            'warning-subtle': '#FFFBEB',
+            'warning-border': '#FDE68A',
+            danger: '#DC2626',
+            'danger-subtle': '#FEF2F2',
+            'danger-border': '#FECACA',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['"Source Serif 4"', '"Newsreader"', 'Georgia', 'serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom scrollbars */
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #D8D6D0;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #B4B0A7;
+    }
+    .amber-dotted-underline {
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-decoration-color: #D97706;
+      text-decoration-thickness: 1.5px;
+      text-underline-offset: 3px;
+    }
+    /* Skeleton pulse animation */
+    @keyframes subtlePulse {
+      0%, 100% { opacity: 0.95; }
+      50% { opacity: 0.55; }
+    }
+    .animate-subtle-pulse {
+      animation: subtlePulse 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+  </style>
+</head>
+<body class="bg-paper text-ink font-sans antialiased h-screen flex flex-col overflow-hidden selection:bg-primary-subtle selection:text-primary">
+
+  <!-- ================= TOP APP BAR ================= -->
+  <header class="h-14 bg-white border-b border-paper-border px-4 flex items-center justify-between shrink-0 z-30">
+    <!-- Breadcrumb -->
+    <div class="flex items-center space-x-2 text-xs text-ink-muted min-w-0">
+      <div class="flex items-center space-x-1.5 font-medium text-ink truncate">
+        <span class="inline-flex items-center justify-center w-5 h-5 rounded bg-primary-subtle text-primary text-[10px] font-bold">UPT</span>
+        <span class="truncate">Universitatea Politehnica Timișoara</span>
+      </div>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-right" aria-hidden="true" class="lucide lucide-chevron-right w-3.5 h-3.5 text-ink-subtle shrink-0"><path d="m9 18 6-6-6-6"></path></svg>
+      <span class="truncate hidden sm:inline">Doctoral · Computer Engineering</span>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-right" aria-hidden="true" class="lucide lucide-chevron-right w-3.5 h-3.5 text-ink-subtle shrink-0 hidden sm:inline"><path d="m9 18 6-6-6-6"></path></svg>
+      <span class="text-ink-muted">Indicators</span>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-right" aria-hidden="true" class="lucide lucide-chevron-right w-3.5 h-3.5 text-ink-subtle shrink-0"><path d="m9 18 6-6-6-6"></path></svg>
+      <span class="font-mono text-primary font-semibold bg-primary-subtle px-1.5 py-0.5 rounded text-[11px]">A.1.1.1</span>
+    </div>
+
+    <!-- Actions & Saved Status -->
+    <div class="flex items-center space-x-3 shrink-0">
+      <!-- State switcher pill for interactive review (Simulating prototype states) -->
+      <div class="hidden xl:flex items-center bg-paper border border-paper-border rounded-md p-0.5 text-xs">
+        <span class="px-2 py-1 text-[11px] font-medium text-ink-subtle uppercase tracking-wider">Demo State:</span>
+        <button id="btn-state-draft" onclick="switchState('draft')" class="px-2.5 py-1 text-xs rounded font-medium text-ink-muted hover:text-ink">Draft (2 Unsourced)</button>
+        <button id="btn-state-generating" onclick="switchState('generating')" class="px-2.5 py-1 text-xs rounded font-medium bg-white text-primary shadow-sm">Generating…</button>
+        <button id="btn-state-approved" onclick="switchState('approved')" class="px-2.5 py-1 text-xs rounded font-medium text-ink-muted hover:text-ink">Approved</button>
+        <button id="btn-state-empty" onclick="switchState('empty')" class="px-2.5 py-1 text-xs rounded font-medium text-ink-muted hover:text-ink">Empty</button>
+      </div>
+
+      <div class="h-4 w-[1px] bg-paper-border hidden xl:block"></div>
+
+      <!-- Saved indicator -->
+      <div id="save-status" class="flex items-center space-x-1.5 text-xs text-ink-muted">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" aria-hidden="true" class="lucide lucide-check w-3.5 h-3.5 text-success"><path d="M20 6 9 17l-5-5"></path></svg>
+        <span class="">Saved just now</span>
+      </div>
+
+      <!-- Share button -->
+      <button class="inline-flex items-center space-x-1.5 px-3 py-1.5 text-xs font-medium text-ink bg-white border border-paper-border hover:bg-paper-dim rounded-md transition shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="share-2" aria-hidden="true" class="lucide lucide-share-2 w-3.5 h-3.5 text-ink-muted"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg>
+        <span class="">Share</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTAINER (SHELL + 3 COLUMNS) ================= -->
+  <div class="flex-1 flex overflow-hidden">
+
+    <!-- 1. LEFT APP SHELL SIDEBAR (240px) -->
+    <aside class="w-60 bg-white border-r border-paper-border flex flex-col justify-between shrink-0 z-20">
+      <!-- Top Brand & Navigation -->
+      <div class="flex flex-col">
+        <!-- Brand header -->
+        <div class="h-14 px-5 flex items-center border-b border-paper-border/60">
+          <div class="flex items-center space-x-2.5">
+            <div class="w-7 h-7 rounded-md bg-primary text-white flex items-center justify-center shadow-xs">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="check-square" aria-hidden="true" class="lucide lucide-check-square w-4 h-4 stroke-[2.5]"><path d="M21 10.656V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h12.344"></path><path d="m9 11 3 3L22 4"></path></svg>
+            </div>
+            <div>
+              <span class="font-serif text-lg font-bold tracking-tight text-ink leading-none block">Indicata</span>
+              <span class="text-[10px] text-ink-subtle uppercase tracking-wider font-mono">ARACIS QA</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="p-3 space-y-1">
+          <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-md text-xs font-medium text-ink-muted hover:bg-paper hover:text-ink transition">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="folder" aria-hidden="true" class="lucide lucide-folder w-4 h-4 text-ink-subtle"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"></path></svg>
+            <span class="">Projects</span>
+          </a>
+          <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-md text-xs font-medium text-ink-muted hover:bg-paper hover:text-ink transition">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="file-text" aria-hidden="true" class="lucide lucide-file-text w-4 h-4 text-ink-subtle"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"></path><path d="M14 2v5a1 1 0 0 0 1 1h5"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
+            <span class="flex-1">Documents</span>
+            <span class="text-[10px] bg-paper-dim text-ink-muted font-mono px-1.5 py-0.5 rounded">24</span>
+          </a>
+          <!-- Active Nav: Indicators -->
+          <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-md text-xs font-semibold bg-primary-subtle text-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="check-circle" aria-hidden="true" class="lucide lucide-check-circle w-4 h-4 text-primary"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg>
+            <span class="flex-1">Indicators</span>
+            <span class="w-2 h-2 rounded-full bg-primary"></span>
+          </a>
+          <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-md text-xs font-medium text-ink-muted hover:bg-paper hover:text-ink transition">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="file-down" aria-hidden="true" class="lucide lucide-file-down w-4 h-4 text-ink-subtle"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"></path><path d="M14 2v5a1 1 0 0 0 1 1h5"></path><path d="M12 18v-6"></path><path d="m9 15 3 3 3-3"></path></svg>
+            <span class="">Export &amp; Synthesis</span>
+          </a>
+          <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-md text-xs font-medium text-ink-muted hover:bg-paper hover:text-ink transition">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="settings" aria-hidden="true" class="lucide lucide-settings w-4 h-4 text-ink-subtle"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            <span class="">Settings</span>
+          </a>
+        </nav>
+      </div>
+
+      <!-- Bottom User & Language Bar -->
+      <div class="p-3 border-t border-paper-border space-y-3">
+        <!-- Language Switcher -->
+        
+
+        <!-- User profile -->
+        <div class="flex items-center space-x-2.5 px-2 py-1 rounded-md hover:bg-paper transition cursor-pointer">
+          <div class="w-8 h-8 rounded-full bg-primary/10 border border-primary/20 text-primary font-serif font-bold flex items-center justify-center text-xs shrink-0">
+            PV
+          </div>
+          <div class="min-w-0 flex-1">
+            <div class="text-xs font-semibold text-ink truncate leading-tight">Prof. Radu Vasile</div>
+            <div class="text-[10px] text-ink-subtle truncate leading-tight mt-0.5">QA Director · UPT</div>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="more-vertical" aria-hidden="true" class="lucide lucide-more-vertical w-3.5 h-3.5 text-ink-subtle"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+        </div>
+      </div>
+    </aside>
+
+
+    <!-- 2. COLUMN 1: INDICATOR NAVIGATOR TREE (280px) -->
+    <section class="w-72 bg-white border-r border-paper-border flex flex-col shrink-0 z-10">
+      <!-- Header & Progress -->
+      <div class="p-3 border-b border-paper-border space-y-2.5">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-semibold text-ink uppercase tracking-wider font-mono">Indicators Tree</span>
+          <span class="text-[11px] text-ink-muted font-mono"><strong class="text-ink font-semibold">12</strong> of 39 approved</span>
+        </div>
+        <!-- Progress bar -->
+        <div class="w-full bg-paper-dim rounded-full h-1.5 overflow-hidden">
+          <div class="bg-success h-full rounded-full transition-all duration-300" style="width: 31%;"></div>
+        </div>
+
+        <!-- Search and Filter -->
+        <div class="flex items-center gap-1.5 pt-1">
+          <div class="relative flex-1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="search" aria-hidden="true" class="lucide lucide-search w-3.5 h-3.5 absolute left-2.5 top-1/2 -translate-y-1/2 text-ink-subtle"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg>
+            <input type="text" placeholder="Search criteria..." class="w-full bg-paper pl-8 pr-2.5 py-1.5 text-xs rounded border border-paper-border focus:outline-none focus:border-primary text-ink placeholder:text-ink-subtle/80">
+          </div>
+          <button title="Filter by status" class="p-1.5 text-ink-muted bg-paper border border-paper-border rounded hover:bg-paper-dim">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="filter" aria-hidden="true" class="lucide lucide-filter w-3.5 h-3.5"><path d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z"></path></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Collapsible Tree Items -->
+      <div class="flex-1 overflow-y-auto p-2 space-y-3">
+        <!-- Domain A Group -->
+        <div>
+          <div class="flex items-center justify-between px-2 py-1 text-[11px] font-bold text-ink-subtle uppercase tracking-wider cursor-pointer hover:text-ink">
+            <div class="flex items-center space-x-1.5">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-down" aria-hidden="true" class="lucide lucide-chevron-down w-3 h-3 text-ink-muted"><path d="m6 9 6 6 6-6"></path></svg>
+              <span class="">Domeniul A · Capacitate</span>
+            </div>
+            <span class="text-[10px] font-mono text-ink-subtle font-normal">4/12</span>
+          </div>
+
+          <div class="mt-1 space-y-0.5 pl-2 border-l border-paper-border ml-2.5">
+            <!-- Criterion A.1 -->
+            <div class="text-[11px] font-medium text-ink-muted px-2 py-1 flex items-center space-x-1">
+              <span class="">Criteriul A.1 Structuri instituționale</span>
+            </div>
+
+            <!-- Indicator Row: Current Active A.1.1.1 -->
+            <div class="group flex items-start space-x-2 px-2.5 py-2 rounded text-xs bg-primary-subtle/70 border-l-[3px] border-primary text-ink cursor-pointer">
+              <!-- Blue Draft Dot -->
+              <span class="w-2 h-2 rounded-full bg-primary mt-1 shrink-0" title="Status: AI draft"></span>
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center justify-between">
+                  <span class="font-mono font-semibold text-primary text-[11px]">A.1.1.1</span>
+                  <span class="text-[10px] font-mono px-1 rounded bg-blue-100 text-primary font-medium">AI Draft</span>
+                </div>
+                <div class="text-[11px] text-ink font-medium leading-snug truncate mt-0.5">Management system &amp; organizational components</div>
+              </div>
+            </div>
+
+            <!-- Indicator Row: Approved -->
+            <div class="group flex items-start space-x-2 px-2.5 py-1.5 rounded text-xs hover:bg-paper cursor-pointer text-ink-muted">
+              <!-- Green Approved Dot -->
+              <span class="w-2 h-2 rounded-full bg-success mt-1 shrink-0" title="Status: Approved"></span>
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center justify-between">
+                  <span class="font-mono text-ink-muted text-[11px]">A.1.1.2</span>
+                  <span class="text-[9px] font-mono text-success">Approved</span>
+                </div>
+                <div class="text-[11px] text-ink-muted truncate mt-0.5">Functionarea structurilor de conducere</div>
+              </div>
+            </div>
+
+            <!-- Indicator Row: Needs Review -->
+            <div class="group flex items-start space-x-2 px-2.5 py-1.5 rounded text-xs hover:bg-paper cursor-pointer text-ink-muted">
+              <!-- Amber Needs Review Dot -->
+              <span class="w-2 h-2 rounded-full bg-warning mt-1 shrink-0" title="Status: Needs review"></span>
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center justify-between">
+                  <span class="font-mono text-ink-muted text-[11px]">A.1.2.1</span>
+                  <span class="text-[9px] font-mono text-warning">Review</span>
+                </div>
+                <div class="text-[11px] text-ink-muted truncate mt-0.5">Spatii didactice si infrastructura IT</div>
+              </div>
+            </div>
+
+            <!-- Indicator Row: Empty -->
+            <div class="group flex items-start space-x-2 px-2.5 py-1.5 rounded text-xs hover:bg-paper cursor-pointer text-ink-muted">
+              <!-- Gray Empty Dot -->
+              <span class="w-2 h-2 rounded-full bg-slate-300 mt-1 shrink-0" title="Status: Empty"></span>
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center justify-between">
+                  <span class="font-mono text-ink-muted text-[11px]">A.1.2.2</span>
+                  <span class="text-[9px] font-mono text-ink-subtle">Empty</span>
+                </div>
+                <div class="text-[11px] text-ink-subtle truncate mt-0.5">Fondul de carte si abonamente baze de date</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Domain B Group -->
+        <div>
+          <div class="flex items-center justify-between px-2 py-1 text-[11px] font-bold text-ink-subtle uppercase tracking-wider cursor-pointer hover:text-ink">
+            <div class="flex items-center space-x-1.5">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-right" aria-hidden="true" class="lucide lucide-chevron-right w-3 h-3 text-ink-muted"><path d="m9 18 6-6-6-6"></path></svg>
+              <span class="">Domeniul B · Eficacitate</span>
+            </div>
+            <span class="text-[10px] font-mono text-ink-subtle font-normal">5/18</span>
+          </div>
+        </div>
+
+        <!-- Domain C Group -->
+        <div>
+          <div class="flex items-center justify-between px-2 py-1 text-[11px] font-bold text-ink-subtle uppercase tracking-wider cursor-pointer hover:text-ink">
+            <div class="flex items-center space-x-1.5">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-right" aria-hidden="true" class="lucide lucide-chevron-right w-3 h-3 text-ink-muted"><path d="m9 18 6-6-6-6"></path></svg>
+              <span class="">Domeniul C · Management</span>
+            </div>
+            <span class="text-[10px] font-mono text-ink-subtle font-normal">3/9</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Legend Footer -->
+      <div class="p-2.5 border-t border-paper-border bg-paper/50 text-[10px] text-ink-muted flex items-center justify-between font-mono">
+        <span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>Empty</span>
+        <span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span>Draft</span>
+        <span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-warning"></span>Review</span>
+        <span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-success"></span>Approved</span>
+      </div>
+    </section>
+
+
+    <!-- 3. COLUMN 2: CENTER EDITOR (FLEXIBLE WIDTH, MAX 760px CENTERED PAGE) -->
+    <main class="flex-1 bg-paper overflow-y-auto relative flex flex-col items-center">
+      
+      <!-- Top Action Toolbar for Editor -->
+      <div class="sticky top-0 w-full bg-paper/95 backdrop-blur-xs border-b border-paper-border/80 px-6 py-2.5 z-20 flex items-center justify-between">
+        <!-- Left: Code & Status badge -->
+        <div class="flex items-center space-x-2.5">
+          <span class="font-mono text-xs font-bold text-ink bg-white border border-paper-border px-2 py-0.5 rounded">
+            A.1.1.1
+          </span>
+          <div id="editor-header-badge" class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 border border-blue-200 text-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="loader-2" aria-hidden="true" class="lucide lucide-loader-2 w-3 h-3 animate-spin"><path d="M21 12a9 9 0 1 1-6.219-8.56"></path></svg><span class="">Synthesizing…</span></div>
+        </div>
+
+        <!-- Right: Action Bar Buttons -->
+        <div class="flex items-center space-x-2">
+          <!-- Subtle progress indicator (visible when generating) -->
+          <div id="action-progress-state" class="items-center space-x-2 text-xs text-primary font-medium mr-2 flex">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="loader-2" aria-hidden="true" class="lucide lucide-loader-2 w-3.5 h-3.5 animate-spin"><path d="M21 12a9 9 0 1 1-6.219-8.56"></path></svg>
+            <span class="">Retrieving sources… Drafting…</span>
+          </div>
+
+          <!-- Primary: Generate button with sparkle -->
+          <button id="btn-generate-action" class="inline-flex items-center space-x-1.5 px-3.5 py-1.5 text-xs font-semibold text-white bg-primary hover:bg-primary-hover rounded-md transition shadow-xs focus:ring-2 focus:ring-primary focus:ring-offset-1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="sparkles" aria-hidden="true" class="lucide lucide-sparkles w-3.5 h-3.5"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"></path><path d="M20 2v4"></path><path d="M22 4h-4"></path><circle cx="4" cy="20" r="2"></circle></svg>
+            <span class="">Generate</span>
+          </button>
+
+          <!-- Secondary: Regenerate -->
+          <button id="btn-regenerate-action" class="inline-flex items-center space-x-1 px-3 py-1.5 text-xs font-medium text-ink bg-white border border-paper-border hover:bg-paper-dim rounded-md transition shadow-xs">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="refresh-cw" aria-hidden="true" class="lucide lucide-refresh-cw w-3 h-3 text-ink-muted"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M8 16H3v5"></path></svg>
+            <span class="">Regenerate</span>
+          </button>
+
+          <!-- Mark as reviewed -->
+          <button id="btn-review-action" class="inline-flex items-center space-x-1 px-3 py-1.5 text-xs font-medium text-ink bg-white border border-paper-border hover:bg-paper-dim rounded-md transition shadow-xs">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="check-check" aria-hidden="true" class="lucide lucide-check-check w-3.5 h-3.5 text-ink-muted"><path d="M18 6 7 17l-5-5"></path><path d="m22 10-7.5 7.5L13 16"></path></svg>
+            <span class="">Mark as reviewed</span>
+          </button>
+
+          <!-- Overflow menu -->
+          <button class="p-1.5 text-ink-muted hover:text-ink bg-white border border-paper-border rounded-md hover:bg-paper-dim">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="more-horizontal" aria-hidden="true" class="lucide lucide-more-horizontal w-4 h-4"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Floating Selection Formatting Toolbar (simulated on selection) -->
+      <div id="floating-toolbar" class="hidden absolute top-28 left-1/2 -translate-x-1/2 bg-ink text-white rounded-lg shadow-xl px-2 py-1.5 items-center space-x-1.5 text-xs z-30 animate-in fade-in zoom-in-95">
+        <button class="px-2 py-1 hover:bg-white/20 rounded font-bold">B</button>
+        <button class="px-2 py-1 hover:bg-white/20 rounded italic font-serif">I</button>
+        <button class="px-2 py-1 hover:bg-white/20 rounded underline">U</button>
+        <div class="h-3.5 w-[1px] bg-white/30"></div>
+        <button class="flex items-center space-x-1 px-2 py-1 hover:bg-white/20 rounded text-sky-200">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="link" aria-hidden="true" class="lucide lucide-link w-3 h-3"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+          <span class="">Add citation</span>
+        </button>
+        <div class="h-3.5 w-[1px] bg-white/30"></div>
+        <button class="flex items-center space-x-1 px-2 py-1 bg-primary text-white rounded font-medium hover:bg-primary-hover">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="sparkles" aria-hidden="true" class="lucide lucide-sparkles w-3 h-3 text-sky-300"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"></path><path d="M20 2v4"></path><path d="M22 4h-4"></path><circle cx="4" cy="20" r="2"></circle></svg>
+          <span class="">Ask AI to rewrite</span>
+        </button>
+      </div>
+
+      <!-- The Center Page Surface (Max 760px, White, Clean Margins) -->
+      <div class="w-full max-w-[760px] my-6 px-4 pb-24">
+        
+        <!-- ================= STATE 1 & DEFAULT: ACTIVE DRAFT ================= -->
+        <article id="state-draft-container" class="bg-white rounded-xl border border-paper-border shadow-xs p-8 sm:p-12 transition-all hidden">
+          
+          <!-- Indicator Header -->
+          <div class="border-b border-paper-border pb-6 mb-8">
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-mono text-xs font-bold text-primary tracking-wide">INDICATOR A.1.1.1 · ARACIS HEI EVALUATION</span>
+              <span class="text-xs text-ink-subtle font-mono">Standard Ref: ESG 1.2</span>
+            </div>
+            
+            <h1 class="font-serif text-2xl sm:text-[26px] font-semibold text-ink leading-snug tracking-tight">
+              For delivering the study programme/domain, the HEI has adequate organisational components and an adequate management system.
+            </h1>
+
+            <!-- Rubric Box (Collapsible) -->
+            <details class="mt-4 bg-paper-dim/80 rounded-lg border border-paper-border p-3.5 group" open="">
+              <summary class="flex items-center justify-between text-xs font-semibold text-ink-muted cursor-pointer select-none">
+                <span class="flex items-center gap-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="book-open" aria-hidden="true" class="lucide lucide-book-open w-3.5 h-3.5 text-primary"><path d="M12 5v16"></path><path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z"></path></svg>
+                  <span class="">ARACIS Evaluation Rubric &amp; Required Evidence</span>
+                </span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-down" aria-hidden="true" class="lucide lucide-chevron-down w-3.5 h-3.5 text-ink-subtle group-open:rotate-180 transition-transform"><path d="m6 9 6 6 6-6"></path></svg>
+              </summary>
+              <div class="mt-2 text-xs text-ink-muted space-y-1.5 border-t border-paper-border/60 pt-2 leading-relaxed">
+                <p class=""><strong>Required validation elements:</strong> Institutional Carta Universitara defining governance structures; Regulation of Organization and Functioning (ROF); functional organigram approved by the Senate; verification of regular meeting minutes and decision traceability.</p>
+              </div>
+            </details>
+          </div>
+
+          <!-- Document Body with 3 Distinct Stacked Sections -->
+          <div class="space-y-8 font-serif text-[16px] leading-[1.65] text-ink">
+
+            <!-- SECTION 1: Presentation of the state of facts -->
+            <section class="space-y-3">
+              <header class="font-sans text-[11px] font-bold uppercase tracking-wider text-ink-subtle border-b border-paper-border/50 pb-1 flex items-center justify-between">
+                <span class="">1. Presentation of the state of facts</span>
+                <span class="text-[10px] text-ink-subtle font-normal font-mono">Constatarea stării de fapt</span>
+              </header>
+
+              <p class="text-ink">
+                Universitatea Politehnica Timișoara carries out its doctoral education through the Council for Doctoral University Studies (CSUD) and accredited doctoral schools. 
+                The University Charter, art. 15, establishes the Senate and the Board of Administration as the deliberative and executive governance organs responsible for strategic resource allocation
+                <!-- Citation chip [1] -->
+                <button onclick="highlightSource(1)" class="group inline-flex items-center align-baseline mx-0.5 px-1 py-0.2 rounded text-[11px] font-mono font-bold bg-primary-subtle text-primary border border-blue-200 hover:bg-blue-100 cursor-pointer transition" title="Source [1]: Carta Universitară UPT, p. 8">
+                  [1]
+                </button>.
+                The doctoral school in Computer Engineering operates under direct internal oversight, with executive responsibilities delegated to the Doctoral School Council
+                <!-- Citation chip [2] -->
+                <button onclick="highlightSource(2)" class="group inline-flex items-center align-baseline mx-0.5 px-1 py-0.2 rounded text-[11px] font-mono font-bold bg-primary-subtle text-primary border border-blue-200 hover:bg-blue-100 cursor-pointer transition" title="Source [2]: Regulament CSUD 2024, p. 14">
+                  [2]
+                </button>.
+              </p>
+
+              <!-- Unsourced claim with warning icon & hover popover -->
+              <div class="relative group/unsourced p-1 -m-1 rounded hover:bg-warning-subtle/40 transition">
+                <p class="text-ink">
+                  <span class="amber-dotted-underline">
+                    All administrative departments submit bi-annual operational status reports directly to the Vice-Rector for Academic Quality
+                  </span>
+                  <span class="inline-flex items-center text-warning ml-1 align-baseline cursor-pointer" title="No source found for this claim">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="alert-triangle" aria-hidden="true" class="lucide lucide-alert-triangle w-3.5 h-3.5 stroke-[2.5]"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg>
+                  </span>
+                </p>
+
+                <!-- Hover Popover for Unsourced Claim -->
+                <div class="hidden group-hover/unsourced:flex absolute left-8 top-full mt-1 bg-white border border-warning-border shadow-lg rounded-lg p-3 z-30 w-72 text-sans flex-col space-y-2 animate-in fade-in-50">
+                  <div class="flex items-start space-x-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="alert-circle" aria-hidden="true" class="lucide lucide-alert-circle w-4 h-4 text-warning shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
+                    <div>
+                      <div class="text-xs font-semibold text-ink">No source found for this claim</div>
+                      <div class="text-[11px] text-ink-muted">ARACIS requires documentary proof (senate decision or operational procedure).</div>
+                    </div>
+                  </div>
+                  <div class="flex items-center space-x-2 pt-1 border-t border-paper-border">
+                    <button class="px-2.5 py-1 text-xs font-medium bg-primary text-white rounded hover:bg-primary-hover flex items-center gap-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="search" aria-hidden="true" class="lucide lucide-search w-3 h-3"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg> Find source
+                    </button>
+                    <button class="px-2 py-1 text-xs font-medium text-danger hover:bg-danger-subtle rounded">
+                      Remove claim
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- SECTION 2: Analysis -->
+            <section class="space-y-3">
+              <header class="font-sans text-[11px] font-bold uppercase tracking-wider text-ink-subtle border-b border-paper-border/50 pb-1 flex items-center justify-between">
+                <span class="">2. Analysis</span>
+                <span class="text-[10px] text-ink-subtle font-normal font-mono">Analiză critică</span>
+              </header>
+
+              <p class="text-ink">
+                The organizational chart confirms that specialized commissions for quality assurance evaluate curriculum alignment every academic semester
+                <!-- Citation chip [3] -->
+                <button onclick="highlightSource(3)" class="inline-flex items-center align-baseline mx-0.5 px-1 py-0.2 rounded text-[11px] font-mono font-bold bg-primary-subtle text-primary border border-blue-200 hover:bg-blue-100 cursor-pointer transition" title="Source [3]: Organigrama Instituțională 2024">
+                  [3]
+                </button>.
+                However, procedural harmonization remains incomplete regarding inter-departmental research transfers:
+              </p>
+
+              <!-- Missing-Document Placeholder Chip (inline amber) -->
+              <div class="my-2 p-2.5 rounded-lg bg-warning-subtle border border-warning-border flex items-center justify-between font-sans text-xs">
+                <div class="flex items-center space-x-2">
+                  <span class="font-mono font-bold text-[10px] bg-warning text-white px-1.5 py-0.5 rounded">DOCUMENT LIPSĂ</span>
+                  <span class="text-ink font-medium">Regulamentul de organizare și funcționare (ROF 2024 actualizat)</span>
+                </div>
+                <button class="inline-flex items-center space-x-1 px-2.5 py-1 bg-white border border-warning text-ink text-xs font-medium rounded hover:bg-warning-subtle transition">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="upload" aria-hidden="true" class="lucide lucide-upload w-3 h-3 text-warning"><path d="M12 3v12"></path><path d="m17 8-5-5-5 5"></path><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path></svg>
+                  <span class="">Upload</span>
+                </button>
+              </div>
+
+              <!-- Human-Edited Block (thin green left bar & tiny "Edited by you" badge) -->
+              <div class="relative pl-4 border-l-2 border-success bg-success-subtle/20 py-2 rounded-r-md">
+                <div class="font-sans text-[10px] font-semibold text-success flex items-center space-x-1 mb-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="user-check" aria-hidden="true" class="lucide lucide-user-check w-3 h-3"><path d="m16 11 2 2 4-4"></path><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+                  <span class="">Edited by you · 14 minutes ago</span>
+                </div>
+                <p class="text-ink italic">
+                  "During the 2023–2024 academic cycle, Senate Resolution no. 84 consolidated the ethics validation protocols for applied doctoral research, aligning laboratory security with national standards."
+                  <!-- Citation [4] -->
+                  <button onclick="highlightSource(4)" class="inline-flex items-center align-baseline mx-0.5 px-1 py-0.2 rounded text-[11px] font-mono font-bold bg-primary-subtle text-primary border border-blue-200 hover:bg-blue-100 cursor-pointer transition" title="Source [4]: Hotărârea Senatului nr. 84/2023">
+                    [4]
+                  </button>
+                </p>
+              </div>
+
+              <!-- Second Unsourced claim in Analysis -->
+              <p class="text-ink">
+                Faculty tenure evaluations undergo external peer-audit committees prior to senate ratification.
+                <span class="amber-dotted-underline">Student representation in the executive board reached a statutory quota of 25% without exception across all four quarters</span>
+                <span class="inline-flex items-center text-warning ml-1 align-baseline cursor-pointer" title="Unsourced assertion">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="alert-triangle" aria-hidden="true" class="lucide lucide-alert-triangle w-3.5 h-3.5 stroke-[2.5]"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg>
+                </span>
+              </p>
+            </section>
+
+            <!-- SECTION 3: Future lines of action -->
+            <section class="space-y-3">
+              <header class="font-sans text-[11px] font-bold uppercase tracking-wider text-ink-subtle border-b border-paper-border/50 pb-1 flex items-center justify-between">
+                <span class="">3. Future lines of action</span>
+                <span class="text-[10px] text-ink-subtle font-normal font-mono">Măsuri de îmbunătățire</span>
+              </header>
+
+              <p class="text-ink">
+                1. Digitization of the complete workflow for doctoral advisor annual self-assessment through the integrated institutional portal by Q3 2025
+                <!-- Citation [5] -->
+                <button onclick="highlightSource(5)" class="inline-flex items-center align-baseline mx-0.5 px-1 py-0.2 rounded text-[11px] font-mono font-bold bg-primary-subtle text-primary border border-blue-200 hover:bg-blue-100 cursor-pointer transition" title="Source [5]: Planul Strategic 2024-2029">
+                  [5]
+                </button>.
+              </p>
+              <p class="text-ink">
+                2. Revision of the internal operational manual to formalize cross-faculty doctoral advisory committees within the Computer Engineering domain.
+              </p>
+            </section>
+
+          </div>
+        </article>
+
+        <!-- ================= STATE 2: GENERATION IN PROGRESS (HIDDEN BY DEFAULT) ================= -->
+        <article id="state-generating-container" class="bg-white rounded-xl border border-paper-border shadow-xs p-8 sm:p-12 transition-all">
+          <div class="border-b border-paper-border pb-6 mb-8">
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-mono text-xs font-bold text-primary tracking-wide">INDICATOR A.1.1.1 · GENERATING IN REAL TIME</span>
+              <span class="inline-flex items-center space-x-1.5 text-xs text-primary font-mono font-semibold animate-pulse">
+                <span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+                <span class="">Active Synthesizer</span>
+              </span>
+            </div>
+            <h1 class="font-serif text-2xl font-semibold text-ink leading-snug">
+              For delivering the study programme/domain, the HEI has adequate organisational components...
+            </h1>
+          </div>
+
+          <!-- Streaming Text and Skeleton Loader -->
+          <div class="space-y-6 font-serif text-[16px] leading-[1.65]">
+            <div class="space-y-2">
+              <div class="font-sans text-[11px] font-bold uppercase tracking-wider text-primary flex items-center gap-1.5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="sparkles" aria-hidden="true" class="lucide lucide-sparkles w-3.5 h-3.5"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"></path><path d="M20 2v4"></path><path d="M22 4h-4"></path><circle cx="4" cy="20" r="2"></circle></svg>
+                <span class="">Drafting Section 1: Presentation of the state of facts</span>
+              </div>
+              <p class="text-ink">
+                Universitatea Politehnica Timișoara organizes its doctoral programs under the framework of the University Charter, art. 15, which delineates the jurisdictional scope between the Senate and the Board of Administration
+                <span class="inline-block w-2.5 h-4 bg-primary animate-subtle-pulse align-middle ml-1"></span>
+              </p>
+            </div>
+
+            <!-- Skeleton items representing upcoming streaming text -->
+            <div class="space-y-3 pt-4 border-t border-paper-border/60">
+              <div class="h-4 bg-paper-dim rounded w-3/4 animate-pulse"></div>
+              <div class="h-4 bg-paper-dim rounded w-full animate-pulse"></div>
+              <div class="h-4 bg-paper-dim rounded w-5/6 animate-pulse"></div>
+              <div class="h-4 bg-paper-dim rounded w-1/2 animate-pulse"></div>
+            </div>
+
+            <div class="p-4 rounded-lg bg-blue-50/60 border border-blue-200/60 flex items-center space-x-3 text-xs text-primary font-sans">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="file-search" aria-hidden="true" class="lucide lucide-file-search w-4 h-4 animate-bounce"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"></path><path d="M14 2v5a1 1 0 0 0 1 1h5"></path><circle cx="11.5" cy="14.5" r="2.5"></circle><path d="M13.3 16.3 15 18"></path></svg>
+              <span class="">Analyzing 5 institutional sources and cross-referencing ARACIS benchmarks...</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- ================= STATE 3: FULLY APPROVED (READ-ONLY) ================= -->
+        <article id="state-approved-container" class="bg-white rounded-xl border border-paper-border shadow-xs p-8 sm:p-12 transition-all hidden">
+          <!-- Approved Banner -->
+          <div class="mb-6 p-3.5 bg-success-subtle border border-success-border rounded-lg flex items-center justify-between font-sans"><div class="flex items-center space-x-2.5 text-xs text-success"><i data-lucide="check-circle-2" class="w-4 h-4 stroke-[2.5]"></i><span class="font-semibold">Indicator validated and approved for final synthesis report</span></div></div>
+
+          <div class="border-b border-paper-border pb-6 mb-8"><div class="flex items-center justify-between mb-2"><span class="font-mono text-xs font-bold text-success tracking-wide">INDICATOR A.1.1.1 · APPROVED</span><span class="px-2 py-0.5 rounded text-[11px] font-mono bg-success text-white font-medium">100% SOURCED</span></div><h1 class="font-serif text-2xl font-semibold text-ink leading-snug">For delivering the study programme/domain, the HEI has adequate organisational components and an adequate management system.</h1></div>
+
+          <div class="space-y-6 font-serif text-[16px] leading-[1.65] text-ink/90 select-none">
+            <p class="">Universitatea Politehnica Timișoara carries out its doctoral education through the Council for Doctoral University Studies (CSUD) and accredited doctoral schools. All citations and regulatory linkages are verified.</p>
+            <p class="">Institutional Charter, Senate Decision no. 84, and Operational Regulations have been synchronized with zero discrepancy.</p>
+          </div>
+        </article>
+
+        <!-- ================= STATE 4: EMPTY STATE ================= -->
+        <article id="state-empty-container" class="bg-white rounded-xl border border-paper-border shadow-xs p-12 text-center transition-all min-h-[460px] flex flex-col items-center justify-center hidden">
+          <div class="w-14 h-14 rounded-full bg-paper-dim border border-paper-border flex items-center justify-center text-ink-subtle mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="file-plus" aria-hidden="true" class="lucide lucide-file-plus w-6 h-6 stroke-[1.5]"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"></path><path d="M14 2v5a1 1 0 0 0 1 1h5"></path><path d="M9 15h6"></path><path d="M12 18v-6"></path></svg>
+          </div>
+          <h2 class="font-serif text-xl font-semibold text-ink mb-2">No content drafted yet</h2>
+          <p class="text-xs text-ink-muted max-w-sm mb-6 leading-relaxed">
+            Attach verified university documents, regulations, or Senate decisions, then let Indicata draft the initial ARACIS compliance report.
+          </p>
+          <div class="flex items-center space-x-3">
+            <button class="inline-flex items-center space-x-2 px-4 py-2 text-xs font-semibold text-white bg-primary hover:bg-primary-hover rounded-md shadow-sm transition">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="sparkles" aria-hidden="true" class="lucide lucide-sparkles w-3.5 h-3.5"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"></path><path d="M20 2v4"></path><path d="M22 4h-4"></path><circle cx="4" cy="20" r="2"></circle></svg>
+              <span class="">Generate this indicator</span>
+            </button>
+            <button class="inline-flex items-center space-x-2 px-3.5 py-2 text-xs font-medium text-ink bg-white border border-paper-border hover:bg-paper-dim rounded-md shadow-sm transition">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="file-up" aria-hidden="true" class="lucide lucide-file-up w-3.5 h-3.5 text-ink-muted"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"></path><path d="M14 2v5a1 1 0 0 0 1 1h5"></path><path d="M12 12v6"></path><path d="m15 15-3-3-3 3"></path></svg>
+              <span class="">Upload sources first</span>
+            </button>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- ================= BOTTOM STICKY ACTION BAR ================= -->
+      <footer class="sticky bottom-0 w-full bg-white/95 backdrop-blur-xs border-t border-paper-border px-8 py-3 z-20 flex items-center justify-between">
+        <!-- Prev / Next Navigation -->
+        <div class="flex items-center space-x-2">
+          <button class="inline-flex items-center space-x-1.5 px-3 py-1.5 text-xs font-medium text-ink bg-paper border border-paper-border hover:bg-paper-dim rounded-md transition">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-left" aria-hidden="true" class="lucide lucide-arrow-left w-3.5 h-3.5"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>
+            <span class="">Previous</span>
+          </button>
+          <span class="text-xs text-ink-subtle font-mono px-1">1 / 39</span>
+          <button class="inline-flex items-center space-x-1.5 px-3 py-1.5 text-xs font-medium text-ink bg-paper border border-paper-border hover:bg-paper-dim rounded-md transition">
+            <span class="">Next (A.1.1.2)</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-right" aria-hidden="true" class="lucide lucide-arrow-right w-3.5 h-3.5"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+          </button>
+        </div>
+
+        <!-- Approve Indicator (With tooltip when unsourced claims exist) -->
+        <div class="relative group/approval">
+          <!-- Disabled State with Tooltip -->
+          <div id="approve-btn-wrapper">
+            <button id="btn-approve" class="inline-flex items-center space-x-2 px-4 py-2 text-xs font-semibold text-white bg-primary/40 cursor-not-allowed rounded-md transition shadow-xs" disabled="">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" aria-hidden="true" class="lucide lucide-check w-4 h-4"><path d="M20 6 9 17l-5-5"></path></svg>
+              <span class="">Approve indicator</span>
+            </button>
+          </div>
+
+          <!-- Tooltip explaining why it is disabled -->
+          <div id="approve-tooltip" class="absolute bottom-full right-0 mb-2 hidden group-hover/approval:flex bg-ink text-white text-[11px] font-sans px-3 py-1.5 rounded shadow-lg whitespace-nowrap items-center space-x-1.5 z-30">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="alert-circle" aria-hidden="true" class="lucide lucide-alert-circle w-3.5 h-3.5 text-warning"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
+            <span class="">Resolve 2 unsourced claims first before approving</span>
+          </div>
+        </div>
+      </footer>
+
+    </main>
+
+
+    <!-- 4. COLUMN 3: RIGHT EVIDENCE PANEL (360px) -->
+    <aside class="w-[360px] bg-white border-l border-paper-border flex flex-col shrink-0 z-10">
+      
+      <!-- Panel Tabs: Sources | Versions | Diff -->
+      <div class="h-12 border-b border-paper-border flex items-center px-3 bg-paper-dim/40 shrink-0">
+        <div class="flex space-x-1 w-full bg-paper p-0.5 rounded-lg border border-paper-border text-xs font-medium">
+          <button id="tab-btn-sources" onclick="switchRightTab('sources')" class="flex-1 py-1 rounded text-center font-semibold bg-white text-primary shadow-xs">
+            Sources (5)
+          </button>
+          <button id="tab-btn-versions" onclick="switchRightTab('versions')" class="flex-1 py-1 rounded text-center text-ink-muted hover:text-ink">
+            Versions (4)
+          </button>
+          <button id="tab-btn-diff" onclick="switchRightTab('diff')" class="flex-1 py-1 rounded text-center text-ink-muted hover:text-ink">
+            Diff
+          </button>
+        </div>
+      </div>
+
+      <!-- TAB CONTENT: SOURCES (Default) -->
+      <div id="tab-content-sources" class="flex-1 flex-col overflow-hidden flex">
+        <!-- Sources Summary header -->
+        <div class="px-4 py-2.5 border-b border-paper-border/80 flex items-center justify-between text-xs text-ink-muted bg-paper/30">
+          <span class="font-medium text-ink"><strong class="font-semibold text-primary">5</strong> sources · <strong class="font-semibold">14</strong> claims linked</span>
+          <span class="text-[10px] font-mono text-warning bg-warning-subtle border border-warning-border px-1.5 py-0.5 rounded">2 unsourced</span>
+        </div>
+
+        <!-- Scrollable Source Cards List -->
+        <div class="flex-1 overflow-y-auto p-3 space-y-2.5">
+          
+          <!-- Source Card 1 (Selected & Matching Citation [1]) -->
+          <div id="source-card-1" class="p-3 rounded-lg border-2 border-primary bg-primary-subtle/30 shadow-xs space-y-2 transition-all">
+            <div class="flex items-start justify-between">
+              <div class="flex items-center space-x-2">
+                <span class="w-5 h-5 rounded bg-primary text-white font-mono text-[11px] font-bold flex items-center justify-center">1</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="file-text" aria-hidden="true" class="lucide lucide-file-text w-3.5 h-3.5 text-primary"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"></path><path d="M14 2v5a1 1 0 0 0 1 1h5"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
+                <h4 class="text-xs font-semibold text-ink leading-tight">Carta Universitară UPT</h4>
+              </div>
+              <span class="text-[10px] font-mono text-ink-subtle">PDF · p. 8</span>
+            </div>
+
+            <!-- Excerpt with highlighted words -->
+            <p class="text-[11px] text-ink-muted leading-relaxed font-serif bg-white p-2 rounded border border-paper-border">
+              "Art. 15: Senatul universitar și Consiliul de Administrație constituie <mark class="bg-amber-100 text-ink font-semibold px-0.5 rounded">structurile deliberative și executive principale</mark> pentru gestiunea resurselor academice..."
+            </p>
+
+            <div class="flex items-center justify-between text-[10px] pt-1">
+              <span class="inline-flex items-center gap-1 text-ink-subtle font-mono">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" aria-hidden="true" class="lucide lucide-check w-3 h-3 text-success"><path d="M20 6 9 17l-5-5"></path></svg> Uploaded PDF
+              </span>
+              <a href="#" class="text-primary font-medium hover:underline flex items-center gap-1">
+                <span class="">Open document</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="external-link" aria-hidden="true" class="lucide lucide-external-link w-3 h-3"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Source Card 2 (Matching Citation [2]) -->
+          <div id="source-card-2" class="p-3 rounded-lg border border-paper-border bg-white hover:border-ink-subtle/60 shadow-2xs space-y-2 transition-all">
+            <div class="flex items-start justify-between">
+              <div class="flex items-center space-x-2">
+                <span class="w-5 h-5 rounded bg-paper-dim text-ink font-mono text-[11px] font-bold flex items-center justify-center">2</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="file-text" aria-hidden="true" class="lucide lucide-file-text w-3.5 h-3.5 text-ink-muted"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"></path><path d="M14 2v5a1 1 0 0 0 1 1h5"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
+                <h4 class="text-xs font-semibold text-ink leading-tight">Regulament CSUD 2024</h4>
+              </div>
+              <span class="text-[10px] font-mono text-ink-subtle">PDF · p. 14</span>
+            </div>
+
+            <p class="text-[11px] text-ink-muted leading-relaxed font-serif bg-paper p-2 rounded border border-paper-border">
+              "Consiliul Școlii Doctorale asigură <mark class="bg-amber-100 text-ink font-semibold px-0.5 rounded">conducerea operativă</mark> și aprobă rapoartele de activitate ale conducătorilor de doctorat..."
+            </p>
+
+            <div class="flex items-center justify-between text-[10px] pt-1">
+              <span class="text-ink-subtle font-mono">From university website (upt.ro)</span>
+              <a href="#" class="text-primary font-medium hover:underline flex items-center gap-1">
+                <span class="">Open document</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="external-link" aria-hidden="true" class="lucide lucide-external-link w-3 h-3"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Source Card 3 (Matching Citation [3]) -->
+          <div id="source-card-3" class="p-3 rounded-lg border border-paper-border bg-white hover:border-ink-subtle/60 shadow-2xs space-y-2 transition-all">
+            <div class="flex items-start justify-between">
+              <div class="flex items-center space-x-2">
+                <span class="w-5 h-5 rounded bg-paper-dim text-ink font-mono text-[11px] font-bold flex items-center justify-center">3</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="network" aria-hidden="true" class="lucide lucide-network w-3.5 h-3.5 text-ink-muted"><rect x="16" y="16" width="6" height="6" rx="1"></rect><rect x="2" y="16" width="6" height="6" rx="1"></rect><rect x="9" y="2" width="6" height="6" rx="1"></rect><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"></path><path d="M12 12V8"></path></svg>
+                <h4 class="text-xs font-semibold text-ink leading-tight">Organigrama Instituțională UPT</h4>
+              </div>
+              <span class="text-[10px] font-mono text-ink-subtle">DOC · Anexa 2</span>
+            </div>
+
+            <p class="text-[11px] text-ink-muted leading-relaxed font-serif bg-paper p-2 rounded border border-paper-border">
+              "Comisiile de asigurare a calității (CEAC) sunt direct subordonate Senatului și prezintă rapoarte semestriale."
+            </p>
+
+            <div class="flex items-center justify-between text-[10px] pt-1">
+              <span class="text-ink-subtle font-mono">Uploaded</span>
+              <a href="#" class="text-primary font-medium hover:underline flex items-center gap-1">
+                <span class="">Open document</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="external-link" aria-hidden="true" class="lucide lucide-external-link w-3 h-3"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Source Card 4 (Matching Citation [4]) -->
+          <div id="source-card-4" class="p-3 rounded-lg border border-paper-border bg-white hover:border-ink-subtle/60 shadow-2xs space-y-2 transition-all">
+            <div class="flex items-start justify-between">
+              <div class="flex items-center space-x-2">
+                <span class="w-5 h-5 rounded bg-paper-dim text-ink font-mono text-[11px] font-bold flex items-center justify-center">4</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="award" aria-hidden="true" class="lucide lucide-award w-3.5 h-3.5 text-ink-muted"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"></path><circle cx="12" cy="8" r="6"></circle></svg>
+                <h4 class="text-xs font-semibold text-ink leading-tight">Hotărârea Senatului nr. 84/2023</h4>
+              </div>
+              <span class="text-[10px] font-mono text-ink-subtle">PDF · p. 3</span>
+            </div>
+
+            <p class="text-[11px] text-ink-muted leading-relaxed font-serif bg-paper p-2 rounded border border-paper-border">
+              "Se aprobă procedurile unificate de monitorizare etică pentru laboratoarele de cercetare aplicată..."
+            </p>
+
+            <div class="flex items-center justify-between text-[10px] pt-1">
+              <span class="text-ink-subtle font-mono">From registry (senat.upt.ro)</span>
+              <a href="#" class="text-primary font-medium hover:underline flex items-center gap-1">
+                <span class="">Open document</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="external-link" aria-hidden="true" class="lucide lucide-external-link w-3 h-3"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Source Card 5 (Matching Citation [5]) -->
+          <div id="source-card-5" class="p-3 rounded-lg border border-paper-border bg-white hover:border-ink-subtle/60 shadow-2xs space-y-2 transition-all">
+            <div class="flex items-start justify-between">
+              <div class="flex items-center space-x-2">
+                <span class="w-5 h-5 rounded bg-paper-dim text-ink font-mono text-[11px] font-bold flex items-center justify-center">5</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="compass" aria-hidden="true" class="lucide lucide-compass w-3.5 h-3.5 text-ink-muted"><circle cx="12" cy="12" r="10"></circle><path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z"></path></svg>
+                <h4 class="text-xs font-semibold text-ink leading-tight">Planul Strategic 2024–2029</h4>
+              </div>
+              <span class="text-[10px] font-mono text-ink-subtle">PDF · p. 28</span>
+            </div>
+
+            <p class="text-[11px] text-ink-muted leading-relaxed font-serif bg-paper p-2 rounded border border-paper-border">
+              "Obiectivul 2.4: Digitalizarea completă a procedurilor de autoevaluare doctorală până în trimestrul III 2025."
+            </p>
+
+            <div class="flex items-center justify-between text-[10px] pt-1">
+              <span class="text-ink-subtle font-mono">Uploaded</span>
+              <a href="#" class="text-primary font-medium hover:underline flex items-center gap-1">
+                <span class="">Open document</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="external-link" aria-hidden="true" class="lucide lucide-external-link w-3 h-3"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Add Document Footer Action -->
+        <div class="p-3 border-t border-paper-border bg-paper/40">
+          <button class="w-full py-2 px-3 border border-dashed border-paper-border hover:border-primary bg-white text-xs font-medium text-ink hover:text-primary rounded-md transition flex items-center justify-center space-x-1.5 shadow-2xs">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="plus-circle" aria-hidden="true" class="lucide lucide-plus-circle w-3.5 h-3.5"><circle cx="12" cy="12" r="10"></circle><path d="M8 12h8"></path><path d="M12 8v8"></path></svg>
+            <span class="">Add document / URL link</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- TAB CONTENT: VERSIONS (Hidden initially) -->
+      <div id="tab-content-versions" class="flex-1 flex-col overflow-y-auto p-4 space-y-4 hidden">
+        <div class="text-xs font-medium text-ink-muted mb-1 flex items-center justify-between">
+          <span class="">Audit Timeline</span>
+          <span class="text-[10px] font-mono">4 recorded revisions</span>
+        </div>
+
+        <!-- Timeline Container -->
+        <div class="relative pl-6 space-y-6 before:content-[''] before:absolute before:left-2 before:top-2 before:bottom-2 before:w-[1.5px] before:bg-paper-border">
+          
+          <!-- v4 (Current) -->
+          <div class="relative space-y-1.5">
+            <span class="absolute -left-6 top-1 w-2.5 h-2.5 rounded-full bg-primary ring-4 ring-white"></span>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-1.5">
+                <span class="font-mono text-xs font-bold text-ink">v4</span>
+                <span class="px-1.5 py-0.2 rounded bg-blue-100 text-primary font-mono text-[9px] font-bold">Current</span>
+              </div>
+              <span class="text-[10px] text-ink-subtle">14 min ago</span>
+            </div>
+            <div class="text-xs text-ink font-medium">Added Senate Resolution no. 84 citation</div>
+            <div class="text-[11px] text-ink-muted">Author: Prof. Radu Vasile (Manual edit)</div>
+            <div class="flex items-center space-x-2 pt-1">
+              <button class="text-xs text-primary font-medium hover:underline">Compare</button>
+            </div>
+          </div>
+
+          <!-- v3 -->
+          <div class="relative space-y-1.5">
+            <span class="absolute -left-6 top-1 w-2.5 h-2.5 rounded-full bg-slate-300 ring-4 ring-white"></span>
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-xs font-semibold text-ink-muted">v3</span>
+              <span class="text-[10px] text-ink-subtle">2 hours ago</span>
+            </div>
+            <div class="text-xs text-ink-muted font-medium">Auto-synthesized against CSUD Regulations</div>
+            <div class="text-[11px] text-ink-subtle">Author: Indicata AI (Claude 3.5 Sonnet)</div>
+            <div class="flex items-center space-x-3 pt-1 text-xs">
+              <button class="text-ink-muted hover:text-ink">Preview</button>
+              <button class="text-primary hover:underline font-medium">Restore</button>
+            </div>
+          </div>
+
+          <!-- v2 -->
+          <div class="relative space-y-1.5">
+            <span class="absolute -left-6 top-1 w-2.5 h-2.5 rounded-full bg-slate-300 ring-4 ring-white"></span>
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-xs font-semibold text-ink-muted">v2</span>
+              <span class="text-[10px] text-ink-subtle">Yesterday</span>
+            </div>
+            <div class="text-xs text-ink-muted font-medium">Initial draft generated from University Charter</div>
+            <div class="text-[11px] text-ink-subtle">Author: Indicata AI</div>
+            <div class="flex items-center space-x-3 pt-1 text-xs">
+              <button class="text-ink-muted hover:text-ink">Preview</button>
+              <button class="text-primary hover:underline font-medium">Restore</button>
+            </div>
+          </div>
+
+          <!-- v1 -->
+          <div class="relative space-y-1.5">
+            <span class="absolute -left-6 top-1 w-2.5 h-2.5 rounded-full bg-slate-200 ring-4 ring-white"></span>
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-xs font-semibold text-ink-muted">v1</span>
+              <span class="text-[10px] text-ink-subtle">3 days ago</span>
+            </div>
+            <div class="text-xs text-ink-subtle font-medium">Empty indicator created by template initialization</div>
+            <div class="text-[11px] text-ink-subtle">Author: System</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- TAB CONTENT: DIFF (Hidden initially) -->
+      <div id="tab-content-diff" class="flex-1 flex-col overflow-y-auto p-4 space-y-3 hidden">
+        <!-- Version Selector Header -->
+        <div class="flex items-center justify-between bg-paper p-2 rounded-lg border border-paper-border text-xs">
+          <div class="flex items-center space-x-1.5">
+            <span class="text-ink-subtle font-mono text-[10px]">Comparing</span>
+            <span class="font-mono font-bold text-ink">v3</span>
+            <span class="text-ink-subtle">→</span>
+            <span class="font-mono font-bold text-primary">v4 (Current)</span>
+          </div>
+          <button class="px-2 py-0.5 text-[11px] font-medium text-primary hover:bg-white rounded border border-transparent hover:border-paper-border">
+            Restore v3
+          </button>
+        </div>
+
+        <!-- Side by side / Unified Diff view with additions and deletions -->
+        <div class="space-y-3 text-xs leading-relaxed font-serif">
+          <div class="font-sans text-[10px] font-bold uppercase tracking-wider text-ink-subtle">Changes in Section 2 (Analysis)</div>
+          
+          <div class="p-2.5 bg-danger-subtle border-l-2 border-danger rounded text-ink space-y-1">
+            <div class="font-sans text-[10px] font-semibold text-danger flex items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="minus" aria-hidden="true" class="lucide lucide-minus w-3 h-3"><path d="M5 12h14"></path></svg> Deleted in v4
+            </div>
+            <p class="line-through opacity-80">
+              The internal operational regulations do not formally specify the periodicity of ethics committee inspections for departmental doctoral labs.
+            </p>
+          </div>
+
+          <div class="p-2.5 bg-success-subtle border-l-2 border-success rounded text-ink space-y-1">
+            <div class="font-sans text-[10px] font-semibold text-success flex items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="plus" aria-hidden="true" class="lucide lucide-plus w-3 h-3"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg> Added in v4 (By Prof. Radu Vasile)
+            </div>
+            <p class="">
+              During the 2023–2024 academic cycle, Senate Resolution no. 84 consolidated the ethics validation protocols for applied doctoral research, aligning laboratory security with national standards <span class="font-mono font-bold text-primary">[4]</span>.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <!-- Lucide script initialization & interactivity script -->
+  <script>
+    // Initialize icons
+    lucide.createIcons();
+
+    // Function to highlight source card in right panel
+    function highlightSource(id) {
+      // Ensure sources tab is active
+      switchRightTab('sources');
+
+      // Remove highlight from all cards
+      for (let i = 1; i <= 5; i++) {
+        const card = document.getElementById(`source-card-${i}`);
+        if (card) {
+          card.classList.remove('border-2', 'border-primary', 'bg-primary-subtle/30');
+          card.classList.add('border', 'border-paper-border', 'bg-white');
+        }
+      }
+
+      // Highlight target card
+      const targetCard = document.getElementById(`source-card-${id}`);
+      if (targetCard) {
+        targetCard.classList.remove('border', 'border-paper-border', 'bg-white');
+        targetCard.classList.add('border-2', 'border-primary', 'bg-primary-subtle/30');
+        targetCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+
+    // Function to switch right panel tabs
+    function switchRightTab(tabName) {
+      const tabs = ['sources', 'versions', 'diff'];
+      tabs.forEach(t => {
+        const btn = document.getElementById(`tab-btn-${t}`);
+        const content = document.getElementById(`tab-content-${t}`);
+        if (t === tabName) {
+          btn.className = "flex-1 py-1 rounded text-center font-semibold bg-white text-primary shadow-xs";
+          content.classList.remove('hidden');
+          content.classList.add('flex');
+        } else {
+          btn.className = "flex-1 py-1 rounded text-center text-ink-muted hover:text-ink";
+          content.classList.add('hidden');
+          content.classList.remove('flex');
+        }
+      });
+      lucide.createIcons();
+    }
+
+    // Function to switch between simulated prototype states
+    function switchState(stateName) {
+      const states = ['draft', 'generating', 'approved', 'empty'];
+      
+      // Update toggle buttons styling
+      states.forEach(s => {
+        const btn = document.getElementById(`btn-state-${s}`);
+        const container = document.getElementById(`state-${s}-container`);
+        if (s === stateName) {
+          btn.className = "px-2.5 py-1 text-xs rounded font-medium bg-white text-primary shadow-sm";
+          container.classList.remove('hidden');
+        } else {
+          btn.className = "px-2.5 py-1 text-xs rounded font-medium text-ink-muted hover:text-ink";
+          container.classList.add('hidden');
+        }
+      });
+
+      // Update header & toolbar states
+      const headerBadge = document.getElementById('editor-header-badge');
+      const actionProgress = document.getElementById('action-progress-state');
+      const approveBtn = document.getElementById('btn-approve');
+      const approveTooltip = document.getElementById('approve-tooltip');
+
+      if (stateName === 'generating') {
+        actionProgress.classList.remove('hidden');
+        actionProgress.classList.add('flex');
+        headerBadge.innerHTML = `<i data-lucide="loader-2" class="w-3 h-3 animate-spin"></i><span>Synthesizing…</span>`;
+        headerBadge.className = "inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 border border-blue-200 text-primary";
+      } else if (stateName === 'approved') {
+        actionProgress.classList.add('hidden');
+        headerBadge.innerHTML = `<i data-lucide="check-circle" class="w-3 h-3 text-success"></i><span>Approved</span>`;
+        headerBadge.className = "inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-50 border border-green-200 text-success";
+        // Enable approve button
+        approveBtn.disabled = false;
+        approveBtn.className = "inline-flex items-center space-x-2 px-4 py-2 text-xs font-semibold text-white bg-success rounded-md shadow-xs";
+        approveTooltip.classList.add('hidden');
+      } else if (stateName === 'empty') {
+        actionProgress.classList.add('hidden');
+        headerBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-slate-400"></span><span>Empty</span>`;
+        headerBadge.className = "inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 border border-slate-200 text-ink-muted";
+      } else {
+        // Draft default
+        actionProgress.classList.add('hidden');
+        headerBadge.innerHTML = `<i data-lucide="sparkles" class="w-3 h-3"></i><span>AI Draft</span>`;
+        headerBadge.className = "inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 border border-blue-200 text-primary";
+        // Disable approve with tooltip
+        approveBtn.disabled = true;
+        approveBtn.className = "inline-flex items-center space-x-2 px-4 py-2 text-xs font-semibold text-white bg-primary/40 cursor-not-allowed rounded-md transition shadow-xs";
+      }
+      lucide.createIcons();
+    }
+  </script>
+
+
+
+
+</body></html>

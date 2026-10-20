@@ -1,0 +1,78 @@
+<div class="space-y-3">
+  <div
+    class="border-outline-variant bg-surface-container-low text-on-surface-variant flex items-center justify-between gap-1.5 rounded-lg border px-2.5 py-2 text-xs"
+  >
+    <span class="flex items-center gap-1.5">
+      <span class="text-[10px]">Comparing</span>
+      <span class="text-on-surface font-mono font-bold">v{{ diff().fromVersion }}</span>
+      <span aria-hidden="true">→</span>
+      <span class="text-primary font-mono font-bold">v{{ diff().toVersion }}</span>
+    </span>
+  </div>
+
+  <ul class="space-y-2 text-xs leading-relaxed" aria-label="Changes between versions">
+    @for (segment of diff().segments; track $index) {
+      @switch (segment.kind) {
+        @case ('removed') {
+          <li
+            class="bg-error-container border-error text-on-error-container space-y-1 rounded border-l-2 p-2.5"
+          >
+            <span class="text-error flex items-center gap-1 text-[10px] font-semibold">
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M5 12h14" />
+              </svg>
+              Removed
+            </span>
+            <p class="m-0 font-serif line-through">{{ segment.text }}</p>
+          </li>
+        }
+        @case ('added') {
+          <li
+            class="bg-success-container border-success text-on-success-container space-y-1 rounded border-l-2 p-2.5"
+          >
+            <span class="text-success flex items-center gap-1 text-[10px] font-semibold">
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M5 12h14" />
+                <path d="M12 5v14" />
+              </svg>
+              Added
+            </span>
+            <p class="m-0 font-serif">{{ segment.text }}</p>
+          </li>
+        }
+        @default {
+          <li
+            class="border-outline-variant bg-surface text-on-surface-variant rounded border-l-2 p-2.5"
+          >
+            <span class="sr-only">Unchanged</span>
+            <p class="m-0 font-serif">{{ segment.text }}</p>
+          </li>
+        }
+      }
+    } @empty {
+      <li class="text-on-surface-variant px-2 py-6 text-center">
+        No differences between the selected versions.
+      </li>
+    }
+  </ul>
+</div>

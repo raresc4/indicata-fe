@@ -1,0 +1,129 @@
+<app-auth-layout>
+  <div class="mb-6 flex items-center justify-between">
+    <div
+      class="bg-surface-container-low border-outline-variant text-primary flex h-10 w-10 items-center justify-center rounded-xl border"
+    >
+      <span class="material-symbols-outlined" aria-hidden="true">account_balance</span>
+    </div>
+    <span
+      class="text-on-surface-variant bg-surface-container hidden rounded-full px-2.5 py-1 text-xs sm:inline"
+    >
+      Institutional Workspace
+    </span>
+  </div>
+
+  <div class="mb-8 space-y-1.5">
+    <h1 class="font-serif text-on-background text-2xl tracking-tight sm:text-3xl">Sign in</h1>
+  </div>
+
+  <form class="space-y-4" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+    <div class="space-y-1.5">
+      <label class="text-on-surface-variant block text-xs font-medium" for="email">
+        Institutional email
+      </label>
+      <input
+        class="bg-surface-container-lowest text-on-background border-outline-variant focus:border-primary focus:ring-primary/20 placeholder:text-on-surface-variant/60 w-full rounded-lg border px-3.5 py-2.5 transition-colors focus:ring-2 focus:outline-none"
+        id="email"
+        type="email"
+        formControlName="email"
+        autocomplete="email"
+        placeholder="v.popescu@univ.edu.ro"
+        [attr.aria-invalid]="email.touched && email.invalid"
+        [attr.aria-describedby]="email.touched && email.invalid ? 'email-error' : null"
+      />
+      @if (email.touched && email.hasError('required')) {
+        <p class="text-error text-xs" id="email-error">Enter your institutional email.</p>
+      } @else if (email.touched && email.hasError('email')) {
+        <p class="text-error text-xs" id="email-error">Enter a valid email address.</p>
+      }
+    </div>
+
+    <div class="space-y-1.5">
+      <label class="text-on-surface-variant block text-xs font-medium" for="password">
+        Password
+      </label>
+      <div class="relative">
+        <input
+          class="bg-surface-container-lowest text-on-background border-outline-variant focus:border-primary focus:ring-primary/20 placeholder:text-on-surface-variant/60 w-full rounded-lg border py-2.5 pr-11 pl-3.5 transition-colors focus:ring-2 focus:outline-none"
+          id="password"
+          [type]="passwordInputType()"
+          formControlName="password"
+          autocomplete="current-password"
+          placeholder="••••••••••••"
+          [attr.aria-invalid]="password.touched && password.invalid"
+          [attr.aria-describedby]="password.touched && password.invalid ? 'password-error' : null"
+        />
+        <button
+          class="text-on-surface-variant hover:text-on-surface focus-visible:ring-primary/40 absolute inset-y-0 right-0 flex items-center rounded-r-lg pr-3 transition-colors focus-visible:ring-2 focus-visible:outline-none"
+          type="button"
+          [attr.aria-pressed]="passwordVisible()"
+          [attr.aria-label]="passwordVisible() ? 'Hide password' : 'Show password'"
+          (click)="togglePasswordVisibility()"
+        >
+          <span class="material-symbols-outlined text-xl" aria-hidden="true">
+            {{ passwordVisible() ? 'visibility_off' : 'visibility' }}
+          </span>
+        </button>
+      </div>
+      @if (password.touched && password.hasError('required')) {
+        <p class="text-error text-xs" id="password-error">Enter your password.</p>
+      }
+    </div>
+
+    <div class="flex items-center justify-between pt-1">
+      <label class="flex cursor-pointer items-center gap-2 select-none">
+        <input
+          class="border-outline text-primary focus:ring-primary/20 h-4 w-4 rounded transition-colors"
+          type="checkbox"
+          formControlName="remember"
+        />
+        <span class="text-on-surface-variant text-sm">Remember me</span>
+      </label>
+      <a
+        class="text-primary hover:text-primary-container text-xs font-medium transition-colors hover:underline"
+        href="#"
+      >
+        Forgot password?
+      </a>
+    </div>
+
+    <button
+      class="bg-primary text-on-primary hover:bg-primary-container focus-visible:ring-primary/40 flex h-11 w-full items-center justify-center gap-2 rounded-lg text-sm font-medium shadow-sm transition-colors focus-visible:ring-2 focus-visible:outline-none"
+      type="submit"
+    >
+      <span>Sign in</span>
+      <span class="material-symbols-outlined text-base" aria-hidden="true">arrow_forward</span>
+    </button>
+  </form>
+
+  <div class="relative my-6">
+    <div class="absolute inset-0 flex items-center" aria-hidden="true">
+      <div class="border-outline-variant w-full border-t"></div>
+    </div>
+    <div class="relative flex justify-center text-xs">
+      <span class="bg-surface-container-lowest text-on-surface-variant px-3">or</span>
+    </div>
+  </div>
+
+  <button
+    class="bg-surface-container-lowest border-outline-variant text-on-background hover:bg-surface-container-low focus-visible:ring-primary/40 flex h-11 w-full items-center justify-center gap-2.5 rounded-lg border text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:outline-none"
+    type="button"
+  >
+    <span class="material-symbols-outlined text-on-surface-variant text-lg" aria-hidden="true">
+      school
+    </span>
+    <span>Continue with institutional account (eduID)</span>
+  </button>
+
+  <div class="mt-8 text-center">
+    <p class="text-on-surface-variant text-sm">
+      Don't have an account?
+      <a
+        class="text-on-background hover:text-primary ml-0.5 font-medium transition-colors hover:underline"
+        routerLink="/register"
+      >
+        Create an account
+      </a>
+    </p>
+  </div>
+</app-auth-layout>

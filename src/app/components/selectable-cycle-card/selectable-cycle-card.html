@@ -1,0 +1,51 @@
+@if (checked()) {
+  <span
+    class="bg-primary text-on-primary absolute top-3 right-3 flex h-5 w-5 items-center justify-center rounded-full"
+    aria-hidden="true"
+  >
+    <span class="material-symbols-outlined text-[14px]">check</span>
+  </span>
+}
+
+<div>
+  <div class="mb-4 flex items-center justify-between">
+    <span class="bg-surface text-primary flex h-10 w-10 items-center justify-center rounded-lg">
+      <span class="material-symbols-outlined text-[22px]" aria-hidden="true">{{
+        cycle().icon
+      }}</span>
+    </span>
+    <span
+      class="rounded px-2 py-0.5 text-xs"
+      [class.bg-surface-container]="!checked()"
+      [class.text-on-surface-variant]="!checked()"
+      [class.bg-surface]="checked()"
+      [class.text-primary]="checked()"
+    >
+      Unit: {{ cycle().unit }}
+    </span>
+  </div>
+
+  <h2
+    class="font-serif text-base font-semibold"
+    [class.text-on-surface]="!checked()"
+    [class.text-on-primary-container]="checked()"
+  >
+    {{ cycle().label }}
+  </h2>
+  <p
+    class="mt-1 text-sm"
+    [class.text-on-surface-variant]="!checked()"
+    [class.text-on-primary-container]="checked()"
+  >
+    {{ cycle().description }}
+  </p>
+</div>
+
+<div
+  class="mt-6 flex items-center text-xs"
+  [class.text-on-surface-variant]="!checked()"
+  [class.text-on-primary-container]="checked()"
+  [class.font-medium]="checked()"
+>
+  <span>{{ cycle().duration }}</span>
+</div>

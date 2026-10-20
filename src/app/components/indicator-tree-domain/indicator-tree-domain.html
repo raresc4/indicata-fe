@@ -1,0 +1,58 @@
+<div>
+  <h3 class="m-0">
+    <button
+      type="button"
+      [attr.aria-expanded]="expanded()"
+      [attr.aria-controls]="regionId()"
+      [id]="headerId()"
+      class="text-on-surface-variant hover:text-on-surface focus-visible:ring-primary/50 flex w-full items-center justify-between gap-2 rounded px-2 py-1 text-left text-[11px] font-bold tracking-wider uppercase transition focus-visible:ring-2 focus-visible:outline-none"
+      (click)="toggle.emit(domain().id)"
+    >
+      <span class="flex min-w-0 items-center gap-1.5">
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          class="shrink-0 transition-transform duration-150"
+          [class.rotate-90]="expanded()"
+        >
+          <path d="m9 18 6-6-6-6" />
+        </svg>
+        <span class="truncate">{{ domain().label }}</span>
+      </span>
+      <span class="text-on-surface-variant shrink-0 font-mono text-[10px] font-normal">
+        {{ domain().reviewed }}/{{ domain().total }}
+      </span>
+    </button>
+  </h3>
+
+  @if (expanded()) {
+    <div
+      [id]="regionId()"
+      role="group"
+      [attr.aria-labelledby]="headerId()"
+      class="border-outline-variant mt-1 ml-2.5 space-y-0.5 border-l pl-2"
+    >
+      @for (criterion of domain().criteria; track criterion.id) {
+        <p class="text-on-surface-variant m-0 px-2 py-1 text-[11px] font-medium">
+          {{ criterion.label }}
+        </p>
+        @for (row of criterion.indicators; track row.code) {
+          <app-indicator-tree-row
+            [code]="row.code"
+            [title]="row.title"
+            [status]="row.status"
+            [active]="row.code === activeCode()"
+            (select)="select.emit($event)"
+          />
+        }
+      }
+    </div>
+  }
+</div>

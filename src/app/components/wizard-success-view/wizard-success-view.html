@@ -1,0 +1,55 @@
+<section class="p-8 text-center sm:p-12">
+  <div
+    class="bg-tertiary-container text-on-tertiary-container mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-full"
+  >
+    <span class="material-symbols-outlined text-3xl" aria-hidden="true">check_circle</span>
+  </div>
+
+  <h1 class="font-serif text-on-background text-2xl tracking-tight sm:text-3xl" tabindex="-1">
+    Report created successfully
+  </h1>
+
+  <p class="text-on-surface-variant mx-auto mt-2 max-w-md text-sm">
+    Your evaluation report
+    <strong class="text-on-surface font-medium">{{ reportName$ | async }}</strong>
+    has been created.
+  </p>
+
+  <div
+    class="bg-surface-container-low border-outline-variant mx-auto mt-8 max-w-md rounded-xl border p-5 text-left"
+  >
+    <div class="flex items-start gap-3">
+      <span class="material-symbols-outlined text-primary mt-0.5 text-xl" aria-hidden="true">
+        drive_folder_upload
+      </span>
+      <div>
+        <p class="text-on-surface text-sm font-semibold">Next step: Add your documents</p>
+        <p class="text-on-surface-variant mt-1 text-sm">
+          Upload faculty guides, course syllabi, CVs, and institutional regulations to start
+          indicator indexing.
+        </p>
+      </div>
+    </div>
+
+    <div class="border-outline-variant mt-5 flex justify-end border-t pt-4">
+      <button
+        class="bg-primary text-on-primary hover:bg-primary-container focus-visible:ring-primary/40 flex min-h-11 w-full items-center justify-center gap-2 rounded-lg px-5 text-sm font-medium shadow-sm transition-colors focus-visible:ring-2 focus-visible:outline-none sm:w-auto"
+        type="button"
+        (click)="openDocumentManager()"
+      >
+        <span>Open Document Manager</span>
+        <span class="material-symbols-outlined text-lg" aria-hidden="true">folder_open</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="mt-6">
+    <button
+      class="text-on-surface-variant hover:text-primary focus-visible:ring-primary/40 inline-flex min-h-11 items-center justify-center rounded-lg px-3 text-xs underline transition-colors focus-visible:ring-2 focus-visible:outline-none"
+      type="button"
+      (click)="startAnother()"
+    >
+      Start another report setup
+    </button>
+  </div>
+</section>

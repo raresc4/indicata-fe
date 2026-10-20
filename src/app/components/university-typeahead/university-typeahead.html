@@ -1,0 +1,40 @@
+<mat-form-field class="w-full">
+  <mat-label>University</mat-label>
+  <input
+    matInput
+    type="text"
+    placeholder="Search university..."
+    autocomplete="off"
+    [formControl]="queryControl"
+    [matAutocomplete]="auto"
+    [attr.aria-invalid]="invalid()"
+    [attr.aria-describedby]="describedBy()"
+    (blur)="onBlur()"
+  />
+  <mat-autocomplete #auto [displayWith]="displayWith" (optionSelected)="onOptionSelected($event)">
+    @if (hasResults()) {
+      @for (university of filtered(); track university.id) {
+        <mat-option [value]="university">
+          <span class="flex items-center justify-between gap-3">
+            <span class="flex flex-col">
+              <span class="text-on-surface">{{ university.name }}</span>
+              <span class="text-on-surface-variant text-xs">
+                {{ university.city }}, {{ university.county }} · {{ university.acronym }}
+              </span>
+            </span>
+            @if (selected()?.id === university.id) {
+              <span class="material-symbols-outlined text-primary text-lg" aria-hidden="true">
+                check
+              </span>
+            }
+          </span>
+        </mat-option>
+      }
+    } @else {
+      <mat-option disabled>
+        <span class="text-on-surface-variant">No universities match your search.</span>
+      </mat-option>
+    }
+  </mat-autocomplete>
+  <mat-hint class="text-on-surface-variant">Accredited institution list 2024-2025</mat-hint>
+</mat-form-field>

@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Indicata — Projects Dashboard</title>
+<!-- Google Fonts: Newsreader (Editorial Serif) & Inter (Utilitarian Sans) -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,400&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#0e3566",
+            "primary-container": "#2b4c7e",
+            "on-primary-container": "#9ebdf7",
+            "primary-fixed": "#d6e3ff",
+            "on-primary-fixed": "#001b3d",
+            "surface-bright": "#faf9f6",
+            "background": "#faf9f6",
+            "surface": "#faf9f6",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-low": "#f4f3f0",
+            "surface-container": "#efeeeb",
+            "surface-container-high": "#e9e8e5",
+            "surface-container-highest": "#e3e2df",
+            "on-surface": "#1b1c1a",
+            "on-surface-variant": "#43474f",
+            "secondary": "#5f5e5e",
+            "outline": "#747780",
+            "outline-variant": "#c3c6d0",
+            "tertiary": "#363531"
+          },
+          fontFamily: {
+            headline: ["Newsreader", "serif"],
+            sans: ["Inter", "sans-serif"]
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+      font-size: 1.125rem;
+      vertical-align: middle;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    body {
+      background-color: #faf9f6;
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen selection:bg-primary-fixed selection:text-on-primary-fixed flex flex-col">
+<!-- ========================================================================= -->
+<!-- OPTIONAL PREVIEW SIMULATION BAR (Compact & Unobtrusive) -->
+<!-- ========================================================================= -->
+<div class="w-full bg-surface-container-low border-b border-surface-container-highest px-6 py-1.5 flex items-center justify-between text-xs text-secondary shrink-0 z-30">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-primary-container">tune</span>
+<span class="font-medium text-[11px] uppercase tracking-wider">Simulation Mode:</span>
+<div class="inline-flex items-center gap-1 bg-surface-container-lowest rounded-md p-0.5 border border-surface-container-highest" id="state-switcher">
+<button class="px-2 py-0.5 rounded text-[11px] font-medium bg-primary-container text-white" onclick="switchState('populated')">Populated</button>
+<button class="px-2 py-0.5 rounded text-[11px] text-secondary hover:text-on-surface" onclick="switchState('table')">Table</button>
+<button class="px-2 py-0.5 rounded text-[11px] text-secondary hover:text-on-surface" onclick="switchState('caughtup')">All Caught Up</button>
+<button class="px-2 py-0.5 rounded text-[11px] text-secondary hover:text-on-surface" onclick="switchState('empty')">Empty</button>
+</div>
+</div>
+<div class="flex items-center gap-2 text-[11px]">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+<span>ARACIS QA Evaluation Workspace (Doctoral &amp; Master Framework)</span>
+</div>
+</div>
+<!-- ========================================================================= -->
+<!-- APP SHELL: HORIZONTAL SPLIT (Fixed 240px Left Nav + Fluid Main Canvas) -->
+<!-- ========================================================================= -->
+<div class="flex-1 flex min-h-[calc(100vh-33px)]">
+<!-- LEFT SIDEBAR (Width: 240px, w-60) -->
+<aside class="w-60 shrink-0 bg-white border-r border-stone-200 flex flex-col justify-between select-none min-h-full">
+<div class="flex flex-col">
+<!-- Brand / Header -->
+<div class="h-16 px-5 border-b border-stone-200 flex items-center gap-2.5">
+<div class="w-7 h-7 rounded bg-primary-container text-white flex items-center justify-center font-headline font-semibold text-base shadow-xs">
+            I
+          </div>
+<div class="flex flex-col">
+<span class="font-headline font-semibold text-lg tracking-tight text-stone-900 leading-none">Indicata</span>
+<span class="text-[10px] tracking-wider text-stone-400 uppercase font-medium mt-0.5">QA Intelligence</span>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="p-3 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary-container/10 text-primary-container font-medium text-sm border-l-2 border-primary-container" href="#">
+<span class="material-symbols-outlined text-[19px] text-primary-container" style="font-variation-settings: 'FILL' 1;">folder</span>
+<span>Projects</span>
+<span class="ml-auto text-[11px] bg-stone-100 text-stone-600 px-1.5 py-0.5 rounded-full font-medium">4</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-stone-600 hover:text-stone-900 hover:bg-stone-50 transition-colors text-sm font-normal" href="#">
+<span class="material-symbols-outlined text-[19px] text-stone-400">description</span>
+<span>Documents</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-stone-600 hover:text-stone-900 hover:bg-stone-50 transition-colors text-sm font-normal" href="#">
+<span class="material-symbols-outlined text-[19px] text-stone-400">checklist</span>
+<span>Indicators</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-stone-600 hover:text-stone-900 hover:bg-stone-50 transition-colors text-sm font-normal" href="#">
+<span class="material-symbols-outlined text-[19px] text-stone-400">ios_share</span>
+<span>Export &amp; Synthesis</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-stone-600 hover:text-stone-900 hover:bg-stone-50 transition-colors text-sm font-normal" href="#">
+<span class="material-symbols-outlined text-[19px] text-stone-400">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+</div>
+<!-- User Profile / Institution Badge -->
+<div class="p-3 border-t border-stone-200">
+<div class="px-3 py-2 mb-2 bg-stone-50 rounded-lg border border-stone-200/70">
+<div class="flex items-center justify-between text-[10px] text-stone-500 font-medium uppercase tracking-wider mb-0.5">
+<span>Institution</span>
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+</div>
+<p class="text-xs font-semibold text-stone-800 truncate">UPT Timișoara</p>
+<p class="text-[11px] text-stone-500 truncate">Doctoral CS Framework</p>
+</div>
+<div class="flex items-center gap-2.5 p-2 rounded-lg hover:bg-stone-50 transition-colors">
+<div class="relative shrink-0">
+<div class="w-8 h-8 rounded-full bg-primary-fixed text-primary font-semibold text-xs flex items-center justify-center ring-1 ring-stone-200">
+              F
+            </div>
+<span class="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-emerald-600 border border-white"></span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-xs font-medium text-stone-900 truncate">Fares</span>
+<span class="text-[11px] text-stone-500 truncate">UPT · Lead Evaluator</span>
+</div>
+<button class="ml-auto text-stone-400 hover:text-stone-700">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- MAIN DASHBOARD CONTENT AREA -->
+<div class="flex-1 flex flex-col min-w-0 bg-background overflow-y-auto">
+<!-- Breadcrumbs & Top Header Bar -->
+<div class="h-14 px-8 border-b border-stone-200 bg-white/80 backdrop-blur-sm sticky top-0 z-20 flex items-center justify-between shrink-0">
+<div class="flex items-center gap-2 text-sm text-stone-600">
+<span class="font-medium text-stone-900">Projects</span>
+<span class="text-stone-300">/</span>
+<span class="text-stone-500 text-xs">All Active Institutional Reports</span>
+</div>
+<div class="flex items-center gap-3">
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-stone-200 bg-white text-xs font-medium text-stone-600 hover:text-stone-900 hover:border-stone-300 transition-colors shadow-2xs">
+<span class="material-symbols-outlined text-[15px] text-stone-400">sync</span>
+<span>Synced 2m ago</span>
+</button>
+<div class="w-px h-4 bg-stone-200"></div>
+<button class="text-stone-500 hover:text-stone-800 p-1 rounded-md hover:bg-stone-100 transition-colors relative">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-amber-500 rounded-full ring-2 ring-white"></span>
+</button>
+</div>
+</div>
+<!-- Main Workspace Container (Standard 1440px balanced layout) -->
+<main class="flex-1 max-w-[1360px] w-full mx-auto px-8 py-8 space-y-8">
+<!-- =================================================================== -->
+<!-- HERO / GREETING BAR -->
+<!-- =================================================================== -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2">
+<div>
+<h1 class="font-headline text-2xl font-semibold text-stone-900 tracking-tight">
+              Good morning, Fares
+            </h1>
+<p class="text-sm text-stone-500 mt-0.5">
+              Here’s where your evaluation reports stand.
+            </p>
+</div>
+<div class="flex items-center gap-3">
+<button class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary-container text-white text-sm font-medium hover:bg-primary transition-all duration-150 shadow-xs" onclick="alert('Opening ARACIS New Report Wizard...')">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span>+ New report</span>
+</button>
+</div>
+</div>
+<!-- =================================================================== -->
+<!-- NEEDS YOUR ATTENTION SECTION (Horizontal 3-column Grid) -->
+<!-- =================================================================== -->
+<section class="space-y-3.5" id="section-attention">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<h2 class="font-headline text-lg font-medium text-stone-900">
+                Needs your attention
+              </h2>
+<span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-900 border border-amber-200" id="attention-counter">
+                3
+              </span>
+</div>
+<button class="text-xs font-medium text-primary-container hover:underline flex items-center gap-1" onclick="toggleAttentionBanner()">
+<span>View all</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+<!-- Attention 3-Card Balanced Row -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-5" id="attention-cards-wrapper">
+<!-- Attention Item 1 -->
+<div class="p-4 rounded-xl bg-white border border-amber-200 shadow-2xs hover:border-amber-300 transition-all flex flex-col justify-between">
+<div class="flex items-start gap-3">
+<div class="w-8 h-8 rounded-lg bg-amber-50 text-amber-700 flex items-center justify-center shrink-0 border border-amber-200/70">
+<span class="material-symbols-outlined text-amber-600 text-[18px]">warning</span>
+</div>
+<div class="min-w-0">
+<h3 class="text-sm font-semibold text-stone-900">7 documents waiting for review</h3>
+<p class="text-xs text-stone-500 mt-0.5 truncate">UPT · Computer Engineering · Doctorate 2026</p>
+</div>
+</div>
+<div class="mt-3.5 pt-3 border-t border-stone-100 flex items-center justify-between">
+<span class="text-[11px] text-stone-400">Added yesterday via crawl</span>
+<a class="text-xs font-medium text-primary-container hover:underline inline-flex items-center gap-1" href="#review">
+<span>Review documents</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+</a>
+</div>
+</div>
+<!-- Attention Item 2 -->
+<div class="p-4 rounded-xl bg-white border border-amber-200 shadow-2xs hover:border-amber-300 transition-all flex flex-col justify-between">
+<div class="flex items-start gap-3">
+<div class="w-8 h-8 rounded-lg bg-amber-50 text-amber-700 flex items-center justify-center shrink-0 border border-amber-200/70">
+<span class="material-symbols-outlined text-amber-600 text-[18px]">link_off</span>
+</div>
+<div class="min-w-0">
+<h3 class="text-sm font-semibold text-stone-900">4 claims without a source in A.2.1.1</h3>
+<p class="text-xs text-stone-500 mt-0.5 truncate">UPT · Computer Engineering · Doctorate 2026</p>
+</div>
+</div>
+<div class="mt-3.5 pt-3 border-t border-stone-100 flex items-center justify-between">
+<span class="text-[11px] text-stone-400">High ARACIS severity</span>
+<a class="text-xs font-medium text-primary-container hover:underline inline-flex items-center gap-1" href="#open-indicator">
+<span>Open indicator</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+</a>
+</div>
+</div>
+<!-- Attention Item 3 -->
+<div class="p-4 rounded-xl bg-white border border-sky-200 shadow-2xs hover:border-sky-300 transition-all flex flex-col justify-between">
+<div class="flex items-start gap-3">
+<div class="w-8 h-8 rounded-lg bg-sky-50 text-sky-700 flex items-center justify-center shrink-0 border border-sky-200/70">
+<span class="material-symbols-outlined text-sky-700 text-[18px]">task_alt</span>
+</div>
+<div class="min-w-0">
+<h3 class="text-sm font-semibold text-stone-900">3 indicators ready to approve</h3>
+<p class="text-xs text-stone-500 mt-0.5 truncate">UVT · Informatică · Doctorate 2025</p>
+</div>
+</div>
+<div class="mt-3.5 pt-3 border-t border-stone-100 flex items-center justify-between">
+<span class="text-[11px] text-stone-400">Awaiting signature</span>
+<a class="text-xs font-medium text-primary-container hover:underline inline-flex items-center gap-1" href="#review-uvt">
+<span>Review</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Caught Up Banner (Hidden initially) -->
+<div class="hidden p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-950 items-center justify-between" id="attention-caught-up-banner">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-emerald-700 text-xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div>
+<h3 class="text-sm font-semibold">You're all caught up.</h3>
+<p class="text-xs text-emerald-800">All crawled documents, generated synthesis claims, and indicators have been processed.</p>
+</div>
+</div>
+<button class="text-xs font-medium text-emerald-800 underline hover:text-emerald-900" onclick="switchState('populated')">
+              Reset view
+            </button>
+</div>
+</section>
+<!-- =================================================================== -->
+<!-- MAIN TWO-COLUMN BALANCED LAYOUT (Left 8 cols ~70%, Right 4 cols ~30%) -->
+<!-- =================================================================== -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- LEFT/CENTER PRIMARY REGION (col-span-8) -->
+<div class="lg:col-span-8 space-y-5">
+<!-- Section Title & Toolbar -->
+<div class="space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<h2 class="font-headline text-lg font-medium text-stone-900">Your reports</h2>
+<span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-stone-200 text-stone-700" id="reports-count-badge">
+                    4
+                  </span>
+</div>
+<!-- View Toggle Buttons -->
+<div class="flex items-center bg-white border border-stone-200 rounded-lg p-0.5 shadow-2xs">
+<button class="px-2.5 py-1 rounded text-xs font-medium bg-stone-100 text-stone-900 flex items-center gap-1.5 transition-all" id="btn-view-grid" onclick="setViewMode('grid')">
+<span class="material-symbols-outlined text-[15px]">grid_view</span>
+<span>Grid</span>
+</button>
+<button class="px-2.5 py-1 rounded text-xs font-medium text-stone-500 hover:text-stone-900 flex items-center gap-1.5 transition-all" id="btn-view-table" onclick="setViewMode('table')">
+<span class="material-symbols-outlined text-[15px]">view_list</span>
+<span>Table</span>
+</button>
+</div>
+</div>
+<!-- Filter Toolbar -->
+<div class="bg-white p-3 rounded-xl border border-stone-200 flex flex-wrap gap-2.5 items-center justify-between shadow-2xs">
+<!-- Search Input -->
+<div class="relative flex-1 min-w-[200px]">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 text-[17px]">search</span>
+<input class="w-full pl-9 pr-3 py-1.5 bg-stone-50 border border-stone-200 rounded-lg text-xs placeholder:text-stone-400 focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all" id="filter-search" oninput="handleSearch(this.value)" placeholder="Search reports…" type="text"/>
+</div>
+<!-- Cycle Tabs -->
+<div class="flex items-center bg-stone-100 rounded-lg p-0.5 border border-stone-200/50 text-xs">
+<button class="cycle-tab active px-2.5 py-1 rounded bg-white text-stone-900 font-medium shadow-2xs" onclick="setCycleFilter('All')">All</button>
+<button class="cycle-tab px-2.5 py-1 rounded text-stone-600 hover:text-stone-900" onclick="setCycleFilter('Doctorate')">Doctorate</button>
+<button class="cycle-tab px-2.5 py-1 rounded text-stone-600 hover:text-stone-900" onclick="setCycleFilter('Master')">Master</button>
+<button class="cycle-tab px-2.5 py-1 rounded text-stone-600 hover:text-stone-900" onclick="setCycleFilter('Bachelor')">Bachelor</button>
+</div>
+<!-- Status & Sort Controls -->
+<div class="flex items-center gap-2">
+<select class="bg-stone-50 border border-stone-200 rounded-lg px-2.5 py-1.5 text-xs text-stone-600 focus:outline-none focus:border-primary-container cursor-pointer">
+<option>All statuses</option>
+<option>In progress</option>
+<option>Ready for export</option>
+<option>Completed</option>
+</select>
+<select class="bg-stone-50 border border-stone-200 rounded-lg px-2.5 py-1.5 text-xs text-stone-600 focus:outline-none focus:border-primary-container cursor-pointer">
+<option>Sort: Last edited</option>
+<option>Sort: Progress</option>
+<option>Sort: Name</option>
+</select>
+</div>
+</div>
+</div>
+<!-- ============================================================= -->
+<!-- DYNAMIC REPORT LIST CONTAINER -->
+<!-- ============================================================= -->
+<div id="reports-container">
+<!-- GRID VIEW: Balanced 2-Column Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-5" id="view-card-grid">
+<!-- CARD 1: UPT Doctorate 2026 -->
+<div class="bg-white border border-stone-200 rounded-xl p-5 hover:border-stone-300 hover:shadow-xs transition-all flex flex-col justify-between group">
+<div>
+<div class="flex flex-wrap items-center gap-1.5 mb-2.5">
+<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-stone-100 text-stone-600 border border-stone-200">Doctorate</span>
+<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-stone-100 text-stone-600 border border-stone-200">Accreditation</span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-amber-50 text-amber-800 border border-amber-200/80">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+<span>In progress</span>
+</span>
+</div>
+<h3 class="font-headline font-semibold text-lg text-stone-900 group-hover:text-primary-container transition-colors leading-snug">
+                      UPT · Computer Engineering · Doctorate 2026
+                    </h3>
+<p class="text-xs text-stone-500 mt-1">
+                      Universitatea Politehnica Timișoara · Doctoral School of CS
+                    </p>
+<!-- Progress Block -->
+<div class="mt-4 p-3 bg-stone-50 rounded-lg border border-stone-200/60">
+<div class="flex items-center justify-between text-xs mb-1.5 font-medium">
+<span class="text-stone-800">12 of 39 indicators approved</span>
+<span class="text-stone-600 font-semibold">31%</span>
+</div>
+<div class="h-2 w-full bg-stone-200 rounded-full overflow-hidden flex gap-0.5">
+<div class="bg-emerald-600 h-full" style="width: 31%;" title="Approved: 12"></div>
+<div class="bg-amber-500 h-full" style="width: 13%;" title="Review: 5"></div>
+<div class="bg-sky-600 h-full" style="width: 36%;" title="AI draft: 14"></div>
+<div class="bg-stone-300 h-full flex-1" title="Empty: 8"></div>
+</div>
+<div class="flex items-center gap-2.5 mt-2 text-[10px] text-stone-500">
+<span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> 12 Appr</span>
+<span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> 5 Rev</span>
+<span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-sky-600"></span> 14 Draft</span>
+<span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-stone-300"></span> 8 Blank</span>
+</div>
+</div>
+<!-- 3 Mini Stats -->
+<div class="grid grid-cols-3 gap-2 mt-3.5 text-center">
+<div class="py-1.5 px-2 bg-stone-50 rounded border border-stone-200/50">
+<div class="text-xs font-semibold text-stone-800">18</div>
+<div class="text-[10px] text-stone-500">documents</div>
+</div>
+<div class="py-1.5 px-2 bg-amber-50/70 rounded border border-amber-200/50">
+<div class="text-xs font-semibold text-amber-800">7</div>
+<div class="text-[10px] text-amber-700">to review</div>
+</div>
+<div class="py-1.5 px-2 bg-rose-50/70 rounded border border-rose-200/50">
+<div class="text-xs font-semibold text-rose-800">4</div>
+<div class="text-[10px] text-rose-700">unsourced</div>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="flex -space-x-1.5 overflow-hidden">
+<div class="inline-block h-5 w-5 rounded-full ring-2 ring-white bg-primary-container text-white text-[9px] font-semibold flex items-center justify-center">F</div>
+<div class="inline-block h-5 w-5 rounded-full ring-2 ring-white bg-stone-400 text-white text-[9px] font-semibold flex items-center justify-center">R</div>
+</div>
+<span class="text-[11px] text-stone-400">Edited 2h ago</span>
+</div>
+<div class="flex items-center gap-2">
+<a class="text-xs font-medium text-primary-container group-hover:underline flex items-center" href="#open-project">
+                        Continue →
+                      </a>
+<button class="p-1 text-stone-400 hover:text-stone-700 rounded">
+<span class="material-symbols-outlined text-[17px]">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<!-- CARD 2: UVT Doctorate 2025 -->
+<div class="bg-white border border-stone-200 rounded-xl p-5 hover:border-stone-300 hover:shadow-xs transition-all flex flex-col justify-between group">
+<div>
+<div class="flex flex-wrap items-center gap-1.5 mb-2.5">
+<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-stone-100 text-stone-600 border border-stone-200">Doctorate</span>
+<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-stone-100 text-stone-600 border border-stone-200">Periodic</span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-emerald-50 text-emerald-800 border border-emerald-200/80">
+<span class="material-symbols-outlined text-[12px] text-emerald-600" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span>Ready for export</span>
+</span>
+</div>
+<h3 class="font-headline font-semibold text-lg text-stone-900 group-hover:text-primary-container transition-colors leading-snug">
+                      UVT · Informatică · Doctorate 2025
+                    </h3>
+<p class="text-xs text-stone-500 mt-1">
+                      Universitatea de Vest din Timișoara · Faculty of Math &amp; CS
+                    </p>
+<!-- Progress Block (100%) -->
+<div class="mt-4 p-3 bg-stone-50 rounded-lg border border-stone-200/60">
+<div class="flex items-center justify-between text-xs mb-1.5 font-medium">
+<span class="text-emerald-800">39 of 39 indicators approved</span>
+<span class="text-emerald-700 font-semibold">100%</span>
+</div>
+<div class="h-2 w-full bg-emerald-600 rounded-full overflow-hidden"></div>
+<div class="flex items-center gap-2 mt-2 text-[10px] text-emerald-700">
+<span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> Verified against ARACIS standards</span>
+</div>
+</div>
+<!-- 3 Mini Stats -->
+<div class="grid grid-cols-3 gap-2 mt-3.5 text-center">
+<div class="py-1.5 px-2 bg-stone-50 rounded border border-stone-200/50">
+<div class="text-xs font-semibold text-stone-800">42</div>
+<div class="text-[10px] text-stone-500">documents</div>
+</div>
+<div class="py-1.5 px-2 bg-stone-50 rounded border border-stone-200/50">
+<div class="text-xs font-semibold text-stone-500">0</div>
+<div class="text-[10px] text-stone-400">to review</div>
+</div>
+<div class="py-1.5 px-2 bg-stone-50 rounded border border-stone-200/50">
+<div class="text-xs font-semibold text-stone-500">0</div>
+<div class="text-[10px] text-stone-400">unsourced</div>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="flex -space-x-1.5 overflow-hidden">
+<div class="inline-block h-5 w-5 rounded-full ring-2 ring-white bg-slate-700 text-white text-[9px] font-semibold flex items-center justify-center">V</div>
+<div class="inline-block h-5 w-5 rounded-full ring-2 ring-white bg-primary-fixed text-primary text-[9px] font-semibold flex items-center justify-center">F</div>
+</div>
+<span class="text-[11px] text-stone-400">Edited yesterday by Prof. Vasilescu</span>
+</div>
+<div class="flex items-center gap-2">
+<a class="text-xs font-medium text-primary-container group-hover:underline flex items-center" href="#export-project">
+                        Export →
+                      </a>
+<button class="p-1 text-stone-400 hover:text-stone-700 rounded">
+<span class="material-symbols-outlined text-[17px]">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<!-- CARD 3: UPT Master 2025 -->
+<div class="bg-white border border-stone-200 rounded-xl p-5 hover:border-stone-300 hover:shadow-xs transition-all flex flex-col justify-between group">
+<div>
+<div class="flex flex-wrap items-center gap-1.5 mb-2.5">
+<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-stone-100 text-stone-600 border border-stone-200">Master</span>
+<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-stone-100 text-stone-600 border border-stone-200">Accreditation</span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-amber-50 text-amber-800 border border-amber-200/80">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+<span>In progress</span>
+</span>
+</div>
+<h3 class="font-headline font-semibold text-lg text-stone-900 group-hover:text-primary-container transition-colors leading-snug">
+                      UPT · Automatică și Calculatoare · Master 2025
+                    </h3>
+<p class="text-xs text-stone-500 mt-1">
+                      Universitatea Politehnica Timișoara · Dept. Automation
+                    </p>
+<!-- Progress Block (10%) -->
+<div class="mt-4 p-3 bg-stone-50 rounded-lg border border-stone-200/60">
+<div class="flex items-center justify-between text-xs mb-1.5 font-medium">
+<span class="text-stone-800">3 of 30 indicators approved</span>
+<span class="text-stone-600 font-semibold">10%</span>
+</div>
+<div class="h-2 w-full bg-stone-200 rounded-full overflow-hidden flex gap-0.5">
+<div class="bg-emerald-600 h-full" style="width: 10%;"></div>
+<div class="bg-amber-500 h-full" style="width: 15%;"></div>
+<div class="bg-sky-600 h-full" style="width: 25%;"></div>
+<div class="bg-stone-300 h-full flex-1"></div>
+</div>
+<div class="flex items-center gap-2.5 mt-2 text-[10px] text-stone-500">
+<span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> 3 Appr</span>
+<span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> 4 Rev</span>
+<span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-stone-300"></span> 16 Blank</span>
+</div>
+</div>
+<!-- 3 Mini Stats -->
+<div class="grid grid-cols-3 gap-2 mt-3.5 text-center">
+<div class="py-1.5 px-2 bg-stone-50 rounded border border-stone-200/50">
+<div class="text-xs font-semibold text-stone-800">8</div>
+<div class="text-[10px] text-stone-500">documents</div>
+</div>
+<div class="py-1.5 px-2 bg-amber-50/70 rounded border border-amber-200/50">
+<div class="text-xs font-semibold text-amber-800">2</div>
+<div class="text-[10px] text-amber-700">to review</div>
+</div>
+<div class="py-1.5 px-2 bg-rose-50/70 rounded border border-rose-200/50">
+<div class="text-xs font-semibold text-rose-800">1</div>
+<div class="text-[10px] text-rose-700">unsourced</div>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between">
+<span class="text-[11px] text-stone-400">Edited 3 days ago by Fares</span>
+<div class="flex items-center gap-2">
+<a class="text-xs font-medium text-primary-container group-hover:underline" href="#continue">
+                        Continue →
+                      </a>
+<button class="p-1 text-stone-400 hover:text-stone-700 rounded">
+<span class="material-symbols-outlined text-[17px]">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<!-- CARD 4: Dashed "+ Create a new report" Action Card -->
+<button class="border-2 border-dashed border-stone-300 hover:border-primary-container/70 hover:bg-stone-50/60 rounded-xl p-6 flex flex-col items-center justify-center text-center transition-all group min-h-[290px]" onclick="alert('Launch New Evaluation Wizard')">
+<div class="w-11 h-11 rounded-full bg-stone-100 group-hover:bg-primary-container group-hover:text-white text-stone-500 flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-[22px]">add</span>
+</div>
+<h4 class="font-headline text-lg font-medium text-stone-800 group-hover:text-stone-900 mt-3">
+                    + Create a new report
+                  </h4>
+<p class="text-xs text-stone-500 max-w-xs mt-1 leading-relaxed">
+                    Set up an ARACIS self-evaluation dossier for Bachelor, Master, or Doctoral study programmes.
+                  </p>
+</button>
+</div>
+<!-- TABLE VIEW (Hidden by default, switchable via toggle) -->
+<div class="hidden bg-white border border-stone-200 rounded-xl overflow-hidden shadow-2xs" id="view-table">
+<table class="w-full text-left border-collapse text-xs">
+<thead>
+<tr class="border-b border-stone-200 bg-stone-50/70 text-stone-500 font-medium">
+<th class="py-3 px-4">Report</th>
+<th class="py-3 px-3">Cycle</th>
+<th class="py-3 px-3">Status</th>
+<th class="py-3 px-4">Progress</th>
+<th class="py-3 px-3">Documents</th>
+<th class="py-3 px-3">Last edited</th>
+<th class="py-3 px-3 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-stone-100">
+<tr class="hover:bg-stone-50/50 transition-colors">
+<td class="py-3 px-4">
+<p class="font-semibold text-stone-900">UPT · Computer Engineering · Doctorate 2026</p>
+<p class="text-[11px] text-stone-500">Universitatea Politehnica Timișoara</p>
+</td>
+<td class="py-3 px-3"><span class="px-2 py-0.5 rounded text-[11px] bg-stone-100 text-stone-600">Doctorate</span></td>
+<td class="py-3 px-3"><span class="text-amber-800 font-medium">● In progress</span></td>
+<td class="py-3 px-4">
+<div class="w-32">
+<div class="flex justify-between text-[11px] mb-1">
+<span>12/39</span>
+<span>31%</span>
+</div>
+<div class="h-1.5 w-full bg-stone-200 rounded-full overflow-hidden flex">
+<div class="bg-emerald-600 h-full w-[31%]"></div>
+<div class="bg-amber-500 h-full w-[13%]"></div>
+<div class="bg-sky-600 h-full w-[36%]"></div>
+</div>
+</div>
+</td>
+<td class="py-3 px-3">18 files</td>
+<td class="py-3 px-3 text-stone-500 text-[11px]">2 hours ago</td>
+<td class="py-3 px-3 text-right">
+<button class="font-medium text-primary-container hover:underline mr-2">Continue</button>
+</td>
+</tr>
+<tr class="hover:bg-stone-50/50 transition-colors">
+<td class="py-3 px-4">
+<p class="font-semibold text-stone-900">UVT · Informatică · Doctorate 2025</p>
+<p class="text-[11px] text-stone-500">Universitatea de Vest din Timișoara</p>
+</td>
+<td class="py-3 px-3"><span class="px-2 py-0.5 rounded text-[11px] bg-stone-100 text-stone-600">Doctorate</span></td>
+<td class="py-3 px-3"><span class="text-emerald-800 font-medium">✓ Ready for export</span></td>
+<td class="py-3 px-4">
+<div class="w-32">
+<div class="flex justify-between text-[11px] mb-1">
+<span>39/39</span>
+<span>100%</span>
+</div>
+<div class="h-1.5 w-full bg-emerald-600 rounded-full"></div>
+</div>
+</td>
+<td class="py-3 px-3">42 files</td>
+<td class="py-3 px-3 text-stone-500 text-[11px]">Yesterday</td>
+<td class="py-3 px-3 text-right">
+<button class="font-medium text-primary-container hover:underline mr-2">Export</button>
+</td>
+</tr>
+<tr class="hover:bg-stone-50/50 transition-colors">
+<td class="py-3 px-4">
+<p class="font-semibold text-stone-900">UPT · Automatică și Calculatoare · Master 2025</p>
+<p class="text-[11px] text-stone-500">Universitatea Politehnica Timișoara</p>
+</td>
+<td class="py-3 px-3"><span class="px-2 py-0.5 rounded text-[11px] bg-stone-100 text-stone-600">Master</span></td>
+<td class="py-3 px-3"><span class="text-amber-800 font-medium">● In progress</span></td>
+<td class="py-3 px-4">
+<div class="w-32">
+<div class="flex justify-between text-[11px] mb-1">
+<span>3/30</span>
+<span>10%</span>
+</div>
+<div class="h-1.5 w-full bg-stone-200 rounded-full overflow-hidden flex">
+<div class="bg-emerald-600 h-full w-[10%]"></div>
+<div class="bg-amber-500 h-full w-[15%]"></div>
+</div>
+</div>
+</td>
+<td class="py-3 px-3">8 files</td>
+<td class="py-3 px-3 text-stone-500 text-[11px]">3 days ago</td>
+<td class="py-3 px-3 text-right">
+<button class="font-medium text-primary-container hover:underline mr-2">Continue</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- EMPTY DASHBOARD VIEW -->
+<div class="hidden p-12 text-center bg-white border border-dashed border-stone-300 rounded-xl space-y-4" id="view-empty">
+<div class="w-14 h-14 mx-auto rounded-full bg-stone-100 text-stone-500 flex items-center justify-center">
+<span class="material-symbols-outlined text-2xl">library_books</span>
+</div>
+<div class="max-w-md mx-auto">
+<h3 class="font-headline text-lg font-semibold text-stone-900">No active evaluation reports</h3>
+<p class="text-xs text-stone-500 mt-1">Your institutional workspace has no reports configured yet. Start an evaluation dossier under ARACIS standards.</p>
+</div>
+<button class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary-container text-white text-xs font-medium hover:bg-primary transition-all">
+<span class="material-symbols-outlined text-[16px]">add</span>
+<span>Create first report</span>
+</button>
+</div>
+</div>
+</div>
+<!-- RIGHT RAIL (col-span-4) -->
+<div class="lg:col-span-4 space-y-5">
+<!-- SUGGESTED NEXT STEP CARD -->
+<div class="p-5 rounded-xl bg-white border border-amber-200/90 shadow-2xs relative overflow-hidden">
+<div class="flex items-center gap-2 text-amber-800 text-xs uppercase tracking-wider mb-2 font-semibold">
+<span class="material-symbols-outlined text-[16px]">lightbulb</span>
+<span>Suggested next step</span>
+</div>
+<h4 class="font-headline text-base font-semibold text-stone-900 leading-snug">
+                Add missing Charter document
+              </h4>
+<p class="text-xs text-stone-600 mt-1.5 leading-relaxed">
+                Unlock 6 automated indicators in <strong class="text-stone-900 font-medium">UPT Doctorate 2026</strong> by providing the official university charter.
+              </p>
+<div class="mt-4 pt-3.5 border-t border-stone-100 flex items-center justify-between">
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary-container text-white text-xs font-medium hover:bg-primary transition-colors shadow-2xs" onclick="alert('Opening Charter uploader...')">
+<span class="material-symbols-outlined text-[16px]">upload_file</span>
+<span>Upload Charter</span>
+</button>
+<button class="text-xs text-stone-400 hover:text-stone-700">Dismiss</button>
+</div>
+</div>
+<!-- RECENT ACTIVITY CARD (Vertical Timeline) -->
+<div class="bg-white border border-stone-200 rounded-xl p-5 shadow-2xs">
+<div class="flex items-center justify-between mb-4 pb-2 border-b border-stone-100">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-stone-500 text-[18px]">history</span>
+<h3 class="text-xs font-semibold text-stone-900 uppercase tracking-wider">Recent activity</h3>
+</div>
+<span class="text-[11px] text-stone-400">Live feed</span>
+</div>
+<!-- Vertical Timeline Feed -->
+<div class="relative pl-5 space-y-4 before:content-[''] before:absolute before:left-2 before:top-2 before:bottom-2 before:w-[1px] before:bg-stone-200">
+<!-- Event 1 -->
+<div class="relative">
+<span class="absolute -left-5 top-1.5 w-2 h-2 rounded-full bg-emerald-600 ring-4 ring-white"></span>
+<p class="text-xs text-stone-800 font-medium">Fares approved A.1.1.1</p>
+<p class="text-[11px] text-stone-400 mt-0.5">2h ago · UPT Doctorate</p>
+</div>
+<!-- Event 2 -->
+<div class="relative">
+<span class="absolute -left-5 top-1.5 w-2 h-2 rounded-full bg-sky-600 ring-4 ring-white"></span>
+<p class="text-xs text-stone-800 font-medium">AI drafted B.2.1.1</p>
+<p class="text-[11px] text-stone-400 mt-0.5">Yesterday · Synthesis complete</p>
+</div>
+<!-- Event 3 -->
+<div class="relative">
+<span class="absolute -left-5 top-1.5 w-2 h-2 rounded-full bg-stone-500 ring-4 ring-white"></span>
+<p class="text-xs text-stone-800 font-medium">Regulament doctorat accepted</p>
+<p class="text-[11px] text-stone-400 mt-0.5">Yesterday · Verified by Prof. Vasilescu</p>
+</div>
+<!-- Event 4 -->
+<div class="relative">
+<span class="absolute -left-5 top-1.5 w-2 h-2 rounded-full bg-amber-500 ring-4 ring-white"></span>
+<p class="text-xs text-stone-800 font-medium">Crawl finished: 12 docs added</p>
+<p class="text-[11px] text-stone-400 mt-0.5">2 days ago · UPT crawler</p>
+</div>
+<!-- Event 5 -->
+<div class="relative">
+<span class="absolute -left-5 top-1.5 w-2 h-2 rounded-full bg-primary-container ring-4 ring-white"></span>
+<p class="text-xs text-stone-800 font-medium">Fares linked Carta Universitară</p>
+<p class="text-[11px] text-stone-400 mt-0.5">3 days ago · Source mapping</p>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-stone-100 text-center">
+<a class="text-xs font-medium text-primary-container hover:underline inline-flex items-center gap-1" href="#all-activity">
+<span>View all activity</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- ACADEMIC INTEGRITY & COMPLIANCE BADGE -->
+<div class="p-4 rounded-xl bg-stone-100/70 border border-stone-200 flex items-start gap-3">
+<span class="material-symbols-outlined text-stone-500 text-[19px] mt-0.5">verified_user</span>
+<div class="text-[11px] text-stone-600 leading-relaxed">
+<span class="font-semibold text-stone-800">ARACIS QA Framework</span>
+<p class="mt-0.5">All indicator definitions adhere strictly to Romanian Academic Quality Assurance standards for Higher Education.</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- =================================================================== -->
+<!-- FOOTER -->
+<!-- =================================================================== -->
+<footer class="mt-auto border-t border-stone-200 bg-white py-5 px-8">
+<div class="max-w-[1360px] mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-stone-500">
+<div class="flex items-center gap-2">
+<span class="font-semibold text-stone-800">Indicata</span>
+<span>·</span>
+<span>© Indicata. ARACIS QA Framework compliant.</span>
+</div>
+<div class="flex items-center gap-6 text-[11px]">
+<a class="hover:text-primary-container hover:underline transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary-container hover:underline transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-primary-container hover:underline transition-colors" href="#">Institutional Access</a>
+</div>
+</div>
+</footer>
+</div>
+</div>
+<!-- Interactive Controls Logic -->
+<script>
+    function switchState(state) {
+      const gridView = document.getElementById('view-card-grid');
+      const tableView = document.getElementById('view-table');
+      const emptyView = document.getElementById('view-empty');
+      const attentionWrapper = document.getElementById('attention-cards-wrapper');
+      const attentionCaughtUp = document.getElementById('attention-caught-up-banner');
+      const attentionCounter = document.getElementById('attention-counter');
+      const countBadge = document.getElementById('reports-count-badge');
+
+      // Reset
+      gridView.classList.add('hidden');
+      tableView.classList.add('hidden');
+      emptyView.classList.add('hidden');
+      attentionWrapper.classList.remove('hidden');
+      attentionCaughtUp.classList.add('hidden');
+      attentionCounter.classList.remove('hidden');
+      countBadge.innerText = '4';
+
+      if (state === 'populated') {
+        gridView.classList.remove('hidden');
+        setViewToggleButton('grid');
+      } else if (state === 'table') {
+        tableView.classList.remove('hidden');
+        setViewToggleButton('table');
+      } else if (state === 'caughtup') {
+        gridView.classList.remove('hidden');
+        attentionWrapper.classList.add('hidden');
+        attentionCaughtUp.classList.remove('hidden');
+        attentionCaughtUp.classList.add('flex');
+        attentionCounter.classList.add('hidden');
+        setViewToggleButton('grid');
+      } else if (state === 'empty') {
+        emptyView.classList.remove('hidden');
+        countBadge.innerText = '0';
+      }
+    }
+
+    function setViewMode(mode) {
+      if (mode === 'grid') {
+        document.getElementById('view-card-grid').classList.remove('hidden');
+        document.getElementById('view-table').classList.add('hidden');
+        setViewToggleButton('grid');
+      } else {
+        document.getElementById('view-card-grid').classList.add('hidden');
+        document.getElementById('view-table').classList.remove('hidden');
+        setViewToggleButton('table');
+      }
+    }
+
+    function setViewToggleButton(mode) {
+      const btnGrid = document.getElementById('btn-view-grid');
+      const btnTable = document.getElementById('btn-view-table');
+      if (mode === 'grid') {
+        btnGrid.classList.add('bg-stone-100', 'text-stone-900');
+        btnGrid.classList.remove('text-stone-500');
+        btnTable.classList.remove('bg-stone-100', 'text-stone-900');
+        btnTable.classList.add('text-stone-500');
+      } else {
+        btnTable.classList.add('bg-stone-100', 'text-stone-900');
+        btnTable.classList.remove('text-stone-500');
+        btnGrid.classList.remove('bg-stone-100', 'text-stone-900');
+        btnGrid.classList.add('text-stone-500');
+      }
+    }
+
+    function toggleAttentionBanner() {
+      const attentionWrapper = document.getElementById('attention-cards-wrapper');
+      const attentionCaughtUp = document.getElementById('attention-caught-up-banner');
+      const attentionCounter = document.getElementById('attention-counter');
+      if (attentionWrapper.classList.contains('hidden')) {
+        attentionWrapper.classList.remove('hidden');
+        attentionCaughtUp.classList.add('hidden');
+        attentionCounter.classList.remove('hidden');
+      } else {
+        attentionWrapper.classList.add('hidden');
+        attentionCaughtUp.classList.remove('hidden');
+        attentionCaughtUp.classList.add('flex');
+        attentionCounter.classList.add('hidden');
+      }
+    }
+
+    function setCycleFilter(name) {
+      document.querySelectorAll('.cycle-tab').forEach(tab => {
+        if (tab.innerText === name) {
+          tab.classList.add('bg-white', 'text-stone-900', 'font-medium', 'shadow-2xs');
+          tab.classList.remove('text-stone-600');
+        } else {
+          tab.classList.remove('bg-white', 'text-stone-900', 'font-medium', 'shadow-2xs');
+          tab.classList.add('text-stone-600');
+        }
+      });
+    }
+
+    function handleSearch(val) {
+      if (val.trim().toLowerCase() === 'none') {
+        switchState('empty');
+      } else if (val.trim() === '') {
+        switchState('populated');
+      }
+    }
+  </script>
+</body></html>

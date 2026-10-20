@@ -1,0 +1,106 @@
+<nav class="hidden sm:block" aria-label="Evaluation setup progress">
+  <ol class="flex w-full items-center justify-between">
+    @for (step of steps; track step.number; let last = $last) {
+      <li
+        class="flex items-center"
+        [class.flex-1]="!last"
+        [attr.aria-current]="statusOf(step.number) === 'active' ? 'step' : null"
+      >
+        <button
+          class="group focus-visible:ring-primary/40 flex min-h-11 items-center gap-2.5 rounded-lg text-left focus-visible:ring-2 focus-visible:outline-none disabled:cursor-not-allowed"
+          type="button"
+          [disabled]="!isSelectable(step.number)"
+          [attr.aria-label]="accessibleLabel(step)"
+          (click)="onSelect(step.number)"
+        >
+          <span
+            class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-sm font-medium transition-colors"
+            [class.bg-primary]="statusOf(step.number) === 'completed'"
+            [class.text-on-primary]="statusOf(step.number) === 'completed'"
+            [class.border-primary]="statusOf(step.number) === 'completed'"
+            [class.bg-primary-container]="statusOf(step.number) === 'active'"
+            [class.text-on-primary-container]="statusOf(step.number) === 'active'"
+            [class.border-primary-container]="statusOf(step.number) === 'active'"
+            [class.bg-surface]="statusOf(step.number) === 'inactive'"
+            [class.text-on-surface-variant]="statusOf(step.number) === 'inactive'"
+            [class.border-outline-variant]="statusOf(step.number) === 'inactive'"
+            aria-hidden="true"
+          >
+            @if (statusOf(step.number) === 'completed') {
+              <span class="material-symbols-outlined text-[16px]">check</span>
+            } @else {
+              {{ step.number }}
+            }
+          </span>
+          <span class="flex flex-col">
+            <span class="text-on-surface-variant text-xs tracking-wider uppercase">
+              Step {{ step.number }}
+            </span>
+            <span
+              class="text-sm font-medium"
+              [class.text-on-surface]="statusOf(step.number) !== 'inactive'"
+              [class.text-on-surface-variant]="statusOf(step.number) === 'inactive'"
+            >
+              {{ step.label }}
+            </span>
+          </span>
+        </button>
+        @if (!last) {
+          <span
+            class="mx-3 h-px flex-1"
+            [class.bg-primary]="statusOf(step.number) === 'completed'"
+            [class.bg-outline-variant]="statusOf(step.number) !== 'completed'"
+            aria-hidden="true"
+          ></span>
+        }
+      </li>
+    }
+  </ol>
+</nav>
+
+<section class="sm:hidden" aria-label="Evaluation setup progress">
+  <div class="mb-2 flex items-center justify-between">
+    <span class="text-primary text-sm font-semibold">
+      Step {{ activeStep() }} of {{ totalSteps }}: {{ activeLabel() }}
+    </span>
+  </div>
+
+  <div
+    class="bg-surface-container mb-2.5 h-1 w-full overflow-hidden rounded-full"
+    role="progressbar"
+    [attr.aria-valuenow]="activeStep()"
+    aria-valuemin="1"
+    [attr.aria-valuemax]="totalSteps"
+    [attr.aria-valuetext]="'Step ' + activeStep() + ' of ' + totalSteps"
+  >
+    <span
+      class="bg-primary block h-full transition-all duration-300 ease-out"
+      [style.width.%]="progressValue()"
+    ></span>
+  </div>
+
+  <nav
+    class="no-scrollbar flex items-center justify-between gap-1 overflow-x-auto"
+    aria-label="Wizard steps"
+  >
+    @for (step of steps; track step.number) {
+      <button
+        class="focus-visible:ring-primary/40 flex min-h-11 flex-1 items-center justify-center rounded px-2.5 text-xs transition-colors focus-visible:ring-2 focus-visible:outline-none disabled:cursor-not-allowed"
+        type="button"
+        [disabled]="!isSelectable(step.number)"
+        [attr.aria-current]="statusOf(step.number) === 'active' ? 'step' : null"
+        [attr.aria-label]="accessibleLabel(step)"
+        [class.bg-surface-container-lowest]="statusOf(step.number) === 'active'"
+        [class.border]="statusOf(step.number) === 'active'"
+        [class.border-outline-variant]="statusOf(step.number) === 'active'"
+        [class.text-primary]="statusOf(step.number) === 'active'"
+        [class.font-medium]="statusOf(step.number) === 'active'"
+        [class.text-on-surface]="statusOf(step.number) === 'completed'"
+        [class.text-on-surface-variant]="statusOf(step.number) === 'inactive'"
+        (click)="onSelect(step.number)"
+      >
+        {{ step.number }}. {{ step.label }}
+      </button>
+    }
+  </nav>
+</section>

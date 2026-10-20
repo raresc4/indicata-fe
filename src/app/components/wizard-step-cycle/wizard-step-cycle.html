@@ -1,0 +1,42 @@
+<header class="mb-8">
+  <h1 class="font-serif text-on-background text-2xl tracking-tight sm:text-3xl" tabindex="-1">
+    What are you evaluating?
+  </h1>
+  <p class="text-on-surface-variant mt-1.5 text-sm">
+    Choose the study cycle. This sets the structure of the report and the indicators used.
+  </p>
+</header>
+
+<div
+  class="grid grid-cols-1 gap-4 md:grid-cols-3"
+  role="radiogroup"
+  aria-label="Selectable study cycles"
+>
+  @for (option of cycles; track option.value) {
+    <app-selectable-cycle-card
+      [cycle]="option"
+      [checked]="option.value === selected()"
+      [tabIndex]="tabIndexFor(option.value)"
+      (pick)="select($event)"
+    />
+  }
+</div>
+
+<div
+  class="bg-surface-container-low border-outline-variant text-on-surface-variant mt-8 flex items-center gap-2.5 rounded-lg border p-3.5 text-sm"
+>
+  <span class="material-symbols-outlined text-primary text-[18px]" aria-hidden="true">info</span>
+  <span> Indicators and the report structure follow the ARACIS guide for the selected cycle. </span>
+</div>
+
+<div class="border-outline-variant mt-10 flex items-center justify-between border-t pt-6">
+  <span class="text-on-surface-variant text-xs">Step 1 of 4</span>
+  <button
+    class="bg-primary text-on-primary hover:bg-primary-container focus-visible:ring-primary/40 flex min-h-11 items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-medium shadow-sm transition-colors focus-visible:ring-2 focus-visible:outline-none"
+    type="button"
+    (click)="goNext()"
+  >
+    <span>Continue</span>
+    <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span>
+  </button>
+</div>

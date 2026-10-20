@@ -1,0 +1,36 @@
+:host ::ng-deep .ProseMirror {
+  outline: none;
+}
+
+:host ::ng-deep .ProseMirror:focus {
+  outline: none;
+}
+
+:host ::ng-deep .ProseMirror [data-section-heading] {
+  margin-top: 1.5rem;
+}
+
+:host ::ng-deep .ProseMirror [data-section-heading]:first-child {
+  margin-top: 0;
+}
+
+:host ::ng-deep .ProseMirror [data-block-paragraph] {
+  margin-top: 0.75rem;
+}
+
+:host ::ng-deep .ProseMirror [data-human-edited] {
+  border-left: 2px solid var(--color-success);
+  padding-left: 0.5rem;
+}
+
+:host ::ng-deep .ProseMirror [data-citation] + [data-citation] {
+  margin-left: 0.25rem;
+}
+
+:host ::ng-deep .ProseMirror [data-source-ref][data-chip-active] {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}

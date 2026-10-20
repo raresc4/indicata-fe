@@ -1,0 +1,22 @@
+<div
+  class="bg-error-container/40 border-error/30 text-on-error-container mb-6 rounded-xl border p-4 focus-visible:outline-none"
+  role="alert"
+  tabindex="-1"
+>
+  <div class="flex items-start gap-3">
+    <span class="material-symbols-outlined text-error mt-0.5 text-xl" aria-hidden="true"
+      >error</span
+    >
+    <div class="text-sm">
+      <p class="text-error font-medium">
+        {{ invalidFields().length }}
+        {{ invalidFields().length === 1 ? 'field needs' : 'fields need' }} attention
+      </p>
+      <ul class="text-on-surface-variant mt-1.5 list-disc space-y-0.5 pl-5">
+        @for (field of invalidFields(); track field) {
+          <li>{{ field }}</li>
+        }
+      </ul>
+    </div>
+  </div>
+</div>

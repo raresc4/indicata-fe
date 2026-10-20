@@ -1,0 +1,205 @@
+<div class="flex min-h-0 flex-1 flex-col">
+  <div class="border-outline-variant flex h-14 shrink-0 items-center border-b px-5">
+    <div class="flex items-center gap-2.5">
+      <span
+        class="bg-primary text-on-primary flex h-7 w-7 items-center justify-center rounded-md"
+        aria-hidden="true"
+      >
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M21 10.656V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h12.344" />
+          <path d="m9 11 3 3L22 4" />
+        </svg>
+      </span>
+      <span class="flex flex-col leading-none">
+        <span class="font-serif text-on-surface text-lg font-bold tracking-tight">Indicata</span>
+        <span
+          class="text-on-surface-variant mt-0.5 text-[10px] font-medium tracking-wider uppercase"
+        >
+          ARACIS QA
+        </span>
+      </span>
+    </div>
+  </div>
+
+  <nav aria-label="Main" class="flex-1 space-y-1 overflow-y-auto p-3">
+    @for (item of navItems; track item.id) {
+      @if (item.path) {
+        <a
+          [routerLink]="item.path"
+          routerLinkActive="bg-primary-container text-on-primary-container font-semibold"
+          [routerLinkActiveOptions]="{ exact: false }"
+          #active="routerLinkActive"
+          [attr.aria-current]="active.isActive ? 'page' : null"
+          class="text-on-surface-variant hover:bg-surface-container hover:text-on-surface focus-visible:ring-primary/50 flex items-center gap-3 rounded-md px-3 py-2 text-xs font-medium transition focus-visible:ring-2 focus-visible:outline-none"
+        >
+          <ng-container
+            [ngTemplateOutlet]="itemBody"
+            [ngTemplateOutletContext]="{ $implicit: item }"
+          />
+        </a>
+      } @else {
+        <button
+          type="button"
+          class="text-on-surface-variant hover:bg-surface-container hover:text-on-surface focus-visible:ring-primary/50 flex w-full items-center gap-3 rounded-md px-3 py-2 text-left text-xs font-medium transition focus-visible:ring-2 focus-visible:outline-none"
+        >
+          <ng-container
+            [ngTemplateOutlet]="itemBody"
+            [ngTemplateOutletContext]="{ $implicit: item }"
+          />
+        </button>
+      }
+    }
+  </nav>
+</div>
+
+<div class="border-outline-variant shrink-0 border-t p-3">
+  <div
+    class="hover:bg-surface-container flex items-center gap-2.5 rounded-md px-2 py-1.5 transition"
+  >
+    <span
+      class="bg-primary-container text-on-primary-container flex h-8 w-8 shrink-0 items-center justify-center rounded-full font-serif text-xs font-bold"
+      aria-hidden="true"
+    >
+      {{ initials() }}
+    </span>
+    <span class="min-w-0 flex-1 leading-tight">
+      <span class="text-on-surface block truncate text-xs font-semibold">{{ userName }}</span>
+      <span class="text-on-surface-variant mt-0.5 block truncate text-[10px]">{{ userRole }}</span>
+    </span>
+    <button
+      type="button"
+      aria-label="User menu"
+      class="text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface focus-visible:ring-primary/50 flex h-7 w-7 shrink-0 items-center justify-center rounded-md transition focus-visible:ring-2 focus-visible:outline-none"
+    >
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <circle cx="12" cy="12" r="1" />
+        <circle cx="12" cy="5" r="1" />
+        <circle cx="12" cy="19" r="1" />
+      </svg>
+    </button>
+  </div>
+</div>
+
+<ng-template #itemBody let-item>
+  <span class="shrink-0" aria-hidden="true">
+    @switch (item.icon) {
+      @case ('projects') {
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"
+          />
+        </svg>
+      }
+      @case ('documents') {
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"
+          />
+          <path d="M14 2v5a1 1 0 0 0 1 1h5" />
+          <path d="M10 9H8" />
+          <path d="M16 13H8" />
+          <path d="M16 17H8" />
+        </svg>
+      }
+      @case ('indicators') {
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M21.801 10A10 10 0 1 1 17 3.335" />
+          <path d="m9 11 3 3L22 4" />
+        </svg>
+      }
+      @case ('export') {
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"
+          />
+          <path d="M14 2v5a1 1 0 0 0 1 1h5" />
+          <path d="M12 18v-6" />
+          <path d="m9 15 3 3 3-3" />
+        </svg>
+      }
+      @case ('settings') {
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"
+          />
+          <circle cx="12" cy="12" r="3" />
+        </svg>
+      }
+    }
+  </span>
+  <span class="flex-1 truncate">{{ item.label }}</span>
+  @if (item.badge !== undefined) {
+    <span
+      class="bg-surface-container text-on-surface-variant rounded px-1.5 py-0.5 text-[10px] font-medium"
+    >
+      {{ item.badge }}
+    </span>
+  }
+  @if (item.attention) {
+    <span class="bg-primary h-2 w-2 shrink-0 rounded-full" aria-hidden="true"></span>
+  }
+</ng-template>

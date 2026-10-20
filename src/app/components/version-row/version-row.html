@@ -1,0 +1,93 @@
+<div
+  class="relative space-y-1.5 rounded-lg border p-3 transition-all"
+  [class.border-2]="selected()"
+  [class.border-primary]="selected()"
+  [class.bg-primary-container]="selected()"
+  [class.border-outline-variant]="!selected()"
+  [class.bg-surface]="!selected()"
+>
+  <div class="flex items-center justify-between gap-2">
+    <span class="flex items-center gap-2">
+      <span class="text-on-surface font-mono text-xs font-bold"
+        >v{{ version().versionNumber }}</span
+      >
+      <span
+        class="rounded px-1.5 py-0.5 font-mono text-[9px] font-bold {{ originPresentation().chip }}"
+      >
+        {{ originPresentation().label }}
+      </span>
+      @if (pickLabel()) {
+        <span
+          class="bg-primary text-on-primary flex h-4 w-4 items-center justify-center rounded font-mono text-[10px] font-bold"
+          aria-hidden="true"
+        >
+          {{ pickLabel() }}
+        </span>
+      }
+    </span>
+    <span class="text-on-surface-variant shrink-0 text-[10px]">{{ formattedTimestamp() }}</span>
+  </div>
+
+  <div class="flex items-center gap-1.5">
+    <button
+      type="button"
+      class="border-outline-variant text-on-surface hover:border-primary hover:text-primary focus-visible:ring-primary/50 inline-flex items-center gap-1.5 rounded border px-2 py-1 text-[11px] font-medium transition focus-visible:ring-2 focus-visible:outline-none"
+      [class.border-primary]="selected()"
+      [class.text-primary]="selected()"
+      [attr.aria-pressed]="selected()"
+      [attr.aria-label]="selectLabel()"
+      (click)="emitSelect()"
+    >
+      <svg
+        width="12"
+        height="12"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        @if (selected()) {
+          <path d="M20 6 9 17l-5-5" />
+        } @else {
+          <path d="M12 3v12" />
+          <path d="M5 12h14" />
+        }
+      </svg>
+      {{ selected() ? 'Selected' : 'Compare' }}
+    </button>
+
+    <button
+      type="button"
+      class="focus-visible:ring-primary/50 focus-visible:ring-offset-surface inline-flex items-center gap-1.5 rounded border px-2 py-1 text-[11px] font-medium transition focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:outline-none {{
+        loadButtonClasses()
+      }}"
+      [attr.aria-pressed]="active()"
+      [attr.aria-label]="loadLabel()"
+      (click)="emitLoad()"
+    >
+      <svg
+        width="12"
+        height="12"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        @if (active()) {
+          <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+          <circle cx="12" cy="12" r="3" />
+        } @else {
+          <path d="M5 12h14" />
+          <path d="m12 5 7 7-7 7" />
+        }
+      </svg>
+      {{ active() ? 'Viewing' : 'Select' }}
+    </button>
+  </div>
+</div>

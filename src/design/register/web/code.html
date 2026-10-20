@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Indicata — Institutional Registration</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-container-low": "#f4f3f0",
+            "on-tertiary": "#ffffff",
+            "surface-variant": "#e3e2df",
+            "primary-container": "#2b4c7e",
+            "primary-fixed-dim": "#a9c7ff",
+            "on-secondary-container": "#636262",
+            "secondary-fixed-dim": "#c8c6c5",
+            "surface-container-lowest": "#ffffff",
+            "on-primary": "#ffffff",
+            "on-tertiary-container": "#bfbcb6",
+            "on-tertiary-fixed-variant": "#474742",
+            "inverse-on-surface": "#f2f1ee",
+            "on-surface-variant": "#43474f",
+            "on-secondary-fixed": "#1b1b1c",
+            "tertiary-fixed-dim": "#c9c6c0",
+            "tertiary-container": "#4d4c48",
+            "on-primary-fixed": "#001b3d",
+            "surface-container-highest": "#e3e2df",
+            "inverse-primary": "#a9c7ff",
+            "primary": "#0e3566",
+            "inverse-surface": "#2f312f",
+            "primary-fixed": "#d6e3ff",
+            "secondary-fixed": "#e5e2e1",
+            "outline-variant": "#c3c6d0",
+            "on-background": "#1b1c1a",
+            "on-primary-fixed-variant": "#254778",
+            "surface-tint": "#3f5f92",
+            "on-tertiary-fixed": "#1c1c18",
+            "on-secondary-fixed-variant": "#474746",
+            "error-container": "#ffdad6",
+            "surface": "#faf9f6",
+            "on-primary-container": "#9ebdf7",
+            "background": "#faf9f6",
+            "surface-bright": "#faf9f6",
+            "surface-dim": "#dbdad7",
+            "on-error-container": "#93000a",
+            "tertiary": "#363531",
+            "secondary-container": "#e2dfde",
+            "on-surface": "#1b1c1a",
+            "on-secondary": "#ffffff",
+            "tertiary-fixed": "#e5e2dc",
+            "surface-container": "#efeeeb",
+            "secondary": "#5f5e5e",
+            "error": "#ba1a1a",
+            "surface-container-high": "#e9e8e5",
+            "on-error": "#ffffff",
+            "outline": "#747780"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-sm": "0.5rem",
+            "gutter-desktop": "1.5rem",
+            "margin-desktop": "3rem",
+            "space-lg": "1.5rem",
+            "margin-tablet": "2rem",
+            "gutter": "1rem",
+            "margin": "1rem",
+            "space-md": "1rem",
+            "space-xs": "0.25rem",
+            "space-xl": "2.5rem"
+          },
+          "fontFamily": {
+            "body-sm": ["Inter", "sans-serif"],
+            "label-sm": ["Inter", "sans-serif"],
+            "headline-sm": ["Newsreader", "serif"],
+            "label-md": ["Inter", "sans-serif"],
+            "display": ["Newsreader", "serif"],
+            "body-md": ["Inter", "sans-serif"],
+            "headline-lg-mobile": ["Newsreader", "serif"],
+            "headline-lg": ["Newsreader", "serif"],
+            "caption": ["Inter", "sans-serif"],
+            "body-lg": ["Inter", "sans-serif"]
+          },
+          "fontSize": {
+            "body-sm": ["0.8125rem", { "lineHeight": "1.35rem", "fontWeight": "400" }],
+            "label-sm": ["0.75rem", { "lineHeight": "1rem", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "headline-sm": ["1.25rem", { "lineHeight": "1.75rem", "fontWeight": "500" }],
+            "label-md": ["0.875rem", { "lineHeight": "1.25rem", "fontWeight": "500" }],
+            "display": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.02em", "fontWeight": "400" }],
+            "body-md": ["0.875rem", { "lineHeight": "1.45rem", "fontWeight": "400" }],
+            "headline-lg-mobile": ["1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+            "headline-lg": ["1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.015em", "fontWeight": "400" }],
+            "caption": ["0.6875rem", { "lineHeight": "1rem", "fontWeight": "400" }],
+            "body-lg": ["1rem", { "lineHeight": "1.6rem", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 20;
+      font-size: 1.15rem;
+      line-height: 1;
+    }
+    .custom-soft-shadow {
+      box-shadow: 0 4px 20px -2px rgba(30, 30, 30, 0.03), 0 2px 6px -1px rgba(30, 30, 30, 0.02);
+    }
+    input:focus {
+      outline: none !important;
+      border-color: #2b4c7e !important;
+      box-shadow: 0 0 0 3px rgba(43, 76, 126, 0.08) !important;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col justify-between selection:bg-primary-fixed selection:text-on-primary-fixed antialiased">
+<!-- Header Component (Anchored via Shared Components JSON) -->
+<header class="w-full max-w-5xl mx-auto px-6 py-6 flex justify-between items-center bg-transparent">
+<div class="flex items-center gap-3">
+<a class="font-headline-sm text-headline-sm text-on-background tracking-tight font-medium hover:text-primary transition-colors duration-150" href="#">
+        Indicata
+      </a>
+<span class="inline-flex items-center px-2 py-0.5 rounded-lg bg-surface-container-high text-secondary font-caption text-caption tracking-wider">
+        QA FRAMEWORK
+      </span>
+</div>
+<!-- Trailing secondary action from JSON: RO / EN -->
+<div class="flex items-center gap-1.5 font-label-md text-label-md">
+<button class="text-secondary hover:text-primary transition-colors duration-150 px-1.5 py-0.5" type="button">RO</button>
+<span class="text-outline-variant font-light">/</span>
+<button class="text-on-background font-medium px-1.5 py-0.5" type="button">EN</button>
+</div>
+</header>
+<!-- Main Canvas: Single-Column Focused Registration -->
+<main class="w-full flex-1 flex flex-col items-center justify-center px-4 py-8">
+<div class="w-full max-w-[440px] bg-surface-container-lowest border border-[#E8E6E1] rounded-xl p-8 sm:p-10 custom-soft-shadow transition-all duration-150 ease-in-out">
+<!-- Brand Emblem & Editorial Heading -->
+<div class="flex flex-col items-start mb-8">
+<div class="w-9 h-9 rounded-lg bg-surface-container-low border border-[#E8E6E1] flex items-center justify-center mb-5 text-primary">
+<span class="material-symbols-outlined" data-icon="auto_stories">auto_stories</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-background tracking-tight">
+          Create your account
+        </h1>
+<p class="font-body-sm text-body-sm text-secondary mt-1.5">
+          Internal quality assurance &amp; ARACIS indicator drafting.
+        </p>
+</div>
+<!-- Registration Form -->
+<form class="space-y-4" onsubmit="event.preventDefault();">
+<!-- Field 1: Full Name -->
+<div class="space-y-1.5">
+<label class="block font-label-sm text-label-sm text-on-surface" for="full_name">
+            Full name
+          </label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border border-[#E8E6E1] rounded-lg px-3.5 py-2.5 font-body-sm text-body-sm text-on-surface placeholder-[#A8A6A1] transition-all duration-150" id="full_name" name="full_name" placeholder="Prof. Elena Dumitrescu" required="" type="text"/>
+</div>
+</div>
+<!-- Field 2: Institutional Email with Academic Pill -->
+<div class="space-y-1.5">
+<div class="flex justify-between items-center">
+<label class="block font-label-sm text-label-sm text-on-surface" for="academic_email">
+              Institutional email
+            </label>
+<span class="font-caption text-caption text-primary flex items-center gap-1 bg-surface-container-low px-1.5 py-0.5 rounded">
+<span class="material-symbols-outlined text-[13px]" data-icon="verified">verified</span>
+              Academic domain
+            </span>
+</div>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border border-[#E8E6E1] rounded-lg pl-3.5 pr-24 py-2.5 font-body-sm text-body-sm text-on-surface placeholder-[#A8A6A1] transition-all duration-150" id="academic_email" name="academic_email" placeholder="name@university.ro" required="" type="email" value="e.dumitrescu@unibuc.ro"/>
+<div class="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none">
+<span class="font-caption text-caption text-secondary bg-surface-container-high px-2 py-0.5 rounded border border-[#E8E6E1]">
+                @unibuc.ro
+              </span>
+</div>
+</div>
+</div>
+<!-- Field 3: University / Institution -->
+<div class="space-y-1.5">
+<label class="block font-label-sm text-label-sm text-on-surface" for="institution">
+            University / Institution
+          </label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border border-[#E8E6E1] rounded-lg px-3.5 py-2.5 font-body-sm text-body-sm text-on-surface placeholder-[#A8A6A1] transition-all duration-150" id="institution" name="institution" placeholder="e.g. Universitatea din București" required="" type="text" value="Universitatea din București"/>
+<div class="absolute right-3 top-1/2 -translate-y-1/2 text-secondary pointer-events-none">
+<span class="material-symbols-outlined text-[15px]" data-icon="account_balance">account_balance</span>
+</div>
+</div>
+</div>
+<!-- Field 4: Password with 4-tick strength bar -->
+<div class="space-y-1.5 pt-1">
+<label class="block font-label-sm text-label-sm text-on-surface" for="password">
+            Password
+          </label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border border-[#E8E6E1] rounded-lg pl-3.5 pr-10 py-2.5 font-body-sm text-body-sm text-on-surface placeholder-[#A8A6A1] transition-all duration-150" id="password" name="password" placeholder="••••••••••••" required="" type="password" value="Arcadia#2024QAssurance"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-secondary hover:text-on-surface transition-colors" title="Toggle visibility" type="button">
+<span class="material-symbols-outlined text-[16px]" data-icon="visibility">visibility</span>
+</button>
+</div>
+<!-- Minimal 4-tick strength bar -->
+<div class="pt-1">
+<div class="grid grid-cols-4 gap-1.5">
+<div class="h-1 rounded-full bg-primary-container"></div>
+<div class="h-1 rounded-full bg-primary-container"></div>
+<div class="h-1 rounded-full bg-primary-container"></div>
+<div class="h-1 rounded-full bg-surface-container-highest"></div>
+</div>
+<div class="flex justify-between items-center mt-1.5">
+<p class="font-caption text-caption text-secondary">
+                At least 12 characters with symbol
+              </p>
+<span class="font-caption text-caption text-primary font-medium">Strong</span>
+</div>
+</div>
+</div>
+<!-- Field 5: Confirm Password -->
+<div class="space-y-1.5">
+<label class="block font-label-sm text-label-sm text-on-surface" for="confirm_password">
+            Confirm password
+          </label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border border-[#E8E6E1] rounded-lg pl-3.5 pr-10 py-2.5 font-body-sm text-body-sm text-on-surface placeholder-[#A8A6A1] transition-all duration-150" id="confirm_password" name="confirm_password" placeholder="••••••••••••" required="" type="password" value="Arcadia#2024QAssurance"/>
+<div class="absolute right-3 top-1/2 -translate-y-1/2 text-primary">
+<span class="material-symbols-outlined text-[16px]" data-icon="check_circle">check_circle</span>
+</div>
+</div>
+</div>
+<!-- Terms of Service & Privacy Checkbox -->
+<div class="pt-2">
+<label class="flex items-start gap-2.5 cursor-pointer select-none">
+<input checked="" class="mt-0.5 w-4 h-4 rounded border-[#D4D1CA] text-primary-container focus:ring-primary-container/20 focus:ring-offset-0 cursor-pointer" type="checkbox"/>
+<span class="font-caption text-caption text-secondary leading-normal">
+              I agree to the <a class="text-on-surface underline hover:text-primary transition-colors" href="#">Terms of Service</a> and <a class="text-on-surface underline hover:text-primary transition-colors" href="#">Privacy Policy</a> governing academic reporting.
+            </span>
+</label>
+</div>
+<!-- Primary CTA: Scholarly Ink/Blue -->
+<div class="pt-2">
+<button class="w-full bg-primary text-on-primary hover:bg-[#092548] font-label-md text-label-md py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-all duration-150 ease-in-out shadow-sm active:scale-[0.99]" type="submit">
+<span>Create account</span>
+<span class="material-symbols-outlined text-[15px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</form>
+<!-- Institutional Single Sign-On Alternative -->
+<div class="mt-6 pt-5 border-t border-[#E8E6E1]">
+<button class="w-full bg-surface-container-lowest hover:bg-surface-container-low border border-[#E8E6E1] text-on-surface font-label-md text-label-md py-2 px-3 rounded-lg flex items-center justify-center gap-2.5 transition-colors duration-150" type="button">
+<span class="material-symbols-outlined text-secondary" data-icon="domain">domain</span>
+<span>Institutional SSO / EduGAIN</span>
+</button>
+</div>
+<!-- Bottom Nav Link -->
+<div class="mt-6 text-center">
+<p class="font-body-sm text-body-sm text-secondary">
+          Already have an account? 
+          <a class="font-medium text-primary hover:underline transition-colors duration-150 ml-0.5" href="#">
+            Sign in
+          </a>
+</p>
+</div>
+</div>
+</main>
+<!-- Footer Component (Anchored via Shared Components JSON) -->
+<footer class="w-full max-w-5xl mx-auto px-6 py-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left bg-transparent">
+<div class="font-caption text-caption text-secondary">
+      © Indicata. ARACIS QA Framework compliant.
+    </div>
+<div class="flex items-center gap-6 font-caption text-caption">
+<a class="text-secondary hover:text-primary hover:underline transition-colors duration-150" href="#">
+        Privacy Policy
+      </a>
+<a class="text-secondary hover:text-primary hover:underline transition-colors duration-150" href="#">
+        Terms of Service
+      </a>
+<a class="text-secondary hover:text-primary hover:underline transition-colors duration-150" href="#">
+        Institutional Access
+      </a>
+</div>
+</footer>
+</body></html>

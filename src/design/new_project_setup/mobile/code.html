@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ro"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Indicata — Project Setup Wizard</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary": "#0e3566",
+            "on-secondary": "#ffffff",
+            "surface-container-high": "#e9e8e5",
+            "tertiary": "#363531",
+            "tertiary-container": "#4d4c48",
+            "surface-container": "#efeeeb",
+            "on-primary": "#ffffff",
+            "on-error": "#ffffff",
+            "on-tertiary-fixed": "#1c1c18",
+            "inverse-primary": "#a9c7ff",
+            "on-tertiary-fixed-variant": "#474742",
+            "on-secondary-fixed": "#1b1b1c",
+            "primary-fixed-dim": "#a9c7ff",
+            "secondary-container": "#e2dfde",
+            "primary-container": "#2b4c7e",
+            "surface-container-low": "#f4f3f0",
+            "surface-bright": "#faf9f6",
+            "surface-tint": "#3f5f92",
+            "secondary-fixed-dim": "#c8c6c5",
+            "error": "#ba1a1a",
+            "on-surface": "#1b1c1a",
+            "on-surface-variant": "#43474f",
+            "surface-container-highest": "#e3e2df",
+            "primary-fixed": "#d6e3ff",
+            "surface-variant": "#e3e2df",
+            "on-background": "#1b1c1a",
+            "error-container": "#ffdad6",
+            "on-tertiary": "#ffffff",
+            "on-primary-fixed": "#001b3d",
+            "background": "#faf9f6",
+            "on-tertiary-container": "#bfbcb6",
+            "on-secondary-container": "#636262",
+            "outline-variant": "#c3c6d0",
+            "on-primary-fixed-variant": "#254778",
+            "on-error-container": "#93000a",
+            "surface": "#faf9f6",
+            "tertiary-fixed": "#e5e2dc",
+            "surface-container-lowest": "#ffffff",
+            "on-primary-container": "#9ebdf7",
+            "tertiary-fixed-dim": "#c9c6c0",
+            "on-secondary-fixed-variant": "#474746",
+            "outline": "#747780",
+            "inverse-surface": "#2f312f",
+            "secondary": "#5f5e5e",
+            "inverse-on-surface": "#f2f1ee",
+            "secondary-fixed": "#e5e2e1",
+            "surface-dim": "#dbdad7"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-lg": "1.5rem",
+            "space-md": "1rem",
+            "margin": "1rem",
+            "space-xl": "2.5rem",
+            "space-xs": "0.25rem",
+            "margin-tablet": "2rem",
+            "gutter": "1rem",
+            "space-sm": "0.5rem",
+            "gutter-desktop": "1.5rem",
+            "margin-desktop": "3rem"
+          },
+          "fontFamily": {
+            "headline-sm": ["Newsreader"],
+            "body-sm": ["Inter"],
+            "headline-lg-mobile": ["Newsreader"],
+            "label-md": ["Inter"],
+            "body-md": ["Inter"],
+            "display": ["Newsreader"],
+            "label-sm": ["Inter"],
+            "body-lg": ["Inter"],
+            "headline-lg": ["Newsreader"],
+            "caption": ["Inter"]
+          },
+          "fontSize": {
+            "headline-sm": ["1.25rem", { "lineHeight": "1.75rem", "fontWeight": "500" }],
+            "body-sm": ["0.8125rem", { "lineHeight": "1.35rem", "fontWeight": "400" }],
+            "headline-lg-mobile": ["1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+            "label-md": ["0.875rem", { "lineHeight": "1.25rem", "fontWeight": "500" }],
+            "body-md": ["0.875rem", { "lineHeight": "1.45rem", "fontWeight": "400" }],
+            "display": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.02em", "fontWeight": "400" }],
+            "label-sm": ["0.75rem", { "lineHeight": "1rem", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "body-lg": ["1rem", { "lineHeight": "1.6rem", "fontWeight": "400" }],
+            "headline-lg": ["1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.015em", "fontWeight": "400" }],
+            "caption": ["0.6875rem", { "lineHeight": "1rem", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+      font-size: 1.25rem;
+      line-height: 1;
+      display: inline-block;
+    }
+    .custom-border {
+      border: 1px solid #E8E6E1;
+    }
+    .custom-card-shadow {
+      box-shadow: 0 4px 20px -2px rgba(30, 30, 30, 0.03), 0 2px 6px -1px rgba(30, 30, 30, 0.02);
+    }
+    /* Hide scrollbars for preview scrubber */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface antialiased min-h-screen flex flex-col justify-between items-center selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Mobile Viewport Wrapper (390px constrained canvas on desktop, 100% on actual mobile) -->
+<div class="w-full max-w-[390px] min-h-screen flex flex-col bg-background relative shadow-sm border-x border-[#E8E6E1]/40 sm:my-4 sm:min-h-[844px] sm:rounded-xl">
+<!-- Top Navigation Bar: Slim scholarly header (STRICT: NO LANGUAGE SWITCHER) -->
+<header class="w-full bg-surface-container-lowest border-b border-[#E8E6E1] px-4 py-3 flex items-center justify-between sticky top-0 z-30">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-on-background tracking-tight font-medium">Indicata</span>
+<span class="text-[#A8A6A1] text-xs font-light">/</span>
+<span class="font-label-sm text-label-sm text-secondary font-normal">ARACIS QA</span>
+</div>
+<div class="flex items-center gap-3">
+<button class="font-label-sm text-label-sm text-secondary hover:text-primary transition-colors py-1.5 px-1 focus:outline-none" onclick="goToStep(1)" type="button">
+          Cancel
+        </button>
+<div class="w-7 h-7 rounded-full bg-surface-container text-on-surface flex items-center justify-center font-label-sm text-xs font-medium border border-[#E8E6E1]" title="Prof. Dr. M. Popescu">
+          MP
+        </div>
+</div>
+</header>
+<!-- Interactive Stepper Preview Ribbon (Touch-friendly step navigation) -->
+<section class="bg-surface-container-low px-4 pt-3 pb-2 border-b border-[#E8E6E1]">
+<!-- Collapsed Progress Descriptor -->
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-1.5">
+<span class="font-label-sm text-label-sm text-primary-container font-semibold" id="stepper-label">Step 1 of 4: Cycle</span>
+</div>
+<span class="font-caption text-caption text-secondary" id="stepper-status">Draft in progress</span>
+</div>
+<!-- Linear Hairline Progress Bar -->
+<div class="w-full h-1 bg-surface-container rounded-full overflow-hidden mb-2.5">
+<div class="h-full bg-primary-container transition-all duration-300 ease-out" id="progress-fill" style="width: 25%;"></div>
+</div>
+<!-- Touch-friendly Quick Step Switcher Tabs -->
+<nav aria-label="Wizard Steps" class="flex items-center justify-between gap-1 overflow-x-auto no-scrollbar py-0.5">
+<button class="step-btn px-2.5 py-1 rounded font-label-sm text-xs transition-colors bg-surface-container-lowest text-primary font-medium border border-[#E8E6E1] shadow-xs" id="tab-btn-1" onclick="goToStep(1)" type="button">
+          1. Cycle
+        </button>
+<button class="step-btn px-2.5 py-1 rounded font-label-sm text-xs transition-colors text-secondary hover:text-on-surface" id="tab-btn-2" onclick="goToStep(2)" type="button">
+          2. Univ
+        </button>
+<button class="step-btn px-2.5 py-1 rounded font-label-sm text-xs transition-colors text-secondary hover:text-on-surface" id="tab-btn-3" onclick="goToStep(3)" type="button">
+          3. Domain
+        </button>
+<button class="step-btn px-2.5 py-1 rounded font-label-sm text-xs transition-colors text-secondary hover:text-on-surface" id="tab-btn-4" onclick="goToStep(4)" type="button">
+          4. Review
+        </button>
+<button class="step-btn px-2 py-1 rounded font-label-sm text-xs transition-colors text-secondary hover:text-on-surface flex items-center gap-0.5" id="tab-btn-success" onclick="goToStep('success')" type="button">
+<span class="material-symbols-outlined !text-[13px] text-[#2b7e4c]">done</span>Done
+        </button>
+</nav>
+</section>
+<!-- Dynamic Step Content Viewport -->
+<main class="flex-1 px-4 py-4 overflow-y-auto">
+<!-- ================= STEP 1: CYCLE SELECTION ================= -->
+<section class="step-pane flex flex-col gap-3" id="step-pane-1">
+<!-- Main Academic Card Container -->
+<div class="bg-surface-container-lowest custom-border rounded-xl p-5 custom-card-shadow flex flex-col">
+<header class="mb-4">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-1 text-[#1B1C1A]">
+              What are you evaluating?
+            </h1>
+<p class="font-body-sm text-body-sm text-secondary">
+              Choose the study cycle to set indicators and report structure according to Romanian accreditation standards.
+            </p>
+</header>
+<!-- Selectable Cards Stack -->
+<div aria-label="Study Cycles" class="flex flex-col gap-2.5" role="radiogroup">
+<!-- 1. Bachelor -->
+<label class="cycle-option cursor-pointer relative flex items-start justify-between p-3.5 rounded-lg border border-[#E8E6E1] bg-surface-container-lowest hover:border-[#D4D1CA] transition-all duration-150">
+<input class="sr-only" name="cycle" onchange="updateSelection(this)" type="radio" value="bachelor"/>
+<div class="flex flex-col pr-2">
+<div class="flex items-center gap-2 mb-1">
+<span class="font-label-md text-label-md text-on-surface font-medium">Bachelor</span>
+<span class="font-caption text-caption bg-[#F0EFEA] text-secondary px-2 py-0.5 rounded text-[11px] font-normal border border-[#E8E6E1]/60">Unit: Programme</span>
+</div>
+<p class="font-body-sm text-body-sm text-secondary">Evaluation of an undergraduate study programme (Licență)</p>
+</div>
+<div class="radio-indicator mt-0.5 w-4 h-4 rounded-full border border-[#D4D1CA] flex items-center justify-center shrink-0"></div>
+</label>
+<!-- 2. Master -->
+<label class="cycle-option cursor-pointer relative flex items-start justify-between p-3.5 rounded-lg border border-[#E8E6E1] bg-surface-container-lowest hover:border-[#D4D1CA] transition-all duration-150">
+<input class="sr-only" name="cycle" onchange="updateSelection(this)" type="radio" value="master"/>
+<div class="flex flex-col pr-2">
+<div class="flex items-center gap-2 mb-1">
+<span class="font-label-md text-label-md text-on-surface font-medium">Master</span>
+<span class="font-caption text-caption bg-[#F0EFEA] text-secondary px-2 py-0.5 rounded text-[11px] font-normal border border-[#E8E6E1]/60">Unit: Domain</span>
+</div>
+<p class="font-body-sm text-body-sm text-secondary">Evaluation of an accredited master study domain (Masterat)</p>
+</div>
+<div class="radio-indicator mt-0.5 w-4 h-4 rounded-full border border-[#D4D1CA] flex items-center justify-center shrink-0"></div>
+</label>
+<!-- 3. Doctorate (Active Default) -->
+<label class="cycle-option cursor-pointer relative flex items-start justify-between p-3.5 rounded-lg border-2 border-primary-container bg-[#f4f7fb] transition-all duration-150">
+<input checked="" class="sr-only" name="cycle" onchange="updateSelection(this)" type="radio" value="doctorate"/>
+<div class="flex flex-col pr-2">
+<div class="flex items-center gap-2 mb-1">
+<span class="font-label-md text-label-md text-primary font-semibold">Doctorate</span>
+<span class="font-caption text-caption bg-primary-fixed text-on-primary-fixed-variant px-2 py-0.5 rounded text-[11px] font-medium border border-[#c3d7f7]">Unit: Domain</span>
+</div>
+<p class="font-body-sm text-body-sm text-secondary">Evaluation of a doctoral study domain (IOSUD / CSD)</p>
+</div>
+<div class="radio-indicator mt-0.5 w-4 h-4 rounded-full bg-primary-container text-white flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined !text-[12px] font-bold">check</span>
+</div>
+</label>
+</div>
+<!-- Academic Compliance Note -->
+<div class="mt-4 pt-3.5 border-t border-[#E8E6E1] flex items-center gap-2 text-secondary">
+<span class="material-symbols-outlined !text-[15px] text-primary-container shrink-0">menu_book</span>
+<p class="font-caption text-caption text-[#6E6D68]">
+              Indicators follow the ARACIS guide for the selected cycle (Ghidul specific de evaluare 2024–2026).
+            </p>
+</div>
+</div>
+<!-- Sticky Mobile Actions Footer -->
+<div class="mt-auto pt-2 flex items-center justify-between gap-3">
+<button class="min-h-[44px] px-4 font-label-md text-label-md text-secondary hover:text-on-surface transition-colors focus:outline-none" onclick="alert('Setup paused. Saved to drafts.')" type="button">
+            Cancel
+          </button>
+<button class="min-h-[44px] flex-1 bg-primary-container hover:bg-[#233E67] text-white font-label-md text-label-md rounded-lg flex items-center justify-center gap-1.5 transition-colors duration-150 shadow-xs focus:ring-2 focus:ring-primary-container focus:ring-offset-2" onclick="goToStep(2)" type="button">
+<span>Continue</span>
+<span class="material-symbols-outlined !text-[16px]">arrow_forward</span>
+</button>
+</div>
+</section>
+<!-- ================= STEP 2: INSTITUTION SELECTION ================= -->
+<section class="step-pane hidden flex-col gap-3" id="step-pane-2">
+<div class="bg-surface-container-lowest custom-border rounded-xl p-5 custom-card-shadow flex flex-col">
+<header class="mb-4">
+<div class="inline-flex items-center gap-1.5 text-primary-container font-label-sm text-xs font-medium mb-1">
+<span>Doctoral Study Cycle</span>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-1">
+              Select Institution
+            </h2>
+<p class="font-body-sm text-body-sm text-secondary">
+              Search the official registry of Romanian Higher Education Institutions (HEIs).
+            </p>
+</header>
+<!-- Compact Typeahead Input -->
+<div class="relative mb-3">
+<label class="block font-label-sm text-label-sm text-on-surface font-medium mb-1.5" for="inst-search">
+              Institution Name / Code
+            </label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-secondary !text-[18px]">search</span>
+<input class="w-full pl-9 pr-8 py-2.5 bg-surface-container-lowest border border-primary-container rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary-container/20 text-sm" id="inst-search" type="text" value="Universitatea Politehnica Timișoara (UPT)"/>
+<span class="material-symbols-outlined absolute right-2.5 text-secondary !text-[16px] cursor-pointer hover:text-on-surface">close</span>
+</div>
+</div>
+<!-- Typeahead Results / Selected Badge -->
+<div class="p-3 bg-surface-container-low rounded-lg border border-[#E8E6E1] mb-3">
+<div class="flex items-start justify-between">
+<div>
+<span class="font-caption text-caption text-primary-container font-semibold uppercase tracking-wider block">Verified IOSUD</span>
+<p class="font-label-md text-label-md text-on-surface font-medium mt-0.5">Universitatea Politehnica Timișoara</p>
+<p class="font-body-sm text-caption text-secondary mt-0.5">Cod SIRUES: 14201 · Timișoara, Timiș</p>
+</div>
+<span class="material-symbols-outlined text-[#2b7e4c] !text-[18px]">verified</span>
+</div>
+</div>
+<div class="flex items-center gap-2 p-2 bg-[#F0EFEA]/70 rounded border border-[#E8E6E1]/70">
+<span class="material-symbols-outlined !text-[16px] text-secondary">info</span>
+<span class="font-caption text-caption text-secondary">Accredited institutional status valid until 2027.</span>
+</div>
+</div>
+<!-- Sticky Footer -->
+<div class="mt-auto pt-2 flex items-center justify-between gap-3">
+<button class="min-h-[44px] px-3 font-label-md text-label-md text-secondary hover:text-on-surface flex items-center gap-1" onclick="goToStep(1)" type="button">
+<span class="material-symbols-outlined !text-[16px]">arrow_back</span>
+            Back
+          </button>
+<button class="min-h-[44px] flex-1 bg-primary-container hover:bg-[#233E67] text-white font-label-md text-label-md rounded-lg flex items-center justify-center gap-1.5 transition-colors" onclick="goToStep(3)" type="button">
+<span>Continue</span>
+<span class="material-symbols-outlined !text-[16px]">arrow_forward</span>
+</button>
+</div>
+</section>
+<!-- ================= STEP 3: DOMAIN & PROCEDURE ================= -->
+<section class="step-pane hidden flex-col gap-3" id="step-pane-3">
+<div class="bg-surface-container-lowest custom-border rounded-xl p-5 custom-card-shadow flex flex-col">
+<header class="mb-4">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-1">
+              Domain &amp; Procedure
+            </h2>
+<p class="font-body-sm text-body-sm text-secondary">
+              Specify the doctoral study domain and the exact ARACIS statutory procedure.
+            </p>
+</header>
+<!-- Domain Field -->
+<div class="mb-3.5">
+<label class="block font-label-sm text-label-sm text-on-surface font-medium mb-1.5">
+              Doctoral Domain
+            </label>
+<div class="p-3 bg-surface-container-lowest border border-[#E8E6E1] rounded-lg flex items-center justify-between">
+<div>
+<p class="font-label-md text-label-md text-on-surface font-medium">Calculatoare și Tehnologia Informației</p>
+<p class="font-caption text-caption text-secondary mt-0.5">Domeniul fundamental: Științe Inginerești</p>
+</div>
+<span class="material-symbols-outlined text-secondary !text-[18px]">unfold_more</span>
+</div>
+</div>
+<!-- Evaluation Procedure Selection -->
+<div class="mb-2">
+<label class="block font-label-sm text-label-sm text-on-surface font-medium mb-1.5">
+              Evaluation Procedure Type
+            </label>
+<div class="space-y-2">
+<label class="flex items-center justify-between p-3 border-2 border-primary-container bg-[#f4f7fb] rounded-lg cursor-pointer">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-primary">Evaluare Periodică (Periodic Re-accreditation)</span>
+<span class="font-caption text-caption text-secondary">Every 5 years statutory QA review</span>
+</div>
+<span class="material-symbols-outlined text-primary-container !text-[18px]">check_circle</span>
+</label>
+<label class="flex items-center justify-between p-3 border border-[#E8E6E1] bg-surface-container-lowest rounded-lg cursor-pointer hover:border-[#D4D1CA]">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-medium text-on-surface">Autorizare Provizorie (Initial Authorization)</span>
+<span class="font-caption text-caption text-secondary">New doctoral domain accreditation</span>
+</div>
+<div class="w-4 h-4 rounded-full border border-[#D4D1CA]"></div>
+</label>
+</div>
+</div>
+</div>
+<!-- Sticky Footer -->
+<div class="mt-auto pt-2 flex items-center justify-between gap-3">
+<button class="min-h-[44px] px-3 font-label-md text-label-md text-secondary hover:text-on-surface flex items-center gap-1" onclick="goToStep(2)" type="button">
+<span class="material-symbols-outlined !text-[16px]">arrow_back</span>
+            Back
+          </button>
+<button class="min-h-[44px] flex-1 bg-primary-container hover:bg-[#233E67] text-white font-label-md text-label-md rounded-lg flex items-center justify-center gap-1.5 transition-colors" onclick="goToStep(4)" type="button">
+<span>Review Summary</span>
+<span class="material-symbols-outlined !text-[16px]">arrow_forward</span>
+</button>
+</div>
+</section>
+<!-- ================= STEP 4: REVIEW & CONFIRMATION ================= -->
+<section class="step-pane hidden flex-col gap-3" id="step-pane-4">
+<div class="bg-surface-container-lowest custom-border rounded-xl p-5 custom-card-shadow flex flex-col">
+<header class="mb-4">
+<span class="font-caption text-caption text-primary-container uppercase tracking-wider font-semibold block mb-0.5">Final Verification</span>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-1">
+              Review &amp; Setup Report
+            </h2>
+<p class="font-body-sm text-body-sm text-secondary">
+              Confirm your workspace parameters before initializing the ARACIS repository.
+            </p>
+</header>
+<!-- Report Name Field -->
+<div class="mb-4">
+<label class="block font-label-sm text-label-sm text-on-surface font-medium mb-1.5">
+              Evaluation Report Title
+            </label>
+<input class="w-full px-3 py-2.5 bg-surface-container-lowest border border-[#E8E6E1] rounded-lg font-body-md text-body-md text-on-surface font-medium focus:outline-none focus:border-primary-container text-sm" type="text" value="UPT · Computer Engineering · Doctorate 2026"/>
+<span class="font-caption text-caption text-secondary mt-1 block">Editable later in project settings.</span>
+</div>
+<!-- Structured Summary Card -->
+<div class="bg-surface-container-low rounded-lg p-3.5 border border-[#E8E6E1] space-y-2.5 mb-4">
+<div class="flex justify-between items-start text-xs border-b border-[#E8E6E1]/60 pb-2">
+<span class="text-secondary">Study Cycle</span>
+<span class="font-medium text-on-surface text-right">Doctorate (Doctorat)</span>
+</div>
+<div class="flex justify-between items-start text-xs border-b border-[#E8E6E1]/60 pb-2">
+<span class="text-secondary">Institution (IOSUD)</span>
+<span class="font-medium text-on-surface text-right">Univ. Politehnica Timișoara</span>
+</div>
+<div class="flex justify-between items-start text-xs border-b border-[#E8E6E1]/60 pb-2">
+<span class="text-secondary">Domain</span>
+<span class="font-medium text-on-surface text-right">Calculatoare și Tehnol. Informației</span>
+</div>
+<div class="flex justify-between items-start text-xs">
+<span class="text-secondary">Procedure</span>
+<span class="font-medium text-on-surface text-right">Evaluare Periodică (2026)</span>
+</div>
+</div>
+<!-- "What happens next" 3-step academic checklist -->
+<div class="border-t border-[#E8E6E1] pt-3">
+<h3 class="font-label-sm text-label-sm text-on-surface font-semibold mb-2 flex items-center gap-1.5">
+<span class="material-symbols-outlined !text-[16px] text-primary-container">format_list_bulleted</span>
+              What happens next:
+            </h3>
+<ul class="space-y-2 pl-0.5">
+<li class="flex items-start gap-2">
+<span class="w-4 h-4 rounded-full bg-surface-container text-secondary text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">1</span>
+<span class="font-body-sm text-caption text-[#43474F]">Automatic generation of ARACIS Criterii, Standarde &amp; Indicatori tree.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="w-4 h-4 rounded-full bg-surface-container text-secondary text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">2</span>
+<span class="font-body-sm text-caption text-[#43474F]">Upload annexes, curriculum sheets, and self-evaluation files (PDF/DOCX).</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="w-4 h-4 rounded-full bg-surface-container text-secondary text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">3</span>
+<span class="font-body-sm text-caption text-[#43474F]">Invite faculty committee members to co-author qualitative syntheses.</span>
+</li>
+</ul>
+</div>
+</div>
+<!-- Sticky Footer -->
+<div class="mt-auto pt-2 flex items-center justify-between gap-3">
+<button class="min-h-[44px] px-3 font-label-md text-label-md text-secondary hover:text-on-surface flex items-center gap-1" onclick="goToStep(3)" type="button">
+<span class="material-symbols-outlined !text-[16px]">arrow_back</span>
+            Back
+          </button>
+<button class="min-h-[44px] flex-1 bg-primary-container hover:bg-[#233E67] text-white font-label-md text-label-md rounded-lg flex items-center justify-center gap-1.5 transition-colors shadow-sm" onclick="goToStep('success')" type="button">
+<span>Create &amp; Add Documents</span>
+<span class="material-symbols-outlined !text-[16px]">note_add</span>
+</button>
+</div>
+</section>
+<!-- ================= STEP SUCCESS / CONFIRMATION ================= -->
+<section class="step-pane hidden flex-col gap-3" id="step-pane-success">
+<div class="bg-surface-container-lowest custom-border rounded-xl p-6 custom-card-shadow text-center flex flex-col items-center">
+<div class="w-12 h-12 rounded-full bg-[#eef7ee] border border-[#c6e6c6] text-[#2b7e4c] flex items-center justify-center mb-3">
+<span class="material-symbols-outlined !text-[28px]">check_circle</span>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-1.5">
+            Report Created
+          </h2>
+<p class="font-body-md text-body-md text-secondary mb-4 max-w-xs">
+            Next: add your institutional documents and map annexes to ARACIS standards.
+          </p>
+<div class="w-full bg-surface-container-low p-3.5 rounded-lg border border-[#E8E6E1] text-left mb-5">
+<div class="flex items-center justify-between mb-1">
+<span class="font-caption text-caption text-secondary">Repository ID:</span>
+<span class="font-mono text-xs font-medium text-primary">RO-ARACIS-2026-UPT-CSD</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-caption text-caption text-secondary">Standard template:</span>
+<span class="font-label-sm text-caption font-medium text-on-surface">ARACIS Doctorate v4.2</span>
+</div>
+</div>
+<div class="w-full space-y-2">
+<button class="w-full min-h-[44px] bg-primary-container hover:bg-[#233E67] text-white font-label-md text-label-md rounded-lg flex items-center justify-center gap-2 transition-colors" onclick="goToStep(1)" type="button">
+<span class="material-symbols-outlined !text-[18px]">upload_file</span>
+<span>Upload Evaluation Annexes</span>
+</button>
+<button class="w-full min-h-[44px] bg-surface-container-lowest border border-[#E8E6E1] text-on-surface hover:bg-surface-container-low font-label-md text-label-md rounded-lg flex items-center justify-center transition-colors" onclick="goToStep(1)" type="button">
+              Go to Report Dashboard
+            </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer: Clean Academic Microcopy & Compliance Statement -->
+<footer class="w-full bg-transparent px-4 py-3 border-t border-[#E8E6E1]/50 flex flex-col items-center justify-center text-center">
+<p class="font-caption text-caption text-secondary">
+        © Indicata. ARACIS QA Framework compliant.
+      </p>
+<div class="flex items-center gap-3 mt-1 font-caption text-caption text-secondary">
+<a class="hover:text-primary hover:underline transition-colors" href="#privacy">Privacy Policy</a>
+<span>·</span>
+<a class="hover:text-primary hover:underline transition-colors" href="#terms">Institutional Access</a>
+</div>
+</footer>
+</div>
+<!-- Inline Lightweight Vanilla JS for Step Interactivity & State Switching -->
+<script>
+    function goToStep(step) {
+      // Hide all panes
+      document.querySelectorAll('.step-pane').forEach(el => el.classList.add('hidden'));
+
+      // Remove active states from all preview tabs
+      document.querySelectorAll('.step-btn').forEach(btn => {
+        btn.classList.remove('bg-surface-container-lowest', 'text-primary', 'font-medium', 'border', 'border-[#E8E6E1]', 'shadow-xs');
+        btn.classList.add('text-secondary');
+      });
+
+      const labelEl = document.getElementById('stepper-label');
+      const progressFill = document.getElementById('progress-fill');
+      const statusEl = document.getElementById('stepper-status');
+
+      if (step === 1) {
+        document.getElementById('step-pane-1').classList.remove('hidden');
+        labelEl.textContent = 'Step 1 of 4: Cycle';
+        statusEl.textContent = 'Draft in progress';
+        progressFill.style.width = '25%';
+        highlightTab('tab-btn-1');
+      } else if (step === 2) {
+        document.getElementById('step-pane-2').classList.remove('hidden');
+        labelEl.textContent = 'Step 2 of 4: Institution';
+        statusEl.textContent = 'Draft in progress';
+        progressFill.style.width = '50%';
+        highlightTab('tab-btn-2');
+      } else if (step === 3) {
+        document.getElementById('step-pane-3').classList.remove('hidden');
+        labelEl.textContent = 'Step 3 of 4: Domain';
+        statusEl.textContent = 'Draft in progress';
+        progressFill.style.width = '75%';
+        highlightTab('tab-btn-3');
+      } else if (step === 4) {
+        document.getElementById('step-pane-4').classList.remove('hidden');
+        labelEl.textContent = 'Step 4 of 4: Review';
+        statusEl.textContent = 'Ready to compile';
+        progressFill.style.width = '100%';
+        highlightTab('tab-btn-4');
+      } else if (step === 'success') {
+        document.getElementById('step-pane-success').classList.remove('hidden');
+        labelEl.textContent = 'Setup Complete';
+        statusEl.textContent = 'Ready for documents';
+        progressFill.style.width = '100%';
+        highlightTab('tab-btn-success');
+      }
+    }
+
+    function highlightTab(btnId) {
+      const activeBtn = document.getElementById(btnId);
+      if (activeBtn) {
+        activeBtn.classList.remove('text-secondary');
+        activeBtn.classList.add('bg-surface-container-lowest', 'text-primary', 'font-medium', 'border', 'border-[#E8E6E1]', 'shadow-xs');
+      }
+    }
+
+    function updateSelection(radio) {
+      document.querySelectorAll('.cycle-option').forEach(card => {
+        card.classList.remove('border-2', 'border-primary-container', 'bg-[#f4f7fb]');
+        card.classList.add('border', 'border-[#E8E6E1]', 'bg-surface-container-lowest');
+        const indicator = card.querySelector('.radio-indicator');
+        indicator.className = 'radio-indicator mt-0.5 w-4 h-4 rounded-full border border-[#D4D1CA] flex items-center justify-center shrink-0';
+        indicator.innerHTML = '';
+      });
+
+      const parent = radio.closest('.cycle-option');
+      parent.classList.remove('border', 'border-[#E8E6E1]', 'bg-surface-container-lowest');
+      parent.classList.add('border-2', 'border-primary-container', 'bg-[#f4f7fb]');
+      
+      const activeIndicator = parent.querySelector('.radio-indicator');
+      activeIndicator.className = 'radio-indicator mt-0.5 w-4 h-4 rounded-full bg-primary-container text-white flex items-center justify-center shrink-0';
+      activeIndicator.innerHTML = '<span class="material-symbols-outlined !text-[12px] font-bold">check</span>';
+    }
+  </script>
+</body></html>

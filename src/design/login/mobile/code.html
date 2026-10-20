@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Indicata — Institutional Authentication</title>
+<!-- Google Fonts: Inter & Newsreader -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS with Forms and Container Queries plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-container-low": "#f4f3f0",
+            "on-tertiary": "#ffffff",
+            "surface-variant": "#e3e2df",
+            "primary-container": "#2b4c7e",
+            "primary-fixed-dim": "#a9c7ff",
+            "on-secondary-container": "#636262",
+            "secondary-fixed-dim": "#c8c6c5",
+            "surface-container-lowest": "#ffffff",
+            "on-primary": "#ffffff",
+            "on-tertiary-container": "#bfbcb6",
+            "on-tertiary-fixed-variant": "#474742",
+            "inverse-on-surface": "#f2f1ee",
+            "on-surface-variant": "#43474f",
+            "on-secondary-fixed": "#1b1b1c",
+            "tertiary-fixed-dim": "#c9c6c0",
+            "tertiary-container": "#4d4c48",
+            "on-primary-fixed": "#001b3d",
+            "surface-container-highest": "#e3e2df",
+            "inverse-primary": "#a9c7ff",
+            "primary": "#0e3566",
+            "inverse-surface": "#2f312f",
+            "primary-fixed": "#d6e3ff",
+            "secondary-fixed": "#e5e2e1",
+            "outline-variant": "#c3c6d0",
+            "on-background": "#1b1c1a",
+            "on-primary-fixed-variant": "#254778",
+            "surface-tint": "#3f5f92",
+            "on-tertiary-fixed": "#1c1c18",
+            "on-secondary-fixed-variant": "#474746",
+            "error-container": "#ffdad6",
+            "surface": "#faf9f6",
+            "on-primary-container": "#9ebdf7",
+            "background": "#faf9f6",
+            "surface-bright": "#faf9f6",
+            "surface-dim": "#dbdad7",
+            "on-error-container": "#93000a",
+            "tertiary": "#363531",
+            "secondary-container": "#e2dfde",
+            "on-surface": "#1b1c1a",
+            "on-secondary": "#ffffff",
+            "tertiary-fixed": "#e5e2dc",
+            "surface-container": "#efeeeb",
+            "secondary": "#5f5e5e",
+            "error": "#ba1a1a",
+            "surface-container-high": "#e9e8e5",
+            "on-error": "#ffffff",
+            "outline": "#747780"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-sm": "0.5rem",
+            "gutter-desktop": "1.5rem",
+            "margin-desktop": "3rem",
+            "space-lg": "1.5rem",
+            "margin-tablet": "2rem",
+            "gutter": "1rem",
+            "margin": "1rem",
+            "space-md": "1rem",
+            "space-xs": "0.25rem",
+            "space-xl": "2.5rem"
+          },
+          "fontFamily": {
+            "body-sm": ["Inter"],
+            "label-sm": ["Inter"],
+            "headline-sm": ["Newsreader"],
+            "label-md": ["Inter"],
+            "display": ["Newsreader"],
+            "body-md": ["Inter"],
+            "headline-lg-mobile": ["Newsreader"],
+            "headline-lg": ["Newsreader"],
+            "caption": ["Inter"],
+            "body-lg": ["Inter"]
+          },
+          "fontSize": {
+            "body-sm": [
+              "0.8125rem",
+              {
+                "lineHeight": "1.35rem",
+                "fontWeight": "400"
+              }
+            ],
+            "label-sm": [
+              "0.75rem",
+              {
+                "lineHeight": "1rem",
+                "letterSpacing": "0.02em",
+                "fontWeight": "500"
+              }
+            ],
+            "headline-sm": [
+              "1.25rem",
+              {
+                "lineHeight": "1.75rem",
+                "fontWeight": "500"
+              }
+            ],
+            "label-md": [
+              "0.875rem",
+              {
+                "lineHeight": "1.25rem",
+                "fontWeight": "500"
+              }
+            ],
+            "display": [
+              "2.25rem",
+              {
+                "lineHeight": "2.75rem",
+                "letterSpacing": "-0.02em",
+                "fontWeight": "400"
+              }
+            ],
+            "body-md": [
+              "0.875rem",
+              {
+                "lineHeight": "1.45rem",
+                "fontWeight": "400"
+              }
+            ],
+            "headline-lg-mobile": [
+              "1.5rem",
+              {
+                "lineHeight": "2rem",
+                "letterSpacing": "-0.01em",
+                "fontWeight": "400"
+              }
+            ],
+            "headline-lg": [
+              "1.75rem",
+              {
+                "lineHeight": "2.25rem",
+                "letterSpacing": "-0.015em",
+                "fontWeight": "400"
+              }
+            ],
+            "caption": [
+              "0.6875rem",
+              {
+                "lineHeight": "1rem",
+                "fontWeight": "400"
+              }
+            ],
+            "body-lg": [
+              "1rem",
+              {
+                "lineHeight": "1.6rem",
+                "fontWeight": "400"
+              }
+            ]
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-feature-settings: 'liga';
+      -webkit-font-smoothing: antialiased;
+    }
+    .paper-shadow {
+      box-shadow: 0 4px 20px -2px rgba(30, 30, 30, 0.03), 0 2px 6px -1px rgba(30, 30, 30, 0.02);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col justify-between selection:bg-surface-variant selection:text-primary antialiased">
+<!-- Minimal TopNavBar based on Shared Components JSON -->
+<header class="w-full bg-background">
+<div class="w-full max-w-5xl mx-auto px-6 py-6 flex justify-between items-center transition-all duration-150 ease-in-out">
+<div class="flex items-center gap-2">
+<a class="font-headline-sm text-headline-sm text-on-background tracking-tight font-medium hover:text-primary transition-colors duration-150 flex items-center gap-2" href="#">
+<span>Indicata</span>
+</a>
+</div>
+<!-- Language Switcher: RO / EN -->
+<div aria-label="Language selection" class="flex items-center space-x-1 font-caption text-caption text-secondary">
+<button class="text-on-background font-medium hover:text-primary transition-colors duration-150 py-1 px-1" type="button">RO</button>
+<span class="text-secondary select-none">/</span>
+<button class="text-secondary hover:text-primary transition-colors duration-150 py-1 px-1" type="button">EN</button>
+</div>
+</div>
+</header>
+<!-- Focused Center Container (Max 390px - 420px mobile viewport discipline) -->
+<main class="w-full flex-grow flex items-center justify-center px-4 py-6">
+<div class="w-full max-w-[390px] bg-surface-container-lowest rounded-xl border border-surface-variant paper-shadow p-6 sm:p-space-xl transition-all">
+<!-- Indicata Geometric Emblem -->
+<div class="mb-5 flex justify-start">
+<div class="w-9 h-9 rounded-lg bg-on-background flex items-center justify-center text-on-primary">
+<!-- Calm academic geometric starburst / glyph -->
+<svg class="w-5 h-5 text-surface" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.75" viewbox="0 0 24 24">
+<line x1="12" x2="12" y1="2.5" y2="21.5"></line>
+<line x1="2.5" x2="21.5" y1="12" y2="12"></line>
+<line x1="5.28" x2="18.72" y1="5.28" y2="18.72"></line>
+<line x1="18.72" x2="5.28" y1="5.28" y2="18.72"></line>
+</svg>
+</div>
+</div>
+<!-- Header Copy -->
+<div class="mb-6">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-background tracking-tight">
+          Welcome back
+        </h1>
+<p class="font-body-sm text-body-sm text-secondary mt-1">
+          Sign in to your evaluation report.
+        </p>
+</div>
+<!-- Form Actions -->
+<form class="space-y-4" onsubmit="event.preventDefault();">
+<!-- Institutional Email Input -->
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface mb-1.5" for="institutional-email">
+            Institutional email
+          </label>
+<div class="relative">
+<input autocomplete="email" class="w-full h-11 px-3.5 bg-surface-container-lowest border border-surface-variant rounded-lg font-body-md text-body-md text-on-surface placeholder:text-secondary-fixed-dim focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/10 transition-colors" id="institutional-email" name="email" placeholder="v.stefanescu@unibuc.ro" required="" type="email"/>
+</div>
+</div>
+<!-- Password Input with Eye Toggle -->
+<div>
+<div class="flex items-center justify-between mb-1.5">
+<label class="block font-label-sm text-label-sm text-on-surface" for="auth-password">
+              Password
+            </label>
+</div>
+<div class="relative">
+<input autocomplete="current-password" class="w-full h-11 pl-3.5 pr-11 bg-surface-container-lowest border border-surface-variant rounded-lg font-body-md text-body-md text-on-surface placeholder:text-secondary-fixed-dim focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/10 transition-colors" id="auth-password" name="password" placeholder="••••••••••••" required="" type="password"/>
+<button aria-label="Toggle password visibility" class="absolute inset-y-0 right-0 pr-3 flex items-center text-secondary hover:text-on-surface transition-colors cursor-pointer" id="password-toggle" type="button">
+<span class="material-symbols-outlined" data-icon="visibility" id="eye-icon">visibility</span>
+</button>
+</div>
+</div>
+<!-- Remember Me & Forgot Password Row -->
+<div class="flex items-center justify-between pt-0.5 pb-1">
+<label class="flex items-center gap-2 cursor-pointer select-none">
+<input class="w-4 h-4 rounded border-surface-variant text-primary-container focus:ring-0 focus:ring-offset-0 transition-colors" name="remember" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-secondary">Remember me</span>
+</label>
+<a class="font-label-sm text-label-sm text-secondary hover:text-primary transition-colors underline decoration-surface-variant underline-offset-2" href="#">
+            Forgot password?
+          </a>
+</div>
+<!-- Primary Action Button: 44px touch target -->
+<button class="w-full h-11 rounded-lg bg-primary text-on-primary font-label-md text-label-md flex items-center justify-center gap-1.5 hover:bg-primary-container active:scale-[0.99] transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-primary/20" type="submit">
+<span>Sign in</span>
+<span aria-hidden="true">→</span>
+</button>
+</form>
+<!-- Clean Hairline Divider -->
+<div class="relative my-5">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-surface-variant"></div>
+</div>
+<div class="relative flex justify-center text-caption font-caption">
+<span class="bg-surface-container-lowest px-3 text-secondary">or</span>
+</div>
+</div>
+<!-- Outlined eduID / Institutional Login -->
+<button class="w-full h-11 rounded-lg border border-surface-variant bg-surface-container-lowest text-on-surface font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-surface-container-low hover:border-outline-variant active:scale-[0.99] transition-all duration-150" type="button">
+<span class="material-symbols-outlined text-secondary" data-icon="account_balance">account_balance</span>
+<span>Institutional account (eduID)</span>
+</button>
+<!-- Bottom Sub-link -->
+<div class="mt-6 text-center">
+<p class="font-body-sm text-body-sm text-secondary">
+          New to Indicata? 
+          <a class="text-on-background font-medium hover:text-primary underline decoration-surface-variant underline-offset-2 transition-colors ml-0.5" href="#">
+            Create an account
+          </a>
+</p>
+</div>
+</div>
+</main>
+<!-- Quiet Unobtrusive Footer based on Shared Components JSON -->
+<footer class="w-full bg-background">
+<div class="w-full max-w-5xl mx-auto px-6 py-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left transition-colors duration-150 ease-in-out">
+<span class="font-caption text-caption text-secondary">
+        © Indicata. ARACIS QA Framework compliant.
+      </span>
+<div class="flex items-center space-x-4">
+<a class="font-caption text-caption text-secondary hover:text-primary hover:underline transition-colors duration-150" href="#">Privacy Policy</a>
+<span class="text-surface-variant text-caption">•</span>
+<a class="font-caption text-caption text-secondary hover:text-primary hover:underline transition-colors duration-150" href="#">Terms of Service</a>
+<span class="text-surface-variant text-caption">•</span>
+<a class="font-caption text-caption text-secondary hover:text-primary hover:underline transition-colors duration-150" href="#">Institutional Access</a>
+</div>
+</div>
+</footer>
+<!-- Subtle Script for Password Visibility Toggle -->
+<script>
+    const passwordToggle = document.getElementById('password-toggle');
+    const passwordInput = document.getElementById('auth-password');
+    const eyeIcon = document.getElementById('eye-icon');
+
+    if (passwordToggle && passwordInput && eyeIcon) {
+      passwordToggle.addEventListener('click', () => {
+        const isPassword = passwordInput.getAttribute('type') === 'password';
+        passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
+        eyeIcon.textContent = isPassword ? 'visibility_off' : 'visibility';
+      });
+    }
+  </script>
+</body></html>

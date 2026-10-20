@@ -1,0 +1,76 @@
+<div class="bg-background text-on-background flex min-h-dvh flex-col justify-between antialiased">
+  <header class="w-full">
+    <div class="mx-auto flex w-full max-w-5xl items-center justify-between px-6 py-6">
+      <a
+        class="font-serif text-on-background flex items-center gap-2.5 text-xl font-medium tracking-tight"
+        routerLink="/login"
+      >
+        <span
+          class="bg-on-background text-surface flex h-7 w-7 items-center justify-center rounded-xl"
+        >
+          <svg
+            fill="none"
+            height="15"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2.2"
+            viewBox="0 0 24 24"
+            width="15"
+            aria-hidden="true"
+          >
+            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
+            <path d="m9 10 2 2 4-4"></path>
+          </svg>
+        </span>
+        <span>Indicata</span>
+      </a>
+
+      <div
+        class="border-outline-variant bg-surface-container-lowest flex items-center gap-1 rounded-full border px-2 py-1 text-xs"
+        role="group"
+        aria-label="Language"
+      >
+        <button class="text-on-surface-variant rounded px-1.5 py-0.5" type="button" disabled>
+          RO
+        </button>
+        <span class="text-outline-variant select-none" aria-hidden="true">/</span>
+        <button
+          class="text-on-background rounded px-1.5 py-0.5 font-medium"
+          type="button"
+          aria-current="true"
+          disabled
+        >
+          EN
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex w-full flex-1 items-center justify-center px-4 py-8">
+    <div
+      class="bg-surface-container-lowest border-outline-variant paper-card w-full max-w-[390px] rounded-xl border p-6 sm:max-w-[440px] sm:p-10"
+    >
+      <ng-content />
+    </div>
+  </main>
+
+  <footer class="w-full">
+    <div
+      class="mx-auto flex w-full max-w-5xl flex-col items-center justify-between gap-4 px-6 py-8 text-center sm:flex-row sm:text-left"
+    >
+      <div class="text-on-surface-variant flex items-center gap-5 text-xs">
+        <a class="hover:text-primary transition-colors hover:underline" href="#">Privacy Policy</a>
+        <span class="text-outline-variant select-none" aria-hidden="true">•</span>
+        <a class="hover:text-primary transition-colors hover:underline" href="#">
+          Terms of Service
+        </a>
+        <span class="text-outline-variant select-none" aria-hidden="true">•</span>
+        <a class="hover:text-primary transition-colors hover:underline" href="#">
+          Institutional Access
+        </a>
+      </div>
+      <p class="text-on-surface-variant text-xs">© Indicata. ARACIS QA Framework compliant.</p>
+    </div>
+  </footer>
+</div>

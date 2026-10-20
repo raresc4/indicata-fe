@@ -1,0 +1,86 @@
+<div class="bg-background text-on-background flex min-h-dvh flex-col antialiased">
+  <header
+    class="border-outline-variant bg-surface-container-lowest sticky top-0 z-30 w-full border-b"
+  >
+    <div class="flex h-16 w-full items-center justify-between px-4 sm:px-8">
+      <div class="flex items-center gap-3">
+        <span
+          class="bg-primary-container text-on-primary flex h-7 w-7 items-center justify-center rounded-lg font-serif text-sm font-medium tracking-tight"
+          aria-hidden="true"
+        >
+          I
+        </span>
+        <span class="flex items-baseline gap-2">
+          <span class="font-serif text-on-background text-xl font-medium tracking-tight">
+            Indicata
+          </span>
+          <span
+            class="bg-surface-container text-on-surface-variant rounded px-2 py-0.5 text-xs tracking-wide uppercase"
+          >
+            Project Setup
+          </span>
+        </span>
+      </div>
+
+      <div class="flex items-center gap-3 sm:gap-4">
+        <button
+          class="text-on-surface-variant hover:text-primary focus-visible:ring-primary/40 flex min-h-11 items-center rounded-lg px-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:outline-none"
+          type="button"
+        >
+          Cancel
+        </button>
+        <span class="bg-outline-variant hidden h-4 w-px sm:block" aria-hidden="true"></span>
+        <span class="flex items-center gap-2.5 pl-1">
+          <span
+            class="bg-surface-container border-outline-variant text-on-surface-variant flex h-7 w-7 items-center justify-center rounded-full border text-xs font-medium"
+            aria-hidden="true"
+          >
+            RV
+          </span>
+          <span class="text-on-surface-variant hidden text-sm md:inline">
+            Prof. Radu Vasile · UPT
+          </span>
+        </span>
+      </div>
+    </div>
+  </header>
+
+  @if (vm$ | async; as state) {
+    <main class="mx-auto flex w-full max-w-[760px] flex-1 flex-col px-4 py-6 sm:px-6 sm:py-10">
+      @switch (state.step) {
+        @case ('success') {
+          <app-wizard-success-view />
+        }
+        @default {
+          <div class="mb-8">
+            <app-wizard-stepper
+              [activeStep]="state.step"
+              [reachedStep]="state.reachedStep"
+              (select)="onSelectStep($event)"
+            />
+          </div>
+
+          @if (state.error; as error) {
+            <app-wizard-error-banner [invalidFields]="error.invalidFields" />
+          }
+
+          <div
+            class="bg-surface-container-lowest border-outline-variant rounded-xl border p-6 shadow-sm sm:p-10"
+          >
+            @switch (state.step) {
+              @case (1) {
+                <app-wizard-step-cycle [selected]="state.values.cycle" />
+              }
+              @case (2) {
+                <app-wizard-step-institution [cycle]="state.values.cycle" />
+              }
+              @case (3) {
+                <app-wizard-step-review />
+              }
+            }
+          </div>
+        }
+      }
+    </main>
+  }
+</div>

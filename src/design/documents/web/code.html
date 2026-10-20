@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-background text-on-background antialiased" lang="ro"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Indicata · Document Manager (ARACIS QA)</title>
+<!-- Material Symbols & Typography -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "secondary-container": "#e2dfde",
+            "primary-fixed-dim": "#a9c7ff",
+            "on-secondary-fixed": "#1b1b1c",
+            "on-primary-container": "#9ebdf7",
+            "surface-bright": "#faf9f6",
+            "error-container": "#ffdad6",
+            "on-background": "#1b1c1a",
+            "surface-dim": "#dbdad7",
+            "outline": "#747780",
+            "on-error-container": "#93000a",
+            "primary-container": "#2b4c7e",
+            "surface-container-highest": "#e3e2df",
+            "background": "#faf9f6",
+            "on-secondary-container": "#636262",
+            "tertiary-fixed-dim": "#c9c6c0",
+            "surface-container-low": "#f4f3f0",
+            "tertiary-fixed": "#e5e2dc",
+            "primary-fixed": "#d6e3ff",
+            "outline-variant": "#c3c6d0",
+            "on-secondary-fixed-variant": "#474746",
+            "tertiary": "#363531",
+            "surface-container-lowest": "#ffffff",
+            "surface": "#faf9f6",
+            "on-primary": "#ffffff",
+            "surface-container-high": "#e9e8e5",
+            "inverse-on-surface": "#f2f1ee",
+            "on-primary-fixed-variant": "#254778",
+            "secondary": "#5f5e5e",
+            "secondary-fixed-dim": "#c8c6c5",
+            "primary": "#0e3566",
+            "on-surface": "#1b1c1a",
+            "on-surface-variant": "#43474f",
+            "on-tertiary-container": "#bfbcb6",
+            "on-error": "#ffffff",
+            "inverse-primary": "#a9c7ff",
+            "error": "#ba1a1a",
+            "surface-container": "#efeeeb",
+            "on-tertiary-fixed": "#1c1c18",
+            "on-tertiary": "#ffffff",
+            "on-tertiary-fixed-variant": "#474742",
+            "secondary-fixed": "#e5e2e1",
+            "on-primary-fixed": "#001b3d",
+            "surface-variant": "#e3e2df",
+            "surface-tint": "#3f5f92",
+            "inverse-surface": "#2f312f",
+            "on-secondary": "#ffffff",
+            "tertiary-container": "#4d4c48"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-sm": "0.5rem",
+            "gutter-desktop": "1.5rem",
+            "space-xs": "0.25rem",
+            "space-lg": "1.5rem",
+            "space-md": "1rem",
+            "gutter": "1rem",
+            "margin-tablet": "2rem",
+            "space-xl": "2.5rem",
+            "margin": "1rem",
+            "margin-desktop": "3rem"
+          },
+          "fontFamily": {
+            "headline-lg-mobile": ["Newsreader", "serif"],
+            "headline-lg": ["Newsreader", "serif"],
+            "label-md": ["Inter", "sans-serif"],
+            "label-sm": ["Inter", "sans-serif"],
+            "caption": ["Inter", "sans-serif"],
+            "display": ["Newsreader", "serif"],
+            "body-lg": ["Inter", "sans-serif"],
+            "body-md": ["Inter", "sans-serif"],
+            "body-sm": ["Inter", "sans-serif"],
+            "headline-sm": ["Newsreader", "serif"],
+            "mono": ["JetBrains Mono", "monospace"]
+          },
+          "fontSize": {
+            "headline-lg-mobile": ["1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+            "headline-lg": ["1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.015em", "fontWeight": "400" }],
+            "label-md": ["0.875rem", { "lineHeight": "1.25rem", "fontWeight": "500" }],
+            "label-sm": ["0.75rem", { "lineHeight": "1rem", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "caption": ["0.6875rem", { "lineHeight": "1rem", "fontWeight": "400" }],
+            "display": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.02em", "fontWeight": "400" }],
+            "body-lg": ["1rem", { "lineHeight": "1.6rem", "fontWeight": "400" }],
+            "body-md": ["0.875rem", { "lineHeight": "1.45rem", "fontWeight": "400" }],
+            "body-sm": ["0.8125rem", { "lineHeight": "1.35rem", "fontWeight": "400" }],
+            "headline-sm": ["1.25rem", { "lineHeight": "1.75rem", "fontWeight": "500" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 350, 'GRAD' 0, 'opsz' 20;
+      vertical-align: middle;
+      line-height: 1;
+      display: inline-block;
+    }
+    .material-symbols-outlined.filled {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+    }
+    .soft-shadow {
+      box-shadow: 0 4px 20px -2px rgba(30, 30, 30, 0.03), 0 2px 6px -1px rgba(30, 30, 30, 0.02);
+    }
+    .drawer-shadow {
+      box-shadow: -8px 0 30px -4px rgba(27, 28, 26, 0.08);
+    }
+    /* Calm subtle scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #FAF9F6;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #D4D1CA;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #A8A6A1;
+    }
+  </style>
+</head>
+<body class="h-full flex overflow-hidden font-body-md text-on-surface bg-background">
+<!-- ========================================================================= -->
+<!-- LEFT SIDEBAR (240px, Calm Editorial Surface)                             -->
+<!-- ========================================================================= -->
+<aside class="w-60 flex-shrink-0 bg-surface-container-lowest border-r border-[#E7E5E4] flex flex-col justify-between h-full z-20">
+<!-- Top Branding & Navigation -->
+<div class="flex flex-col">
+<!-- Indicata Logo Header -->
+<div class="px-5 py-5 border-b border-[#F0EFEA] flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-primary-container text-on-primary flex items-center justify-center flex-shrink-0 shadow-sm">
+<svg class="w-4 h-4 text-surface-container-lowest" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewbox="0 0 16 16">
+<polyline points="3.5 8.5 6.5 11.5 12.5 4.5"></polyline>
+</svg>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface tracking-tight font-medium leading-tight">Indicata</span>
+<span class="font-caption text-caption text-secondary uppercase tracking-wider font-medium">ARACIS QA</span>
+</div>
+</div>
+<!-- Main Navigation -->
+<nav class="p-3 space-y-1">
+<!-- Projects -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-secondary hover:text-on-surface hover:bg-surface-container-low font-label-md text-label-md transition-colors duration-150" href="#projects">
+<span class="material-symbols-outlined text-[19px]">account_tree</span>
+<span>Projects</span>
+</a>
+<!-- Documents (Active Tab) -->
+<a class="flex items-center justify-between px-3 py-2 rounded-lg bg-[#EBF0F7] text-primary font-label-md text-label-md font-semibold relative transition-colors duration-150" href="#documents">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[19px] text-primary filled">description</span>
+<span>Documents</span>
+</div>
+<span class="w-1.5 h-4 rounded-full bg-primary absolute left-0 top-1/2 -translate-y-1/2"></span>
+<span class="font-mono text-caption bg-surface-container-lowest px-1.5 py-0.5 rounded border border-[#D9E3F0] text-primary">30</span>
+</a>
+<!-- Indicators -->
+<a class="flex items-center justify-between px-3 py-2 rounded-lg text-secondary hover:text-on-surface hover:bg-surface-container-low font-label-md text-label-md transition-colors duration-150" href="#indicators">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[19px]">fact_check</span>
+<span>Indicators</span>
+</div>
+<span class="font-mono text-caption px-1.5 py-0.5 rounded bg-surface-container-high text-secondary">39</span>
+</a>
+<!-- Export & Synthesis -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-secondary hover:text-on-surface hover:bg-surface-container-low font-label-md text-label-md transition-colors duration-150" href="#synthesis">
+<span class="material-symbols-outlined text-[19px]">analytics</span>
+<span>Export &amp; Synthesis</span>
+</a>
+<!-- Settings -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-secondary hover:text-on-surface hover:bg-surface-container-low font-label-md text-label-md transition-colors duration-150" href="#settings">
+<span class="material-symbols-outlined text-[19px]">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+</div>
+<!-- Bottom User Section -->
+<div class="p-4 border-t border-[#F0EFEA] bg-[#FAFAF8]">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-[#E5E2DC] text-tertiary flex items-center justify-center font-label-md font-medium text-xs border border-[#DDD9D2]">
+          RV
+        </div>
+<div class="flex flex-col min-w-0 flex-1">
+<p class="font-label-md text-label-md text-on-surface truncate font-medium">Prof. Radu Vasile</p>
+<p class="font-caption text-caption text-secondary truncate">QA Director · UPT</p>
+</div>
+<button class="text-secondary hover:text-on-surface p-1" title="User menu" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- ========================================================================= -->
+<!-- MAIN WORKSPACE                                                            -->
+<!-- ========================================================================= -->
+<div class="flex-1 flex flex-col h-full overflow-hidden relative">
+<!-- Top Bar -->
+<header class="h-14 bg-surface-container-lowest border-b border-[#E7E5E4] px-6 flex items-center justify-between flex-shrink-0 z-10">
+<!-- Institutional Breadcrumb -->
+<nav class="flex items-center gap-2 font-label-sm text-label-sm text-secondary overflow-x-auto whitespace-nowrap">
+<span class="text-secondary hover:text-on-surface transition-colors cursor-pointer">Universitatea Politehnica Timișoara</span>
+<span class="material-symbols-outlined text-[14px] text-outline-variant">chevron_right</span>
+<span class="text-secondary hover:text-on-surface transition-colors cursor-pointer">Doctoral · Computer Engineering</span>
+<span class="material-symbols-outlined text-[14px] text-outline-variant">chevron_right</span>
+<span class="font-medium text-on-surface bg-surface-container-low px-2 py-0.5 rounded text-secondary">Documents</span>
+</nav>
+<!-- Right Header Actions & Demo Switcher -->
+<div class="flex items-center gap-3">
+<!-- Interactive State Testing Pills -->
+<div class="hidden xl:flex items-center bg-surface-container-low border border-[#E8E6E1] rounded-lg p-0.5 text-xs text-secondary">
+<span class="px-2 py-1 font-caption text-secondary uppercase font-semibold">Demo:</span>
+<button class="px-2.5 py-1 rounded font-medium bg-surface-container-lowest text-primary shadow-xs" id="btn-demo-pop" onclick="setDemoView('populated')">Populated</button>
+<button class="px-2.5 py-1 rounded font-medium hover:text-on-surface" id="btn-demo-empty" onclick="setDemoView('empty')">Empty Quick-Start</button>
+<button class="px-2.5 py-1 rounded font-medium hover:text-on-surface" onclick="toggleModal('crawl-modal')">Crawl Modal</button>
+<button class="px-2.5 py-1 rounded font-medium hover:text-on-surface" onclick="toggleModal('websearch-modal')">Web Search</button>
+<button class="px-2.5 py-1 rounded font-medium hover:text-on-surface" onclick="toggleModal('upload-modal')">Upload Modal</button>
+<button class="px-2.5 py-1 rounded font-medium hover:text-on-surface text-primary font-semibold" id="btn-demo-drawer" onclick="toggleDrawer()">Drawer (Open)</button>
+</div>
+<!-- Verification Status Pill -->
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#F0F5ED] border border-[#D7E6CE] text-[#2E5E24] font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-[#3D852C]"></span>
+<span>18 of 28 verified</span>
+</div>
+<!-- Share Button -->
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#E8E6E1] bg-surface-container-lowest text-secondary hover:text-on-surface hover:bg-surface-container-low font-label-md text-label-md transition-all duration-150" type="button">
+<span class="material-symbols-outlined text-[16px]">share</span>
+<span>Share</span>
+</button>
+</div>
+</header>
+<!-- Scrollable Workspace Body -->
+<main class="flex-1 overflow-y-auto p-6 md:p-8 space-y-6">
+<!-- ===================================================================== -->
+<!-- SECTION: HEADER & STATS ROW                                            -->
+<!-- ===================================================================== -->
+<section class="flex flex-col md:flex-row md:items-start justify-between gap-4 pb-2">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight font-medium">Documents</h1>
+<p class="font-body-md text-body-md text-secondary mt-1 max-w-2xl">
+            Everything the report is built from. Only accepted documents are used to generate indicators for ARACIS evaluation.
+          </p>
+</div>
+<!-- Primary Add Action with Dropdown -->
+<div class="relative inline-block text-left flex-shrink-0" id="dropdown-parent">
+<div class="inline-flex rounded-lg shadow-sm">
+<button class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-primary-container text-on-primary hover:bg-[#233E67] font-label-md text-label-md transition-colors duration-150" onclick="toggleAddMenu()" type="button">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span>Add documents</span>
+<span class="material-symbols-outlined text-[16px] ml-1">expand_more</span>
+</button>
+</div>
+<!-- Dropdown Menu -->
+<div class="hidden absolute right-0 mt-2 w-80 rounded-lg bg-surface-container-lowest border border-[#E8E6E1] shadow-lg py-1.5 z-30 font-label-md text-label-md" id="add-dropdown-menu">
+<button class="w-full text-left px-4 py-2.5 hover:bg-surface-container-low flex items-start gap-3 transition-colors" onclick="toggleModal('upload-modal'); toggleAddMenu()">
+<span class="material-symbols-outlined text-[20px] text-primary-container mt-0.5">upload_file</span>
+<div>
+<p class="font-medium text-on-surface">Upload files</p>
+<p class="font-caption text-caption text-secondary">PDF, DOCX, MD up to 50MB</p>
+</div>
+</button>
+<button class="w-full text-left px-4 py-2.5 hover:bg-surface-container-low flex items-start gap-3 transition-colors border-t border-[#F0EFEA]" onclick="toggleModal('crawl-modal'); toggleAddMenu()">
+<span class="material-symbols-outlined text-[20px] text-primary-container mt-0.5">language</span>
+<div>
+<p class="font-medium text-on-surface">Crawl a website</p>
+<p class="font-caption text-caption text-secondary">Import pages and regulations from upt.ro</p>
+</div>
+</button>
+<button class="w-full text-left px-4 py-2.5 hover:bg-surface-container-low flex items-start gap-3 transition-colors border-t border-[#F0EFEA]" onclick="toggleModal('websearch-modal'); toggleAddMenu()">
+<span class="material-symbols-outlined text-[20px] text-primary-container mt-0.5">search_insights</span>
+<div>
+<p class="font-medium text-on-surface">Search the web</p>
+<p class="font-caption text-caption text-secondary">Find public regulations and senate orders</p>
+</div>
+</button>
+</div>
+</div>
+</section>
+<!-- 4 Stat Metric Cards -->
+<section class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<!-- Accepted -->
+<div class="bg-surface-container-lowest border border-[#E8E6E1] rounded-lg p-4 soft-shadow flex flex-col justify-between">
+<div class="flex items-center justify-between text-secondary">
+<span class="font-label-sm text-label-sm text-secondary">Accepted</span>
+<div class="w-6 h-6 rounded-full bg-[#EEF6EB] text-[#2F6F21] flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+</div>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg font-medium text-on-surface">18</span>
+<span class="font-caption text-caption text-secondary">used in 24 indicators</span>
+</div>
+</div>
+<!-- Needs Review -->
+<div class="bg-surface-container-lowest border border-[#F3E2B8] bg-[#FDFCF8] rounded-lg p-4 soft-shadow flex flex-col justify-between">
+<div class="flex items-center justify-between text-secondary">
+<span class="font-label-sm text-label-sm text-[#875F05] font-medium">Needs review</span>
+<div class="w-6 h-6 rounded-full bg-[#FEF4DB] text-[#875F05] flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+</div>
+</div>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg font-medium text-[#875F05]">7</span>
+<span class="font-caption text-caption text-secondary">pending validation</span>
+</div>
+</div>
+<!-- Rejected -->
+<div class="bg-surface-container-lowest border border-[#E8E6E1] rounded-lg p-4 soft-shadow flex flex-col justify-between">
+<div class="flex items-center justify-between text-secondary">
+<span class="font-label-sm text-label-sm text-secondary">Rejected</span>
+<div class="w-6 h-6 rounded-full bg-[#F5F4F0] text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]">block</span>
+</div>
+</div>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg font-medium text-secondary">3</span>
+<span class="font-caption text-caption text-secondary">excluded from pool</span>
+</div>
+</div>
+<!-- Processing -->
+<div class="bg-surface-container-lowest border border-[#E8E6E1] rounded-lg p-4 soft-shadow flex flex-col justify-between">
+<div class="flex items-center justify-between text-secondary">
+<span class="font-label-sm text-label-sm text-secondary">Processing</span>
+<div class="w-6 h-6 rounded-full bg-[#EBF0F7] text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] animate-spin">progress_activity</span>
+</div>
+</div>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg font-medium text-on-surface">2</span>
+<span class="font-caption text-caption text-secondary">OCR &amp; indexing</span>
+</div>
+</div>
+</section>
+<!-- ===================================================================== -->
+<!-- SECTION: COMPLETENESS HINT (ARACIS Institutional Checklist)           -->
+<!-- ===================================================================== -->
+<section class="bg-surface-container-lowest border border-[#E8E6E1] rounded-lg p-5 soft-shadow">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-[#F0EFEA] pb-4">
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary-container">fact_check</span>
+<h2 class="font-headline-sm text-headline-sm font-medium text-on-surface">Expected institutional documents</h2>
+</div>
+<p class="font-caption text-caption text-secondary">Mandatory standard portfolio according to ARACIS QA Evaluation Guide for Doctoral Studies</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<span class="font-label-sm text-label-sm font-medium text-on-surface">6 of 10 expected documents found</span>
+<p class="font-caption text-caption text-secondary">60% institutional compliance</p>
+</div>
+<div class="w-32 bg-surface-container-high rounded-full h-2 overflow-hidden">
+<div class="bg-primary-container h-2 rounded-full" style="width: 60%"></div>
+</div>
+</div>
+</div>
+<!-- Checklist items horizontal scroll/grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 pt-4">
+<!-- Item 1: Checked -->
+<div class="flex items-center justify-between p-2.5 rounded-lg border border-[#E8E6E1] bg-surface-container-low text-xs">
+<div class="flex items-center gap-2 min-w-0">
+<span class="material-symbols-outlined text-[16px] text-[#2F6F21] flex-shrink-0">check_circle</span>
+<span class="font-label-sm text-label-sm text-on-surface truncate">Carta universității</span>
+</div>
+<span class="font-mono text-[10px] text-secondary">upt-2024</span>
+</div>
+<!-- Item 2: Checked -->
+<div class="flex items-center justify-between p-2.5 rounded-lg border border-[#E8E6E1] bg-surface-container-low text-xs">
+<div class="flex items-center gap-2 min-w-0">
+<span class="material-symbols-outlined text-[16px] text-[#2F6F21] flex-shrink-0">check_circle</span>
+<span class="font-label-sm text-label-sm text-on-surface truncate">Regulament CSUD / doctorat</span>
+</div>
+<span class="font-mono text-[10px] text-secondary">csud-2024</span>
+</div>
+<!-- Item 3: Checked -->
+<div class="flex items-center justify-between p-2.5 rounded-lg border border-[#E8E6E1] bg-surface-container-low text-xs">
+<div class="flex items-center gap-2 min-w-0">
+<span class="material-symbols-outlined text-[16px] text-[#2F6F21] flex-shrink-0">check_circle</span>
+<span class="font-label-sm text-label-sm text-on-surface truncate">Organigramă instituțională</span>
+</div>
+<span class="font-mono text-[10px] text-secondary">org-2024</span>
+</div>
+<!-- Item 4: Checked -->
+<div class="flex items-center justify-between p-2.5 rounded-lg border border-[#E8E6E1] bg-surface-container-low text-xs">
+<div class="flex items-center gap-2 min-w-0">
+<span class="material-symbols-outlined text-[16px] text-[#2F6F21] flex-shrink-0">check_circle</span>
+<span class="font-label-sm text-label-sm text-on-surface truncate">Plan Strategic 2024-2029</span>
+</div>
+<span class="font-mono text-[10px] text-secondary">plan-strat</span>
+</div>
+<!-- Item 5: Checked -->
+<div class="flex items-center justify-between p-2.5 rounded-lg border border-[#E8E6E1] bg-surface-container-low text-xs">
+<div class="flex items-center gap-2 min-w-0">
+<span class="material-symbols-outlined text-[16px] text-[#2F6F21] flex-shrink-0">check_circle</span>
+<span class="font-label-sm text-label-sm text-on-surface truncate">Ghid de redactare teze</span>
+</div>
+<span class="font-mono text-[10px] text-secondary">ghid-teze</span>
+</div>
+<!-- Item 6: Missing / Amber Upload -->
+<div class="flex items-center justify-between p-2.5 rounded-lg border border-[#EAD5A0] bg-[#FFFDF7] text-xs">
+<div class="flex items-center gap-2 min-w-0">
+<span class="material-symbols-outlined text-[16px] text-[#A26D00] flex-shrink-0">radio_button_unchecked</span>
+<span class="font-label-sm text-label-sm text-[#734E03] truncate font-medium">Metodologie alegeri academice</span>
+</div>
+<button class="px-2 py-0.5 rounded bg-[#FEF4DB] text-[#875F05] hover:bg-[#FBECC3] font-label-sm font-semibold transition-colors flex-shrink-0" onclick="toggleModal('upload-modal')">
+              Upload
+            </button>
+</div>
+<!-- Item 7: Missing / Amber Upload -->
+<div class="flex items-center justify-between p-2.5 rounded-lg border border-[#EAD5A0] bg-[#FFFDF7] text-xs">
+<div class="flex items-center gap-2 min-w-0">
+<span class="material-symbols-outlined text-[16px] text-[#A26D00] flex-shrink-0">radio_button_unchecked</span>
+<span class="font-label-sm text-label-sm text-[#734E03] truncate font-medium">Raport anual CEAC 2023-2024</span>
+</div>
+<button class="px-2 py-0.5 rounded bg-[#FEF4DB] text-[#875F05] hover:bg-[#FBECC3] font-label-sm font-semibold transition-colors flex-shrink-0" onclick="toggleModal('upload-modal')">
+              Upload
+            </button>
+</div>
+<!-- Item 8: Additional standard -->
+<div class="flex items-center justify-between p-2.5 rounded-lg border border-[#E8E6E1] bg-surface-container-low text-xs">
+<div class="flex items-center gap-2 min-w-0">
+<span class="material-symbols-outlined text-[16px] text-[#2F6F21] flex-shrink-0">check_circle</span>
+<span class="font-label-sm text-label-sm text-on-surface truncate">Procedură prevenire plagiat</span>
+</div>
+<span class="font-mono text-[10px] text-secondary">proc-plag</span>
+</div>
+</div>
+</section>
+<!-- ===================================================================== -->
+<!-- EMPTY STATE CONTAINER (Hidden by default, toggleable in demo)       -->
+<!-- ===================================================================== -->
+<section class="hidden bg-surface-container-lowest border border-[#E8E6E1] rounded-lg p-10 text-center soft-shadow space-y-6" id="empty-state-view">
+<div class="max-w-md mx-auto space-y-3">
+<div class="w-14 h-14 mx-auto rounded-xl bg-surface-container-low border border-[#E8E6E1] flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[28px]">folder_open</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-medium text-on-surface">No documents added to this doctoral program yet</h3>
+<p class="font-body-md text-body-md text-secondary">
+            Indicata synthesizes ARACIS criteria directly from your university regulations, Senate decrees, and faculty charters.
+          </p>
+</div>
+<!-- 3 Quick Start Action Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto pt-4 text-left">
+<div class="cursor-pointer border border-[#E8E6E1] hover:border-primary-container rounded-lg p-5 bg-surface-container-low hover:bg-surface-container-lowest transition-all" onclick="toggleModal('upload-modal')">
+<span class="material-symbols-outlined text-[24px] text-primary-container mb-3">upload_file</span>
+<h4 class="font-label-md text-label-md font-semibold text-on-surface">Upload files</h4>
+<p class="font-caption text-caption text-secondary mt-1">Drag &amp; drop institutional PDF or DOCX up to 50MB. Automatic OCR parsing included.</p>
+</div>
+<div class="cursor-pointer border border-[#E8E6E1] hover:border-primary-container rounded-lg p-5 bg-surface-container-low hover:bg-surface-container-lowest transition-all" onclick="toggleModal('crawl-modal')">
+<span class="material-symbols-outlined text-[24px] text-primary-container mb-3">language</span>
+<h4 class="font-label-md text-label-md font-semibold text-on-surface">Crawl university website</h4>
+<p class="font-caption text-caption text-secondary mt-1">Provide domain like upt.ro to crawl official senate repositories and student guides.</p>
+</div>
+<div class="cursor-pointer border border-[#E8E6E1] hover:border-primary-container rounded-lg p-5 bg-surface-container-low hover:bg-surface-container-lowest transition-all" onclick="toggleModal('websearch-modal')">
+<span class="material-symbols-outlined text-[24px] text-primary-container mb-3">manage_search</span>
+<h4 class="font-label-md text-label-md font-semibold text-on-surface">Search academic web</h4>
+<p class="font-caption text-caption text-secondary mt-1">Discover public ARACIS self-assessment reports and national standards automatically.</p>
+</div>
+</div>
+</section>
+<!-- ===================================================================== -->
+<!-- SECTION: MAIN DOCUMENTS LIST & DATA TABLE                            -->
+<!-- ===================================================================== -->
+<section class="bg-surface-container-lowest border border-[#E8E6E1] rounded-lg soft-shadow overflow-hidden flex flex-col" id="table-container-view">
+<!-- Status Tabs Bar -->
+<div class="border-b border-[#E8E6E1] px-5 flex items-center justify-between overflow-x-auto">
+<div class="flex items-center gap-1 -mb-px">
+<!-- All Tab -->
+<button class="px-4 py-3 border-b-2 border-primary-container text-primary-container font-label-md text-label-md font-semibold flex items-center gap-2">
+<span>All</span>
+<span class="font-mono text-caption bg-[#EBF0F7] px-1.5 py-0.5 rounded text-primary">30</span>
+</button>
+<!-- Needs Review Tab -->
+<button class="px-4 py-3 border-b-2 border-transparent text-secondary hover:text-on-surface font-label-md text-label-md font-medium flex items-center gap-2 transition-colors">
+<span>Needs review</span>
+<span class="font-mono text-caption bg-[#FEF4DB] text-[#875F05] px-1.5 py-0.5 rounded font-semibold">7</span>
+</button>
+<!-- Accepted Tab -->
+<button class="px-4 py-3 border-b-2 border-transparent text-secondary hover:text-on-surface font-label-md text-label-md font-medium flex items-center gap-2 transition-colors">
+<span>Accepted</span>
+<span class="font-mono text-caption bg-surface-container-low px-1.5 py-0.5 rounded text-secondary">18</span>
+</button>
+<!-- Rejected Tab -->
+<button class="px-4 py-3 border-b-2 border-transparent text-secondary hover:text-on-surface font-label-md text-label-md font-medium flex items-center gap-2 transition-colors">
+<span>Rejected</span>
+<span class="font-mono text-caption bg-surface-container-low px-1.5 py-0.5 rounded text-secondary">3</span>
+</button>
+<!-- Processing Tab -->
+<button class="px-4 py-3 border-b-2 border-transparent text-secondary hover:text-on-surface font-label-md text-label-md font-medium flex items-center gap-2 transition-colors">
+<span>Processing</span>
+<span class="font-mono text-caption bg-surface-container-low px-1.5 py-0.5 rounded text-secondary">2</span>
+</button>
+</div>
+<span class="font-caption text-caption text-secondary hidden sm:inline">Last synchronized: Today, 14:22</span>
+</div>
+<!-- Filters & Search Toolbar -->
+<div class="p-4 bg-surface-container-lowest border-b border-[#E8E6E1] flex flex-col md:flex-row md:items-center justify-between gap-3">
+<!-- Search input -->
+<div class="relative flex-1 max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[18px] text-outline">search</span>
+<input class="w-full pl-9 pr-3 py-1.5 text-body-sm bg-surface-container-lowest border border-[#E8E6E1] rounded-lg focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/10 transition-all placeholder:text-[#A8A6A1]" placeholder="Search documents or indicator claims..." type="text"/>
+</div>
+<!-- Filter Dropdowns Cluster -->
+<div class="flex items-center flex-wrap gap-2 text-label-sm">
+<!-- Origin Filter -->
+<select aria-label="Origin filter" class="bg-surface-container-lowest border border-[#E8E6E1] rounded-lg px-2.5 py-1.5 text-secondary hover:text-on-surface text-label-sm focus:outline-none focus:border-primary-container">
+<option>Origin: All</option>
+<option>Uploaded</option>
+<option>Website (upt.ro)</option>
+<option>Web search</option>
+</select>
+<!-- File Type Filter -->
+<select aria-label="File type filter" class="bg-surface-container-lowest border border-[#E8E6E1] rounded-lg px-2.5 py-1.5 text-secondary hover:text-on-surface text-label-sm focus:outline-none focus:border-primary-container">
+<option>File type: All</option>
+<option>PDF</option>
+<option>DOCX</option>
+<option>Web HTML</option>
+</select>
+<!-- Linked Indicator Filter -->
+<select aria-label="Linked indicator filter" class="bg-surface-container-lowest border border-[#E8E6E1] rounded-lg px-2.5 py-1.5 text-secondary hover:text-on-surface text-label-sm focus:outline-none focus:border-primary-container">
+<option>Linked indicator: All</option>
+<option>A.1.1.1 (Carta universitară)</option>
+<option>A.1.2.1 (Regulamente)</option>
+<option>B.2.1.3 (Doctorat)</option>
+</select>
+<!-- Sort By -->
+<div class="h-4 w-px bg-[#E8E6E1] mx-1 hidden sm:block"></div>
+<button class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-[#E8E6E1] text-secondary hover:text-on-surface text-label-sm">
+<span class="material-symbols-outlined text-[16px]">sort</span>
+<span>Recently added</span>
+</button>
+</div>
+</div>
+<!-- Bulk Selection Alert Banner (Contextual) -->
+<div class="bg-[#F4F6F9] px-5 py-2.5 border-b border-[#DCE4EE] flex items-center justify-between text-xs">
+<div class="flex items-center gap-2 text-on-surface font-medium">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span>3 documents selected</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-2.5 py-1 rounded bg-surface-container-lowest border border-[#DCE4EE] text-[#2F6F21] hover:bg-[#EEF6EB] font-label-sm font-semibold transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check</span>
+<span>Accept all</span>
+</button>
+<button class="px-2.5 py-1 rounded bg-surface-container-lowest border border-[#DCE4EE] text-secondary hover:text-on-surface hover:bg-surface-container-low font-label-sm transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">close</span>
+<span>Reject all</span>
+</button>
+<button class="px-2.5 py-1 rounded bg-surface-container-lowest border border-[#DCE4EE] text-error hover:bg-error-container/20 font-label-sm transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">delete</span>
+<span>Remove</span>
+</button>
+</div>
+</div>
+<!-- The Academic Document Data Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-[#E8E6E1] bg-[#FAFAF8] text-secondary font-label-sm text-caption tracking-wider uppercase">
+<th class="py-3 px-4 w-10 text-center">
+<input aria-label="Select all documents" checked="" class="rounded border-[#D4D1CA] text-primary-container focus:ring-primary-container/20" type="checkbox"/>
+</th>
+<th class="py-3 px-4 min-w-[280px]">Document Title &amp; File Info</th>
+<th class="py-3 px-4 min-w-[130px]">Origin</th>
+<th class="py-3 px-4 min-w-[150px]">Status</th>
+<th class="py-3 px-4 min-w-[160px]">Used In (ARACIS)</th>
+<th class="py-3 px-4 min-w-[180px]">Added Date &amp; Author</th>
+<th class="py-3 px-4 w-14 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#E8E6E1] text-body-sm font-body-sm">
+<!-- ROW 1: Accepted Document -->
+<tr class="hover:bg-[#FAF9F6] transition-colors cursor-pointer" onclick="openDrawerWithDoc('Carta Universității Politehnica Timișoara', 'carta-universitara-upt-2024.pdf', 'Accepted', 'Uploaded')">
+<td class="py-3.5 px-4 text-center" onclick="event.stopPropagation()">
+<input aria-label="Select Carta Universității Politehnica Timișoara" checked="" class="rounded border-[#D4D1CA] text-primary-container focus:ring-primary-container/20" type="checkbox"/>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-[22px] text-[#A82828] mt-0.5">picture_as_pdf</span>
+<div>
+<span class="font-medium text-on-surface hover:text-primary transition-colors block">Carta Universității Politehnica Timișoara</span>
+<div class="flex items-center gap-2 mt-0.5 text-secondary">
+<span class="font-mono text-[11px]">carta-universitara-upt-2024.pdf</span>
+<span class="text-xs">·</span>
+<span class="text-caption">4.8 MB</span>
+<span class="text-xs">·</span>
+<span class="text-caption">84 pag.</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-low border border-[#E8E6E1] text-caption font-medium text-secondary">
+<span class="material-symbols-outlined text-[13px]">upload</span>
+<span>Uploaded</span>
+</span>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#EEF6EB] text-[#2F6F21] text-label-sm font-medium border border-[#D2E7CB]">
+<span class="material-symbols-outlined text-[13px] filled">check_circle</span>
+<span>Accepted</span>
+</span>
+</td>
+<td class="py-3.5 px-4" onclick="event.stopPropagation()">
+<button class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#EBF0F7] text-primary text-label-sm font-medium hover:bg-[#D9E3F0] transition-colors" type="button">
+<span class="material-symbols-outlined text-[13px]">bookmark</span>
+<span>9 indicators</span>
+</button>
+</td>
+<td class="py-3.5 px-4 text-secondary">
+<p class="text-on-surface">12 Oct 2024</p>
+<p class="text-caption">Prof. Radu Vasile</p>
+</td>
+<td class="py-3.5 px-4 text-right" onclick="event.stopPropagation()">
+<button aria-label="Document options for Carta Universității" class="text-secondary hover:text-on-surface p-1 rounded hover:bg-surface-container-low" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- ROW 2: Needs Review (Website Crawled) -->
+<tr class="bg-[#FFFDF7] hover:bg-[#FDF9ED] transition-colors border-l-4 border-l-[#D99A1E] cursor-pointer" onclick="openDrawerWithDoc('Regulament de organizare și funcționare a școlii doctorale', 'regulament-csud-2024.pdf', 'Needs review', 'Website (upt.ro)')">
+<td class="py-3.5 px-4 text-center" onclick="event.stopPropagation()">
+<input aria-label="Select Regulament de organizare și funcționare a școlii doctorale" checked="" class="rounded border-[#D4D1CA] text-primary-container focus:ring-primary-container/20" type="checkbox"/>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-[22px] text-[#A82828] mt-0.5">picture_as_pdf</span>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-medium text-on-surface hover:text-primary transition-colors">Regulament de organizare și funcționare a școlii doctorale</span>
+</div>
+<div class="flex items-center gap-2 mt-0.5 text-secondary">
+<span class="font-mono text-[11px]">regulament-csud-2024.pdf</span>
+<span class="text-xs">·</span>
+<span class="text-caption">3.2 MB</span>
+</div>
+<!-- Banner notice -->
+<p class="text-[11px] text-[#875F05] mt-1 flex items-center gap-1 font-medium">
+<span class="material-symbols-outlined text-[13px]">info</span>
+<span>Found online — not used until you accept it</span>
+</p>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#F7F2EC] border border-[#E8DFD5] text-caption font-medium text-[#7D5220]">
+<span class="material-symbols-outlined text-[13px]">link</span>
+<span>upt.ro</span>
+</span>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#FEF4DB] text-[#875F05] text-label-sm font-medium border border-[#F3DEAB]">
+<span class="material-symbols-outlined text-[13px]">pending</span>
+<span>Needs review</span>
+</span>
+</td>
+<td class="py-3.5 px-4" onclick="event.stopPropagation()">
+<span class="font-mono text-caption text-secondary">3 candidates</span>
+</td>
+<td class="py-3.5 px-4 text-secondary">
+<p class="text-on-surface">Today, 11:40</p>
+<p class="text-caption">Crawler upt.ro</p>
+</td>
+<td class="py-3.5 px-4 text-right" onclick="event.stopPropagation()">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1 rounded text-[#2F6F21] hover:bg-[#EEF6EB] transition-colors" title="Accept" type="button">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+</button>
+<button class="p-1 rounded text-[#93000A] hover:bg-error-container/30 transition-colors" title="Reject" type="button">
+<span class="material-symbols-outlined text-[18px]">cancel</span>
+</button>
+<button class="text-secondary hover:text-on-surface p-1 rounded hover:bg-surface-container-low" title="More" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 3: Needs Review (Web Search) -->
+<tr class="hover:bg-[#FAF9F6] transition-colors cursor-pointer" onclick="openDrawerWithDoc('Raport de evaluare instituțională ARACIS 2025', 'raport-autoevaluare-upt.pdf', 'Needs review', 'Web Search')">
+<td class="py-3.5 px-4 text-center" onclick="event.stopPropagation()">
+<input aria-label="Select Raport de evaluare instituțională ARACIS 2025" checked="" class="rounded border-[#D4D1CA] text-primary-container focus:ring-primary-container/20" type="checkbox"/>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-[22px] text-[#A82828] mt-0.5">picture_as_pdf</span>
+<div>
+<span class="font-medium text-on-surface hover:text-primary transition-colors block">Raport de evaluare instituțională ARACIS 2025</span>
+<div class="flex items-center gap-2 mt-0.5 text-secondary">
+<span class="font-mono text-[11px]">raport-autoevaluare-upt.pdf</span>
+<span class="text-xs">·</span>
+<span class="text-caption">12.1 MB</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-low border border-[#E8E6E1] text-caption font-medium text-secondary">
+<span class="material-symbols-outlined text-[13px]">travel_explore</span>
+<span>Google Scholar</span>
+</span>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#FEF4DB] text-[#875F05] text-label-sm font-medium border border-[#F3DEAB]">
+<span class="material-symbols-outlined text-[13px]">pending</span>
+<span>Needs review</span>
+</span>
+</td>
+<td class="py-3.5 px-4" onclick="event.stopPropagation()">
+<button class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container-low text-secondary text-label-sm hover:bg-surface-container-high transition-colors" type="button">
+<span>4 proposed claims</span>
+</button>
+</td>
+<td class="py-3.5 px-4 text-secondary">
+<p class="text-on-surface">Yesterday, 19:15</p>
+<p class="text-caption">Web Intelligence</p>
+</td>
+<td class="py-3.5 px-4 text-right" onclick="event.stopPropagation()">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1 rounded text-[#2F6F21] hover:bg-[#EEF6EB]" title="Accept" type="button">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+</button>
+<button class="p-1 rounded text-[#93000A] hover:bg-error-container/30" title="Reject" type="button">
+<span class="material-symbols-outlined text-[18px]">cancel</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 4: Processing State -->
+<tr class="hover:bg-[#FAF9F6] transition-colors">
+<td class="py-3.5 px-4 text-center">
+<input aria-label="Select Organigrama instituțională și a facultăților" class="rounded border-[#D4D1CA] text-secondary opacity-50" disabled="" type="checkbox"/>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-[22px] text-secondary mt-0.5">description</span>
+<div>
+<span class="font-medium text-on-surface block">Organigrama instituțională și a facultăților</span>
+<div class="flex items-center gap-2 mt-0.5 text-secondary">
+<span class="font-mono text-[11px]">organigrama-upt-2024.pdf</span>
+<span class="text-xs">·</span>
+<span class="text-caption">1.4 MB</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-low border border-[#E8E6E1] text-caption font-medium text-secondary">
+<span class="material-symbols-outlined text-[13px]">upload</span>
+<span>Uploaded</span>
+</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#EBF0F7] text-primary text-label-sm font-medium border border-[#D9E3F0]">
+<span class="material-symbols-outlined text-[13px] animate-spin">progress_activity</span>
+<span>Extracting 42 pages...</span>
+</div>
+</td>
+<td class="py-3.5 px-4 text-secondary">
+<span class="italic text-caption">Indexing structure...</span>
+</td>
+<td class="py-3.5 px-4 text-secondary">
+<p class="text-on-surface">Just now</p>
+<p class="text-caption">Prof. Radu Vasile</p>
+</td>
+<td class="py-3.5 px-4 text-right">
+<button aria-label="Processing document options" class="text-secondary hover:text-on-surface p-1 rounded hover:bg-surface-container-low" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- ROW 5: Failed State (OCR Failed) -->
+<tr class="hover:bg-[#FAF9F6] transition-colors">
+<td class="py-3.5 px-4 text-center">
+<input aria-label="Select Hotărârea Senatului nr. 84/2023" class="rounded border-[#D4D1CA] text-primary-container focus:ring-primary-container/20" type="checkbox"/>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-[22px] text-error mt-0.5">report_problem</span>
+<div>
+<span class="font-medium text-on-surface block">Hotărârea Senatului nr. 84/2023 (scan)</span>
+<div class="flex items-center gap-2 mt-0.5 text-secondary">
+<span class="font-mono text-[11px]">hs-84-2023-scan.pdf</span>
+<span class="text-xs">·</span>
+<span class="text-caption">8.4 MB (Low DPI Scan)</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-low border border-[#E8E6E1] text-caption font-medium text-secondary">
+<span class="material-symbols-outlined text-[13px]">upload</span>
+<span>Uploaded</span>
+</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col gap-1 items-start">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-error-container text-on-error-container text-label-sm font-medium">
+<span class="material-symbols-outlined text-[13px]">error</span>
+<span>OCR extraction failed</span>
+</span>
+<button class="font-label-sm text-[11px] text-primary hover:underline font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">refresh</span> Retry with Enhanced OCR
+                    </button>
+</div>
+</td>
+<td class="py-3.5 px-4 text-secondary">
+<span class="text-caption">—</span>
+</td>
+<td class="py-3.5 px-4 text-secondary">
+<p class="text-on-surface">10 Oct 2024</p>
+<p class="text-caption">Secretariat CSUD</p>
+</td>
+<td class="py-3.5 px-4 text-right">
+<button aria-label="Failed document options" class="text-secondary hover:text-on-surface p-1 rounded hover:bg-surface-container-low" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- ROW 6: Rejected Document -->
+<tr class="hover:bg-[#FAF9F6] transition-colors opacity-75">
+<td class="py-3.5 px-4 text-center">
+<input aria-label="Select Ghid ARACIS Criterii 2021" class="rounded border-[#D4D1CA] text-primary-container focus:ring-primary-container/20" type="checkbox"/>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-[22px] text-secondary mt-0.5">delete_outline</span>
+<div>
+<span class="font-medium text-secondary line-through block">Ghid ARACIS Criterii 2021 (vechi)</span>
+<div class="flex items-center gap-2 mt-0.5 text-secondary">
+<span class="font-mono text-[11px]">ghid-aracis-2021.pdf</span>
+<span class="text-xs">·</span>
+<span class="text-caption">2.0 MB</span>
+</div>
+<p class="text-[11px] text-secondary mt-0.5">Reason: Outdated version replaced by 2024 criteria</p>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-low border border-[#E8E6E1] text-caption font-medium text-secondary">
+<span class="material-symbols-outlined text-[13px]">upload</span>
+<span>Uploaded</span>
+</span>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-high text-secondary text-label-sm font-medium">
+<span class="material-symbols-outlined text-[13px]">block</span>
+<span>Rejected</span>
+</span>
+</td>
+<td class="py-3.5 px-4 text-secondary">
+<span class="text-caption">—</span>
+</td>
+<td class="py-3.5 px-4 text-secondary">
+<p class="text-on-surface">08 Oct 2024</p>
+<p class="text-caption">Prof. Radu Vasile</p>
+</td>
+<td class="py-3.5 px-4 text-right">
+<button class="px-2 py-1 rounded border border-[#E8E6E1] bg-surface-container-lowest text-xs text-secondary hover:text-on-surface hover:bg-surface-container-low">
+                    Restore
+                  </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="p-4 border-t border-[#E8E6E1] bg-surface-container-lowest flex flex-col sm:flex-row items-center justify-between gap-3 text-caption text-secondary">
+<div class="flex items-center gap-2">
+<span>Showing 1-10 of 30 documents</span>
+<span class="text-[#D4D1CA]">|</span>
+<span>Page 1 of 3</span>
+</div>
+<div class="flex items-center gap-1">
+<button class="px-2.5 py-1 rounded border border-[#E8E6E1] text-secondary hover:text-on-surface disabled:opacity-40" disabled="">Previous</button>
+<button class="px-2.5 py-1 rounded bg-primary-container text-on-primary font-medium">1</button>
+<button class="px-2.5 py-1 rounded border border-[#E8E6E1] text-secondary hover:text-on-surface">2</button>
+<button class="px-2.5 py-1 rounded border border-[#E8E6E1] text-secondary hover:text-on-surface">3</button>
+<button class="px-2.5 py-1 rounded border border-[#E8E6E1] text-secondary hover:text-on-surface">Next</button>
+</div>
+</div>
+</section>
+<!-- Institutional Footer Note complying with Shared Components Footer -->
+<footer class="pt-4 pb-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-caption text-secondary border-t border-[#F0EFEA]">
+<div>© Indicata. ARACIS QA Framework compliant.</div>
+<div class="flex items-center gap-6">
+<a class="hover:text-primary hover:underline transition-colors duration-150" href="#privacy">Privacy Policy</a>
+<a class="hover:text-primary hover:underline transition-colors duration-150" href="#terms">Terms of Service</a>
+<a class="hover:text-primary hover:underline transition-colors duration-150" href="#institutional">Institutional Access</a>
+</div>
+</footer>
+</main>
+</div>
+<!-- ========================================================================= -->
+<!-- SLIDE-OVER DOCUMENT DETAIL DRAWER (480px, Contextual Inspection)          -->
+<!-- ========================================================================= -->
+<aside class="w-[480px] flex-shrink-0 bg-surface-container-lowest border-l border-[#E7E5E4] flex flex-col h-full drawer-shadow z-30 transition-all duration-300" id="document-drawer">
+<!-- Drawer Header -->
+<div class="p-5 border-b border-[#E8E6E1] flex items-start justify-between bg-[#FAFAF8]">
+<div class="space-y-1 pr-2">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#FEF4DB] text-[#875F05] text-[11px] font-semibold border border-[#F3DEAB]">
+<span class="material-symbols-outlined text-[13px]">pending</span>
+<span id="drawer-status-pill">Needs review</span>
+</span>
+<span class="font-mono text-caption text-secondary">PDF · 3.2 MB</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-medium text-on-surface leading-tight" id="drawer-title">
+          Regulament de organizare și funcționare a școlii doctorale
+        </h3>
+</div>
+<button aria-label="Close drawer" class="p-1 rounded text-secondary hover:text-on-surface hover:bg-surface-container-low transition-colors" onclick="toggleDrawer()" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Quick Action Bar -->
+<div class="p-4 border-b border-[#E8E6E1] bg-surface-container-lowest flex items-center gap-3">
+<button class="flex-1 inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg bg-primary-container text-on-primary hover:bg-[#233E67] font-label-md text-label-md font-medium transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">check</span>
+<span>Accept document</span>
+</button>
+<button class="inline-flex items-center justify-center gap-1 px-3 py-2 rounded-lg border border-[#E8E6E1] text-error hover:bg-error-container/30 font-label-md text-label-md transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">block</span>
+<span>Reject</span>
+</button>
+</div>
+<!-- Drawer Content Scroll -->
+<div class="flex-1 overflow-y-auto p-5 space-y-6">
+<!-- Document Preview Viewport Excerpt -->
+<div class="border border-[#E8E6E1] rounded-lg overflow-hidden bg-surface-container-lowest soft-shadow">
+<!-- Preview Navigation Header -->
+<div class="bg-[#F6F5F2] px-3 py-2 border-b border-[#E8E6E1] flex items-center justify-between text-caption text-secondary">
+<span class="font-mono font-medium">Page 14 of 48</span>
+<div class="flex items-center gap-1">
+<button class="p-0.5 rounded hover:bg-[#E8E6E1]"><span class="material-symbols-outlined text-[16px]">chevron_left</span></button>
+<button class="p-0.5 rounded hover:bg-[#E8E6E1]"><span class="material-symbols-outlined text-[16px]">chevron_right</span></button>
+<div class="h-3 w-px bg-[#D4D1CA] mx-1"></div>
+<button class="p-0.5 rounded hover:bg-[#E8E6E1]"><span class="material-symbols-outlined text-[16px]">zoom_in</span></button>
+<button class="p-0.5 rounded hover:bg-[#E8E6E1]"><span class="material-symbols-outlined text-[16px]">open_in_new</span></button>
+</div>
+</div>
+<!-- Rendered Text Excerpt with Highlight -->
+<div class="p-4 bg-[#FFF] text-xs leading-relaxed text-[#2C2B29] font-serif space-y-2.5 max-h-60 overflow-y-auto border-b border-[#F0EFEA]">
+<p class="font-sans font-semibold text-caption uppercase tracking-wider text-secondary">Capitolul II · Organizarea Studiilor Universitare de Doctorat</p>
+<p class="text-justify">
+<strong>Art. 14.</strong> — (1) Admiterea la doctorat se desfășoară prin concurs organizat de Școala Doctorală, în baza autonomiei universitare și a standardelor minimale stabilite de Consiliul pentru Studiile Universitare de Doctorat (CSUD).
+          </p>
+<p class="text-justify bg-[#FEF9E6] p-2 rounded border-l-2 border-[#D99A1E]">
+<span class="font-sans font-semibold text-[10px] text-[#875F05] block uppercase mb-0.5">Matched for ARACIS Standard A.1.1.1:</span>
+            „(2) Comisiile de admitere și criteriile de evaluare a candidaților sunt publicate pe pagina oficială web a universității (upt.ro) cu cel puțin 30 de zile înainte de data începerii înscrierilor, asigurând transparența decizională conform cadrului ARACIS.”
+          </p>
+<p class="text-justify">
+            (3) Numărul de locuri finanțate de la bugetul de stat se repartizează domeniilor de doctorat în concordanță cu planul strategic de cercetare al universității.
+          </p>
+</div>
+<div class="px-3 py-2 bg-[#FAFAF8] text-right">
+<span class="font-caption text-caption text-secondary">Extracted via OCR Text Engine · Confidence: 99.4%</span>
+</div>
+</div>
+<!-- Metadata Grid -->
+<div class="space-y-3">
+<h4 class="font-label-sm text-label-sm uppercase tracking-wider font-semibold text-secondary">Document Metadata</h4>
+<dl class="grid grid-cols-2 gap-x-4 gap-y-2.5 p-3.5 rounded-lg border border-[#E8E6E1] bg-surface-container-low text-xs">
+<div>
+<dt class="font-caption text-secondary">Origin URL</dt>
+<dd class="font-mono text-on-surface truncate mt-0.5">upt.ro/doctorat/regulament</dd>
+</div>
+<div>
+<dt class="font-caption text-secondary">File Format</dt>
+<dd class="font-medium text-on-surface mt-0.5">PDF (3.2 MB, 48 pages)</dd>
+</div>
+<div>
+<dt class="font-caption text-secondary">Language</dt>
+<dd class="font-medium text-on-surface mt-0.5">Romanian (RO)</dd>
+</div>
+<div>
+<dt class="font-caption text-secondary">Indexed Passages</dt>
+<dd class="font-medium text-on-surface mt-0.5">47 passages indexed</dd>
+</div>
+<div>
+<dt class="font-caption text-secondary">Institutional Seal</dt>
+<dd class="font-medium text-[#2F6F21] mt-0.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">verified</span> Validated UPT Domain
+            </dd>
+</div>
+<div>
+<dt class="font-caption text-secondary">Detection Date</dt>
+<dd class="font-medium text-on-surface mt-0.5">Today at 11:40 AM</dd>
+</div>
+</dl>
+</div>
+<!-- Linked ARACIS Indicators -->
+<div class="space-y-3">
+<div class="flex items-center justify-between">
+<h4 class="font-label-sm text-label-sm uppercase tracking-wider font-semibold text-secondary">Candidate Indicators</h4>
+<span class="font-caption text-caption text-secondary">3 criteria addressed</span>
+</div>
+<div class="space-y-2">
+<!-- Indicator 1 -->
+<div class="p-3 rounded-lg border border-[#E8E6E1] bg-surface-container-lowest hover:border-primary-container transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-mono text-xs font-semibold text-primary bg-[#EBF0F7] px-1.5 py-0.5 rounded">A.1.1.1</span>
+<span class="font-caption text-caption text-[#2F6F21] font-medium">94% relevance match</span>
+</div>
+<p class="font-label-md text-label-md font-medium text-on-surface mt-1.5">
+              Criteriul A.1 · Existența și aplicarea regulamentelor proprii de organizare
+            </p>
+<p class="font-caption text-caption text-secondary mt-1">
+              Supports claim: Regulamentul CSUD este actualizat și conform cu Legea Învățământului Superior 199/2023.
+            </p>
+</div>
+<!-- Indicator 2 -->
+<div class="p-3 rounded-lg border border-[#E8E6E1] bg-surface-container-lowest hover:border-primary-container transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-mono text-xs font-semibold text-primary bg-[#EBF0F7] px-1.5 py-0.5 rounded">A.1.2.1</span>
+<span class="font-caption text-caption text-[#875F05] font-medium">82% relevance match</span>
+</div>
+<p class="font-label-md text-label-md font-medium text-on-surface mt-1.5">
+              Criteriul A.1.2 · Transparența metodologiei de admitere la doctorat
+            </p>
+</div>
+<!-- Indicator 3 -->
+<div class="p-3 rounded-lg border border-[#E8E6E1] bg-surface-container-lowest hover:border-primary-container transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-mono text-xs font-semibold text-primary bg-[#EBF0F7] px-1.5 py-0.5 rounded">B.2.1.3</span>
+<span class="font-caption text-caption text-secondary font-medium">70% relevance match</span>
+</div>
+<p class="font-label-md text-label-md font-medium text-on-surface mt-1.5">
+              Criteriul B.2.1 · Raportul numeric conducători de doctorat și doctoranzi
+            </p>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- ========================================================================= -->
+<!-- MODAL: UPLOAD FILES (PDF, DOCX, MD up to 50MB)                            -->
+<!-- ========================================================================= -->
+<div class="hidden fixed inset-0 z-50 bg-on-background/40 backdrop-blur-xs flex items-center justify-center p-4" id="upload-modal">
+<div class="w-full max-w-lg bg-surface-container-lowest rounded-xl border border-[#E8E6E1] shadow-2xl overflow-hidden flex flex-col">
+<!-- Modal Header -->
+<div class="px-6 py-4 border-b border-[#E8E6E1] flex items-center justify-between bg-[#FAFAF8]">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-primary-container text-[22px]">upload_file</span>
+<h3 class="font-headline-sm text-headline-sm font-medium text-on-surface">Upload institutional files</h3>
+</div>
+<button aria-label="Close upload modal" class="p-1 rounded text-secondary hover:text-on-surface" onclick="toggleModal('upload-modal')">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Modal Body -->
+<div class="p-6 space-y-5">
+<p class="font-body-md text-body-md text-secondary">
+          Add PDF, DOCX, or Markdown files to the accreditation corpus. OCR text extraction and indicator tagging occur automatically.
+        </p>
+<!-- Dropzone -->
+<div class="border-2 border-dashed border-[#D4D1CA] hover:border-primary-container rounded-lg p-8 text-center bg-[#FAF9F6] transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-[36px] text-secondary mb-2">cloud_upload</span>
+<p class="font-label-md text-label-md font-medium text-on-surface">Drag &amp; drop files here, or <span class="text-primary underline">browse</span></p>
+<p class="font-caption text-caption text-secondary mt-1">Accepted: PDF, DOCX, MD (Maximum 50MB per file)</p>
+</div>
+<!-- Sample Upload Progress Item -->
+<div class="p-3 rounded-lg border border-[#E8E6E1] bg-surface-container-low space-y-2">
+<div class="flex items-center justify-between text-xs">
+<span class="font-mono text-on-surface truncate">metodologie-alegeri-academice-2024.pdf</span>
+<span class="text-secondary font-mono">3.4 MB of 4.1 MB</span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-1.5 overflow-hidden">
+<div class="bg-primary-container h-1.5 rounded-full" style="width: 82%"></div>
+</div>
+<div class="flex items-center justify-between text-[11px] text-secondary">
+<span>Uploading &amp; preparing OCR engine...</span>
+<span>82%</span>
+</div>
+</div>
+</div>
+<!-- Modal Actions -->
+<div class="px-6 py-4 border-t border-[#E8E6E1] bg-[#FAFAF8] flex items-center justify-end gap-3">
+<button class="px-4 py-2 rounded-lg border border-[#E8E6E1] text-secondary hover:text-on-surface font-label-md" onclick="toggleModal('upload-modal')">
+          Cancel
+        </button>
+<button class="px-4 py-2 rounded-lg bg-primary-container text-on-primary hover:bg-[#233E67] font-label-md font-medium shadow-xs" onclick="toggleModal('upload-modal')">
+          Confirm and Import
+        </button>
+</div>
+</div>
+</div>
+<!-- ========================================================================= -->
+<!-- MODAL: CRAWL UNIVERSITY WEBSITE                                           -->
+<!-- ========================================================================= -->
+<div class="hidden fixed inset-0 z-50 bg-on-background/40 backdrop-blur-xs flex items-center justify-center p-4" id="crawl-modal">
+<div class="w-full max-w-lg bg-surface-container-lowest rounded-xl border border-[#E8E6E1] shadow-2xl overflow-hidden flex flex-col">
+<!-- Modal Header -->
+<div class="px-6 py-4 border-b border-[#E8E6E1] flex items-center justify-between bg-[#FAFAF8]">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-primary-container text-[22px]">language</span>
+<h3 class="font-headline-sm text-headline-sm font-medium text-on-surface">Crawl university website</h3>
+</div>
+<button aria-label="Close crawl modal" class="p-1 rounded text-secondary hover:text-on-surface" onclick="toggleModal('crawl-modal')">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Modal Body -->
+<div class="p-6 space-y-4">
+<div>
+<label class="block font-label-sm text-label-sm font-medium text-on-surface mb-1">Target Institutional URL</label>
+<input class="w-full px-3 py-2 text-body-sm font-mono bg-surface-container-lowest border border-[#E8E6E1] rounded-lg focus:outline-none focus:border-primary-container" type="url" value="https://www.upt.ro/doctorat"/>
+</div>
+<div class="grid grid-cols-2 gap-3 text-xs">
+<div>
+<label class="block font-label-sm text-label-sm font-medium text-on-surface mb-1">Crawl Depth</label>
+<select class="w-full px-2.5 py-1.5 bg-surface-container-lowest border border-[#E8E6E1] rounded-lg text-secondary">
+<option>Up to 3 levels (Recommended)</option>
+<option>1 level (Root only)</option>
+<option>Full domain subpages</option>
+</select>
+</div>
+<div>
+<label class="block font-label-sm text-label-sm font-medium text-on-surface mb-1">Target Content</label>
+<select class="w-full px-2.5 py-1.5 bg-surface-container-lowest border border-[#E8E6E1] rounded-lg text-secondary">
+<option>Regulations &amp; PDFs only</option>
+<option>All HTML content &amp; PDF</option>
+</select>
+</div>
+</div>
+<div class="p-3 bg-[#EEF6EB] border border-[#D2E7CB] rounded-lg flex items-center gap-2 text-xs text-[#2F6F21]">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+<span>Robots.txt compliant crawler throttled to 2 req/sec to prevent server strain.</span>
+</div>
+<!-- Crawl Progress State Card -->
+<div class="p-4 rounded-lg border border-[#E8E6E1] bg-surface-container-low space-y-2">
+<div class="flex items-center justify-between text-xs">
+<span class="font-medium text-on-surface">Crawling upt.ro/doctorat...</span>
+<span class="font-mono text-primary font-semibold">84 pages scanned</span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-1.5 overflow-hidden">
+<div class="bg-primary-container h-1.5 rounded-full" style="width: 65%"></div>
+</div>
+<p class="font-caption text-caption text-secondary">Found 12 relevant regulations · 3 queued for OCR conversion</p>
+</div>
+</div>
+<!-- Modal Actions -->
+<div class="px-6 py-4 border-t border-[#E8E6E1] bg-[#FAFAF8] flex items-center justify-end gap-3">
+<button class="px-4 py-2 rounded-lg border border-[#E8E6E1] text-secondary hover:text-on-surface font-label-md" onclick="toggleModal('crawl-modal')">
+          Cancel
+        </button>
+<button class="px-4 py-2 rounded-lg bg-primary-container text-on-primary hover:bg-[#233E67] font-label-md font-medium" onclick="toggleModal('crawl-modal')">
+          Start Crawl Job
+        </button>
+</div>
+</div>
+</div>
+<!-- ========================================================================= -->
+<!-- MODAL: SEARCH THE WEB (Academic Discovery)                                -->
+<!-- ========================================================================= -->
+<div class="hidden fixed inset-0 z-50 bg-on-background/40 backdrop-blur-xs flex items-center justify-center p-4" id="websearch-modal">
+<div class="w-full max-w-lg bg-surface-container-lowest rounded-xl border border-[#E8E6E1] shadow-2xl overflow-hidden flex flex-col">
+<!-- Modal Header -->
+<div class="px-6 py-4 border-b border-[#E8E6E1] flex items-center justify-between bg-[#FAFAF8]">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-primary-container text-[22px]">manage_search</span>
+<h3 class="font-headline-sm text-headline-sm font-medium text-on-surface">Search public academic web</h3>
+</div>
+<button aria-label="Close web search modal" class="p-1 rounded text-secondary hover:text-on-surface" onclick="toggleModal('websearch-modal')">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Modal Body -->
+<div class="p-6 space-y-4">
+<div>
+<label class="block font-label-sm text-label-sm font-medium text-on-surface mb-1">Search Keywords or ARACIS Query</label>
+<input class="w-full px-3 py-2 text-body-sm bg-surface-container-lowest border border-[#E8E6E1] rounded-lg focus:outline-none focus:border-primary-container" type="text" value="Universitatea Politehnica Timisoara doctorat raport autoevaluare 2024 filetype:pdf"/>
+</div>
+<!-- Discovered Result item preview -->
+<div class="p-3 border border-[#E8E6E1] rounded-lg bg-surface-container-low hover:bg-[#FAF9F6] transition-colors cursor-pointer">
+<div class="flex items-start justify-between">
+<span class="font-medium text-xs text-on-surface">Raport de Evaluare Institutională UPT (ARACIS 2024).pdf</span>
+<span class="font-caption text-caption text-[#2F6F21] font-semibold">aracis.ro</span>
+</div>
+<p class="font-caption text-caption text-secondary mt-1">
+            Official evaluation report from Aracis public registry containing CSUD performance criteria for 2020-2024.
+          </p>
+</div>
+</div>
+<!-- Modal Actions -->
+<div class="px-6 py-4 border-t border-[#E8E6E1] bg-[#FAFAF8] flex items-center justify-end gap-3">
+<button class="px-4 py-2 rounded-lg border border-[#E8E6E1] text-secondary hover:text-on-surface font-label-md" onclick="toggleModal('websearch-modal')">
+          Cancel
+        </button>
+<button class="px-4 py-2 rounded-lg bg-primary-container text-on-primary hover:bg-[#233E67] font-label-md font-medium" onclick="toggleModal('websearch-modal')">
+          Import Selected Result
+        </button>
+</div>
+</div>
+</div>
+<!-- ========================================================================= -->
+<!-- JAVASCRIPT: INTERACTION & DEMO STATE CONTROLLERS                          -->
+<!-- ========================================================================= -->
+<script>
+    // Toggle Slide-over Drawer
+    function toggleDrawer() {
+      const drawer = document.getElementById('document-drawer');
+      const btn = document.getElementById('btn-demo-drawer');
+      if (drawer.classList.contains('hidden')) {
+        drawer.classList.remove('hidden');
+        btn.classList.add('text-primary', 'font-semibold');
+      } else {
+        drawer.classList.add('hidden');
+        btn.classList.remove('text-primary', 'font-semibold');
+      }
+    }
+
+    // Open Drawer with Specific Doc Info
+    function openDrawerWithDoc(title, filename, status, origin) {
+      const drawer = document.getElementById('document-drawer');
+      drawer.classList.remove('hidden');
+      document.getElementById('drawer-title').innerText = title;
+      document.getElementById('drawer-status-pill').innerText = status;
+      document.getElementById('btn-demo-drawer').classList.add('text-primary', 'font-semibold');
+    }
+
+    // Toggle Modals
+    function toggleModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal.classList.contains('hidden')) {
+        modal.classList.remove('hidden');
+      } else {
+        modal.classList.add('hidden');
+      }
+    }
+
+    // Toggle Add Documents Dropdown Menu
+    function toggleAddMenu() {
+      const menu = document.getElementById('add-dropdown-menu');
+      menu.classList.toggle('hidden');
+    }
+
+    // Switch Demo Views: Populated vs Empty
+    function setDemoView(mode) {
+      const tableContainer = document.getElementById('table-container-view');
+      const emptyView = document.getElementById('empty-state-view');
+      const btnPop = document.getElementById('btn-demo-pop');
+      const btnEmpty = document.getElementById('btn-demo-empty');
+
+      if (mode === 'empty') {
+        tableContainer.classList.add('hidden');
+        emptyView.classList.remove('hidden');
+        btnEmpty.classList.add('bg-surface-container-lowest', 'text-primary', 'shadow-xs');
+        btnPop.classList.remove('bg-surface-container-lowest', 'text-primary', 'shadow-xs');
+      } else {
+        tableContainer.classList.remove('hidden');
+        emptyView.classList.add('hidden');
+        btnPop.classList.add('bg-surface-container-lowest', 'text-primary', 'shadow-xs');
+        btnEmpty.classList.remove('bg-surface-container-lowest', 'text-primary', 'shadow-xs');
+      }
+    }
+
+    // Close Dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+      const dropdownParent = document.getElementById('dropdown-parent');
+      const menu = document.getElementById('add-dropdown-menu');
+      if (dropdownParent && !dropdownParent.contains(event.target) && !menu.classList.contains('hidden')) {
+        menu.classList.add('hidden');
+      }
+    });
+  </script>
+</body></html>

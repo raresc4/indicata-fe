@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Create account — Indicata</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-container-low": "#f4f3f0",
+            "on-tertiary": "#ffffff",
+            "surface-variant": "#e3e2df",
+            "primary-container": "#2b4c7e",
+            "primary-fixed-dim": "#a9c7ff",
+            "on-secondary-container": "#636262",
+            "secondary-fixed-dim": "#c8c6c5",
+            "surface-container-lowest": "#ffffff",
+            "on-primary": "#ffffff",
+            "on-tertiary-container": "#bfbcb6",
+            "on-tertiary-fixed-variant": "#474742",
+            "inverse-on-surface": "#f2f1ee",
+            "on-surface-variant": "#43474f",
+            "on-secondary-fixed": "#1b1b1c",
+            "tertiary-fixed-dim": "#c9c6c0",
+            "tertiary-container": "#4d4c48",
+            "on-primary-fixed": "#001b3d",
+            "surface-container-highest": "#e3e2df",
+            "inverse-primary": "#a9c7ff",
+            "primary": "#0e3566",
+            "inverse-surface": "#2f312f",
+            "primary-fixed": "#d6e3ff",
+            "secondary-fixed": "#e5e2dc",
+            "outline-variant": "#c3c6d0",
+            "on-background": "#1b1c1a",
+            "on-primary-fixed-variant": "#254778",
+            "surface-tint": "#3f5f92",
+            "on-tertiary-fixed": "#1c1c18",
+            "on-secondary-fixed-variant": "#474746",
+            "error-container": "#ffdad6",
+            "surface": "#faf9f6",
+            "on-primary-container": "#9ebdf7",
+            "background": "#faf9f6",
+            "surface-bright": "#faf9f6",
+            "surface-dim": "#dbdad7",
+            "on-error-container": "#93000a",
+            "tertiary": "#363531",
+            "secondary-container": "#e2dfde",
+            "on-surface": "#1b1c1a",
+            "on-secondary": "#ffffff",
+            "tertiary-fixed": "#e5e2dc",
+            "surface-container": "#efeeeb",
+            "secondary": "#5f5e5e",
+            "error": "#ba1a1a",
+            "surface-container-high": "#e9e8e5",
+            "on-error": "#ffffff",
+            "outline": "#747780"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-sm": "0.5rem",
+            "gutter-desktop": "1.5rem",
+            "margin-desktop": "3rem",
+            "space-lg": "1.5rem",
+            "margin-tablet": "2rem",
+            "gutter": "1rem",
+            "margin": "1rem",
+            "space-md": "1rem",
+            "space-xs": "0.25rem",
+            "space-xl": "2.5rem"
+          },
+          "fontFamily": {
+            "body-sm": ["Inter"],
+            "label-sm": ["Inter"],
+            "headline-sm": ["Newsreader"],
+            "label-md": ["Inter"],
+            "display": ["Newsreader"],
+            "body-md": ["Inter"],
+            "headline-lg-mobile": ["Newsreader"],
+            "headline-lg": ["Newsreader"],
+            "caption": ["Inter"],
+            "body-lg": ["Inter"]
+          },
+          "fontSize": {
+            "body-sm": ["0.8125rem", { "lineHeight": "1.35rem", "fontWeight": "400" }],
+            "label-sm": ["0.75rem", { "lineHeight": "1rem", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "headline-sm": ["1.25rem", { "lineHeight": "1.75rem", "fontWeight": "500" }],
+            "label-md": ["0.875rem", { "lineHeight": "1.25rem", "fontWeight": "500" }],
+            "display": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.02em", "fontWeight": "400" }],
+            "body-md": ["0.875rem", { "lineHeight": "1.45rem", "fontWeight": "400" }],
+            "headline-lg-mobile": ["1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+            "headline-lg": ["1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.015em", "fontWeight": "400" }],
+            "caption": ["0.6875rem", { "lineHeight": "1rem", "fontWeight": "400" }],
+            "body-lg": ["1rem", { "lineHeight": "1.6rem", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .academic-card {
+      box-shadow: 0 4px 20px -2px rgba(30, 30, 30, 0.03), 0 2px 6px -1px rgba(30, 30, 30, 0.02);
+    }
+    input:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(43, 76, 126, 0.08);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-full flex flex-col justify-between antialiased selection:bg-primary-container selection:text-white">
+<!-- Top App Bar (Shared Anchor Component: TopNavBar implementation) -->
+<header class="w-full bg-background">
+<div class="w-full max-w-5xl mx-auto px-6 py-6 flex justify-between items-center">
+<!-- Brand Emblem & Product Title -->
+<a class="flex items-center gap-2 group transition-all duration-150 ease-in-out" href="#">
+<div class="w-7 h-7 rounded-lg bg-on-background flex items-center justify-center text-surface shadow-xs">
+<span class="material-symbols-outlined text-[17px]" data-icon="asterisk">asterisk</span>
+</div>
+<span class="font-headline-sm text-headline-sm text-on-background tracking-tight font-medium group-hover:text-primary transition-colors duration-150">Indicata</span>
+</a>
+<!-- Trailing Action: Segmented Language Switcher (RO / EN) -->
+<div class="inline-flex items-center text-caption font-caption tracking-wider rounded-lg px-2 py-1 bg-surface-container-low border border-surface-variant">
+<button class="text-secondary hover:text-primary transition-colors duration-150 px-1 py-0.5" type="button">RO</button>
+<span class="text-outline-variant px-1 font-light">/</span>
+<button class="text-on-background font-medium px-1 py-0.5" type="button">EN</button>
+</div>
+</div>
+</header>
+<!-- Focused Mobile Canvas Container (Centered single-column layout, mobile target 390px-440px) -->
+<main class="w-full flex-1 flex flex-col justify-center items-center px-4 py-6">
+<div class="w-full max-w-[420px] bg-surface-container-lowest border border-surface-variant rounded-xl p-6 sm:p-space-xl academic-card">
+<!-- Academic Authority Badge -->
+<div class="mb-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg bg-surface-container-low border border-surface-variant text-caption font-caption text-secondary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+          Institutional Workspace
+        </span>
+</div>
+<!-- Header Section -->
+<div class="mb-6">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile sm:font-headline-lg sm:text-headline-lg text-on-background font-normal tracking-tight">Create account</h1>
+<p class="font-body-md text-body-md text-secondary mt-1">Draft indicators with evidence tracing.</p>
+</div>
+<!-- Registration Form -->
+<form class="space-y-4" onsubmit="event.preventDefault();">
+<!-- Full name -->
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface mb-1.5" for="full_name">Full name</label>
+<div class="relative">
+<input class="w-full rounded-lg bg-surface-container-lowest border border-surface-variant text-body-md font-body-md text-on-surface placeholder:text-outline-variant px-3.5 py-2.5 transition-all duration-150 focus:border-primary-container" id="full_name" placeholder="e.g. Dr. Elena Vasilescu" required="" type="text"/>
+</div>
+</div>
+<!-- Institutional email -->
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface mb-1.5" for="institutional_email">Institutional email</label>
+<div class="relative">
+<input class="w-full rounded-lg bg-surface-container-lowest border border-surface-variant text-body-md font-body-md text-on-surface placeholder:text-outline-variant px-3.5 py-2.5 transition-all duration-150 focus:border-primary-container" id="institutional_email" placeholder="name@university.edu" required="" type="email"/>
+</div>
+<p class="font-caption text-caption text-secondary mt-1">Requires an authorized academic or research domain.</p>
+</div>
+<!-- University / Institution name -->
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface mb-1.5" for="university_name">University or Institution name</label>
+<div class="relative">
+<input class="w-full rounded-lg bg-surface-container-lowest border border-surface-variant text-body-md font-body-md text-on-surface placeholder:text-outline-variant px-3.5 py-2.5 transition-all duration-150 focus:border-primary-container" id="university_name" placeholder="e.g. University of Bucharest" required="" type="text"/>
+</div>
+</div>
+<!-- Password with Strength Indicator -->
+<div>
+<div class="flex justify-between items-center mb-1.5">
+<label class="block font-label-sm text-label-sm text-on-surface" for="password">Password</label>
+<span class="font-caption text-caption text-secondary" id="strength-label">Min. 8 characters</span>
+</div>
+<div class="relative">
+<input class="w-full rounded-lg bg-surface-container-lowest border border-surface-variant text-body-md font-body-md text-on-surface placeholder:text-outline-variant px-3.5 py-2.5 pr-10 transition-all duration-150 focus:border-primary-container" id="password" placeholder="••••••••••••" required="" type="password"/>
+<button aria-label="Toggle password visibility" class="absolute inset-y-0 right-0 pr-3 flex items-center text-secondary hover:text-on-surface transition-colors" id="toggle-password" type="button">
+<span class="material-symbols-outlined text-[19px]" data-icon="visibility">visibility</span>
+</button>
+</div>
+<!-- Subtle Strength Indicator Bars -->
+<div class="grid grid-cols-4 gap-1.5 mt-2">
+<div class="h-1 rounded-full bg-primary-container transition-all duration-200"></div>
+<div class="h-1 rounded-full bg-primary-container transition-all duration-200"></div>
+<div class="h-1 rounded-full bg-primary-container transition-all duration-200"></div>
+<div class="h-1 rounded-full bg-surface-container-high transition-all duration-200"></div>
+</div>
+</div>
+<!-- Confirm password -->
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface mb-1.5" for="confirm_password">Confirm password</label>
+<div class="relative">
+<input class="w-full rounded-lg bg-surface-container-lowest border border-surface-variant text-body-md font-body-md text-on-surface placeholder:text-outline-variant px-3.5 py-2.5 transition-all duration-150 focus:border-primary-container" id="confirm_password" placeholder="••••••••••••" required="" type="password"/>
+</div>
+</div>
+<!-- Terms & QA Policy Checkbox -->
+<div class="pt-1">
+<label class="flex items-start gap-2.5 cursor-pointer select-none">
+<input class="mt-0.5 w-4 h-4 rounded text-primary-container border-surface-variant focus:ring-0 focus:ring-offset-0 transition-colors" id="terms_agree" required="" type="checkbox"/>
+<span class="font-caption text-caption text-secondary leading-normal">
+              I agree to the <a class="text-on-surface underline hover:text-primary-container transition-colors" href="#">Terms of Service</a>, data governance charter, and programmatic verification under Romanian higher-ed metrics.
+            </span>
+</label>
+</div>
+<!-- Primary CTA Button -->
+<div class="pt-2">
+<button class="w-full flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-lg bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-primary-container/20 active:opacity-95" type="submit">
+<span>Create account</span>
+<span class="material-symbols-outlined text-[17px] leading-none" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</form>
+<!-- Institutional SSO Divider -->
+<div class="relative my-6">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-surface-variant"></div>
+</div>
+<div class="relative flex justify-center">
+<span class="bg-surface-container-lowest px-3 font-caption text-caption text-secondary">or register via credentials</span>
+</div>
+</div>
+<!-- Academic Identity Buttons (ORCID / Google) -->
+<div class="grid grid-cols-2 gap-2.5">
+<button class="flex items-center justify-center gap-2 py-2 px-3 rounded-lg border border-surface-variant bg-surface-container-lowest hover:bg-surface-container-low hover:border-secondary-fixed text-on-surface font-label-sm text-label-sm transition-all duration-150" type="button">
+<!-- ORCID / Institutional ID Icon -->
+<span class="w-4 h-4 rounded-full bg-[#A6CE39] text-white flex items-center justify-center font-bold text-[9px] leading-none">iD</span>
+<span>ORCID</span>
+</button>
+<button class="flex items-center justify-center gap-2 py-2 px-3 rounded-lg border border-surface-variant bg-surface-container-lowest hover:bg-surface-container-low hover:border-secondary-fixed text-on-surface font-label-sm text-label-sm transition-all duration-150" type="button">
+<span class="material-symbols-outlined text-[16px] text-secondary" data-icon="school">school</span>
+<span>EduGAIN</span>
+</button>
+</div>
+<!-- Sign In Redirection Link -->
+<div class="text-center mt-6 pt-2">
+<p class="font-body-sm text-body-sm text-secondary">
+          Already have an account? 
+          <a class="text-on-surface font-medium hover:text-primary-container hover:underline transition-colors ml-1" href="#">Sign in</a>
+</p>
+</div>
+</div>
+</main>
+<!-- Editorial Footnote & Compliance Badge (Shared Anchor Component: Footer implementation) -->
+<footer class="w-full bg-background border-none">
+<div class="w-full max-w-5xl mx-auto px-6 py-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-center sm:text-left">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[16px]" data-icon="verified">verified</span>
+<span class="font-caption text-caption text-secondary">© Indicata. ARACIS Higher Education QA Framework compliant.</span>
+</div>
+<div class="flex items-center space-x-4 text-caption font-caption text-secondary">
+<a class="hover:text-primary hover:underline transition-colors duration-150" href="#">Privacy Policy</a>
+<span class="text-outline-variant">•</span>
+<a class="hover:text-primary hover:underline transition-colors duration-150" href="#">Terms of Service</a>
+<span class="text-outline-variant">•</span>
+<a class="hover:text-primary hover:underline transition-colors duration-150" href="#">Institutional Access</a>
+</div>
+</div>
+</footer>
+<!-- Script for interactive ergonomics -->
+<script>
+    // Password visibility toggle
+    const toggleBtn = document.getElementById('toggle-password');
+    const pwdInput = document.getElementById('password');
+
+    if (toggleBtn && pwdInput) {
+      toggleBtn.addEventListener('click', () => {
+        const isPassword = pwdInput.type === 'password';
+        pwdInput.type = isPassword ? 'text' : 'password';
+        const iconSpan = toggleBtn.querySelector('.material-symbols-outlined');
+        if (iconSpan) {
+          iconSpan.textContent = isPassword ? 'visibility_off' : 'visibility';
+        }
+      });
+    }
+  </script>
+</body></html>

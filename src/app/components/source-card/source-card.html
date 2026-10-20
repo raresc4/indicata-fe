@@ -1,0 +1,91 @@
+<div
+  class="space-y-2 rounded-lg border p-3 transition-all"
+  [class.border-2]="selected()"
+  [class.border-primary]="selected()"
+  [class.bg-primary-container]="selected()"
+  [class.border-outline-variant]="!selected()"
+  [class.bg-surface]="!selected()"
+>
+  <button
+    type="button"
+    class="focus-visible:ring-primary/50 flex w-full items-start justify-between gap-2 rounded text-left focus-visible:ring-2 focus-visible:outline-none"
+    [attr.aria-pressed]="selected()"
+    [attr.aria-label]="selectLabel()"
+    (click)="emitSelect()"
+  >
+    <span class="flex items-center gap-2">
+      <span
+        class="flex h-5 w-5 items-center justify-center rounded font-mono text-[11px] font-bold"
+        [class.bg-primary]="selected()"
+        [class.text-on-primary]="selected()"
+        [class.bg-surface-container-high]="!selected()"
+        [class.text-on-surface]="!selected()"
+        aria-hidden="true"
+      >
+        {{ source().ref }}
+      </span>
+      <svg
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        [class.text-primary]="selected()"
+        [class.text-on-surface-variant]="!selected()"
+      >
+        <path
+          d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"
+        />
+        <path d="M14 2v5a1 1 0 0 0 1 1h5" />
+        <path d="M10 9H8" />
+        <path d="M16 13H8" />
+        <path d="M16 17H8" />
+      </svg>
+      <span class="text-on-surface text-xs leading-tight font-semibold">
+        {{ source().documentTitle }}
+      </span>
+    </span>
+    <span class="text-on-surface-variant shrink-0 font-mono text-[10px]">{{ meta() }}</span>
+  </button>
+
+  @if (source().excerpt; as excerpt) {
+    <p
+      class="border-outline-variant text-on-surface-variant bg-surface-container-lowest m-0 rounded border p-2 font-serif text-[11px] leading-relaxed"
+    >
+      <mark class="bg-warning-container text-on-warning-container rounded px-0.5 font-semibold">
+        {{ excerpt }}
+      </mark>
+    </p>
+  }
+
+  <div class="flex items-center justify-between pt-1 text-[10px]">
+    <span class="text-on-surface-variant font-mono">{{ source().provenance }}</span>
+    <button
+      type="button"
+      class="text-primary focus-visible:ring-primary/50 inline-flex items-center gap-1 rounded font-medium hover:underline focus-visible:ring-2 focus-visible:outline-none"
+      [attr.aria-label]="openLabel()"
+      (click)="emitOpen()"
+    >
+      Open document
+      <svg
+        width="12"
+        height="12"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M15 3h6v6" />
+        <path d="M10 14 21 3" />
+        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+      </svg>
+    </button>
+  </div>
+</div>
