@@ -267,6 +267,23 @@ export class IndicatorStateService {
     this.generateTrigger.next(target);
   }
 
+  saveActiveVersion(): void {
+    const indicatorId = this.snapshot.activeIndicator?.id;
+    const versionId = this.snapshot.activeVersionId;
+    const content = this.snapshot.content;
+    if (indicatorId === undefined || versionId === null || content === null) {
+      return;
+    }
+    this.dispatch({ type: 'setSaveStatus', status: 'saving' });
+    this.api.saveVersion(indicatorId, versionId, content).subscribe({
+      next: (detail) => {
+        this.dispatch({ type: 'finishGenerating', detail });
+        this.dispatch({ type: 'setSaveStatus', status: 'saved' });
+      },
+      error: () => this.dispatch({ type: 'setSaveStatus', status: 'error' }),
+    });
+  }
+
   setSaveStatus(status: SaveStatus): void {
     this.dispatch({ type: 'setSaveStatus', status });
   }

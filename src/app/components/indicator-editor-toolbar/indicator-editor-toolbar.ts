@@ -46,6 +46,7 @@ export class IndicatorEditorToolbar {
 
   readonly generate = output<void>();
   readonly markReviewed = output<void>();
+  readonly save = output<void>();
 
   protected readonly saveStatus$ = this.state.saveStatus$;
 
@@ -62,6 +63,17 @@ export class IndicatorEditorToolbar {
     }),
   );
 
+  protected readonly canSave$ = combineLatest([
+    this.state.activeVersionId$,
+    this.state.state$.pipe(map((screen) => screen.content !== null)),
+    this.state.saveStatus$,
+  ]).pipe(
+    map(
+      ([activeVersionId, hasContent, saveStatus]) =>
+        activeVersionId !== null && hasContent && saveStatus !== 'saving',
+    ),
+  );
+
   protected readonly badge = computed<StatusBadge>(() => STATUS_BADGE[this.viewToken()]);
 
   protected onGenerate(): void {
@@ -71,5 +83,9 @@ export class IndicatorEditorToolbar {
 
   protected onMarkReviewed(): void {
     this.markReviewed.emit();
+  }
+
+  protected onSave(): void {
+    this.save.emit();
   }
 }

@@ -72,6 +72,62 @@ describe('indicator-editor-model round-trip', () => {
   });
 });
 
+describe('indicator-editor-model leading paragraphs', () => {
+  it('keeps a blockParagraph that precedes the first sectionHeading', () => {
+    const doc: EditorDoc = {
+      type: 'doc',
+      content: [
+        {
+          type: 'blockParagraph',
+          attrs: { blockId: 'block-typed' },
+          content: [{ type: 'text', text: 'Typed before heading' }],
+        },
+        {
+          type: 'sectionHeading',
+          attrs: { sectionId: 'section-facts' },
+          content: [{ type: 'text', text: 'Facts' }],
+        },
+        {
+          type: 'blockParagraph',
+          attrs: { blockId: 'block-1' },
+          content: [{ type: 'text', text: 'Body' }],
+        },
+      ],
+    };
+    const restored = fromEditorDoc(doc);
+    expect(restored.sections).toHaveLength(2);
+    expect(restored.sections[0]).toEqual({
+      id: '',
+      heading: '',
+      blocks: [{ id: 'block-typed', runs: [{ text: 'Typed before heading' }] }],
+    });
+    expect(restored.sections[1].heading).toBe('Facts');
+    expect(restored.sections[1].blocks[0].runs[0].text).toBe('Body');
+  });
+
+  it('keeps a document that is only a leading paragraph', () => {
+    const doc: EditorDoc = {
+      type: 'doc',
+      content: [
+        {
+          type: 'blockParagraph',
+          attrs: { blockId: 'block-only' },
+          content: [{ type: 'text', text: 'Only text' }],
+        },
+      ],
+    };
+    const restored = fromEditorDoc(doc);
+    expect(restored.sections).toEqual([
+      { id: '', heading: '', blocks: [{ id: 'block-only', runs: [{ text: 'Only text' }] }] },
+    ]);
+  });
+
+  it('round-trips heading-first content unchanged', () => {
+    const restored = fromEditorDoc(toEditorDoc(INDICATOR_A111_CONTENT));
+    expect(restored).toEqual(INDICATOR_A111_CONTENT);
+  });
+});
+
 describe('indicator-editor-model appendStreamedText', () => {
   it('appends to the end of the last paragraph of the last section', () => {
     const doc = toEditorDoc(INDICATOR_A111_CONTENT);

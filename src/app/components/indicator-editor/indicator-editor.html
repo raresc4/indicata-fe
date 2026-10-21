@@ -1,6 +1,10 @@
 @if (view$ | async; as view) {
   @if (view.indicator; as indicator) {
-    <app-indicator-editor-toolbar [code]="indicator.code" [viewToken]="view.token" />
+    <app-indicator-editor-toolbar
+      [code]="indicator.code"
+      [viewToken]="view.token"
+      (save)="onSave()"
+    />
 
     <div class="flex flex-1 flex-col items-center overflow-y-auto">
       <div class="my-6 w-full max-w-[760px] px-4 pb-24">

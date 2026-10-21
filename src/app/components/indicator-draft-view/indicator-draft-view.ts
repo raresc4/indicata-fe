@@ -61,6 +61,7 @@ export class IndicatorDraftView {
 
   private editor: Editor | null = null;
   private applyingProgrammatic = false;
+  private lastEmittedContent: IndicatorContent | null = null;
   private activeMarker: HTMLElement | null = null;
   private readonly updates = new Subject<void>();
 
@@ -70,7 +71,9 @@ export class IndicatorDraftView {
       if (editor === null) {
         return;
       }
-      this.state.applyEdit(fromEditorDoc(editor.getJSON() as unknown as EditorDoc));
+      const edited = fromEditorDoc(editor.getJSON() as unknown as EditorDoc);
+      this.lastEmittedContent = edited;
+      this.state.applyEdit(edited);
     });
 
     this.state.selectedSourceId$
@@ -85,6 +88,10 @@ export class IndicatorDraftView {
       const next = this.content();
       const editor = this.editor;
       if (editor === null) {
+        return;
+      }
+      if (next === this.lastEmittedContent) {
+        this.lastEmittedContent = null;
         return;
       }
       this.applyingProgrammatic = true;
@@ -245,7 +252,9 @@ export class IndicatorDraftView {
   protected removeClaim(pos: number): void {
     const editor = this.editor;
     if (editor !== null && removeUnsourcedAt(editor, pos)) {
-      this.state.applyEdit(fromEditorDoc(editor.getJSON() as unknown as EditorDoc));
+      const edited = fromEditorDoc(editor.getJSON() as unknown as EditorDoc);
+      this.lastEmittedContent = edited;
+      this.state.applyEdit(edited);
     }
     this.dismissMarkerMenu();
   }

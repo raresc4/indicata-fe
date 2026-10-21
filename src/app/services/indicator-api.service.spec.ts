@@ -11,6 +11,7 @@ import {
 } from '../models/indicator-api.model';
 import { IndicatorDetail, IndicatorApiService, LoadedVersion } from './indicator-api.service';
 import { IndicatorDomain } from '../models/indicator-tree.model';
+import { contentStringToIndicatorContent } from './indicator-api.mapper';
 
 describe('IndicatorApiService read endpoints', () => {
   let api: IndicatorApiService;
@@ -89,6 +90,40 @@ describe('IndicatorApiService read endpoints', () => {
     expect(detail?.content.sections[0].blocks[0].runs[0].text).toBe('Backend text');
     expect(detail?.versions[0].versionNumber).toBe(1);
     expect(detail?.sources).toEqual([]);
+  });
+
+  it('saves a version via PUT with the serialized content and maps the response', () => {
+    const content = contentStringToIndicatorContent('Edited text');
+    const raw: RawIndicatorDetail = {
+      id: 'id-a111',
+      code: 'A.1.1.1',
+      title: 'First',
+      position: 1,
+      status: 'ready',
+      current_version: {
+        id: 'ver-3',
+        version_number: 3,
+        origin: 'edited',
+        created_at: '2026-02-02T00:00:00Z',
+        content: 'Edited text',
+      },
+      versions: [
+        { id: 'ver-3', version_number: 3, origin: 'edited', created_at: '2026-02-02T00:00:00Z' },
+      ],
+    };
+
+    let detail: IndicatorDetail | undefined;
+    api.saveVersion('id-a111', 'ver-3', content).subscribe((value) => {
+      detail = value;
+    });
+
+    const req = httpMock.expectOne(`${environment.apiBaseUrl}/indicators/id-a111/versions/ver-3`);
+    expect(req.request.method).toBe('PUT');
+    expect(req.request.body).toEqual({ content: 'Edited text' });
+    req.flush(raw);
+
+    expect(detail?.currentVersionId).toBe('ver-3');
+    expect(detail?.content.sections[0].blocks[0].runs[0].text).toBe('Edited text');
   });
 
   it('fetches a single version and maps its content into editor content', () => {

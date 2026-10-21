@@ -26,6 +26,7 @@ import { diffLines } from './indicator-diff';
 import {
   buildIndicatorTree,
   contentStringToIndicatorContent,
+  indicatorContentToContentString,
   mapIndicatorDetail,
 } from './indicator-api.mapper';
 
@@ -108,6 +109,18 @@ export class IndicatorApiService {
   generate(indicatorId: string): Observable<IndicatorDetail> {
     return this.http
       .post<RawIndicatorDetail>(`${this.indicatorsUrl}/${indicatorId}/generate`, null)
+      .pipe(map(toIndicatorDetailDto), map(mapIndicatorDetail));
+  }
+
+  saveVersion(
+    indicatorId: string,
+    versionId: string,
+    content: IndicatorContent,
+  ): Observable<IndicatorDetail> {
+    return this.http
+      .put<RawIndicatorDetail>(`${this.indicatorsUrl}/${indicatorId}/versions/${versionId}`, {
+        content: indicatorContentToContentString(content),
+      })
       .pipe(map(toIndicatorDetailDto), map(mapIndicatorDetail));
   }
 

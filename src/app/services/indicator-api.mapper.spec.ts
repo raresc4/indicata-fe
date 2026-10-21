@@ -1,11 +1,13 @@
 import { describe, expect, it } from 'vitest';
 
 import { IndicatorDetailDto, IndicatorListItemDto } from '../models/indicator-api.model';
+import { IndicatorContent } from '../models/indicator-content.model';
 import {
   backendStatusToTreeStatus,
   buildIndicatorTree,
   codeToIdMap,
   contentStringToIndicatorContent,
+  indicatorContentToContentString,
   mapIndicatorDetail,
 } from './indicator-api.mapper';
 
@@ -62,6 +64,42 @@ describe('contentStringToIndicatorContent', () => {
   it('returns an empty content for an empty string or null', () => {
     expect(contentStringToIndicatorContent('')).toEqual({ sections: [] });
     expect(contentStringToIndicatorContent(null)).toEqual({ sections: [] });
+  });
+});
+
+describe('indicatorContentToContentString', () => {
+  it('round-trips a plain string wrapped by contentStringToIndicatorContent', () => {
+    expect(indicatorContentToContentString(contentStringToIndicatorContent('Hello world'))).toBe(
+      'Hello world',
+    );
+  });
+
+  it('joins headings and block text across sections with newlines', () => {
+    const content: IndicatorContent = {
+      sections: [
+        {
+          id: 's1',
+          heading: 'Overview',
+          blocks: [
+            { id: 'b1', runs: [{ text: 'First ' }, { text: 'paragraph' }] },
+            { id: 'b2', runs: [{ text: 'Second paragraph' }] },
+          ],
+        },
+        {
+          id: 's2',
+          heading: '',
+          blocks: [{ id: 'b3', runs: [{ text: 'Tail' }] }],
+        },
+      ],
+    };
+
+    expect(indicatorContentToContentString(content)).toBe(
+      'Overview\nFirst paragraph\nSecond paragraph\nTail',
+    );
+  });
+
+  it('returns an empty string for empty content', () => {
+    expect(indicatorContentToContentString({ sections: [] })).toBe('');
   });
 });
 

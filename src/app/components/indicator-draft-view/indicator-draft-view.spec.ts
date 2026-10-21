@@ -2,6 +2,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { ComponentRef } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import axe from 'axe-core';
+import { Editor } from '@tiptap/core';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { INDICATOR_A111_CONTENT, INDICATOR_A111_SOURCES } from '../../mocks/indicator-a111.mock';
@@ -151,6 +152,40 @@ describe('IndicatorDraftView', () => {
     expect(upload?.textContent).toContain('Upload');
     upload?.dispatchEvent(new MouseEvent('click', { bubbles: true }));
     expect(setTab).toHaveBeenCalledWith('sources');
+  });
+
+  it('does not re-set editor content for a self-originated edit but does for an external change', async () => {
+    const { fixture, ref } = render();
+    await Promise.resolve();
+    fixture.detectChanges();
+    const instance = fixture.componentInstance as unknown as {
+      editorRef: () => Editor | null;
+      lastEmittedContent: unknown;
+    };
+    const editor = instance.editorRef();
+    if (editor === null) {
+      return;
+    }
+    const setContent = vi.spyOn(editor, 'commands', 'get');
+    const selfEdited = structuredClone(INDICATOR_A111_CONTENT);
+    instance.lastEmittedContent = selfEdited;
+    ref.setInput('content', selfEdited);
+    fixture.detectChanges();
+    expect(setContent).not.toHaveBeenCalled();
+    expect(instance.lastEmittedContent).toBeNull();
+
+    const external: typeof INDICATOR_A111_CONTENT = {
+      sections: INDICATOR_A111_CONTENT.sections.map((section, index) =>
+        index === 0 ? { ...section, heading: 'Changed externally' } : section,
+      ),
+    };
+    ref.setInput('content', external);
+    fixture.detectChanges();
+    expect(setContent).toHaveBeenCalled();
+    const headings = (editor.getJSON().content ?? []).filter(
+      (node: { type?: string }) => node.type === 'sectionHeading',
+    );
+    expect(JSON.stringify(headings)).toContain('Changed externally');
   });
 
   it('has no detectable accessibility violations with a marker menu open', async () => {

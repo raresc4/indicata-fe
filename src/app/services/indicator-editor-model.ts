@@ -184,7 +184,10 @@ export function fromEditorDoc(doc: EditorDoc): IndicatorContent {
         sections.push({ id: current.id, heading: current.heading, blocks: current.blocks });
       }
       current = { id: node.attrs?.sectionId ?? '', heading: headingText(node), blocks: [] };
-    } else if (current !== null) {
+    } else {
+      if (current === null) {
+        current = { id: '', heading: '', blocks: [] };
+      }
       current.blocks.push(paragraphToBlock(node));
     }
   }

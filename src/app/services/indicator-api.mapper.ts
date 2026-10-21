@@ -36,6 +36,22 @@ export function contentStringToIndicatorContent(content: string | null): Indicat
   };
 }
 
+export function indicatorContentToContentString(content: IndicatorContent): string {
+  const parts: string[] = [];
+  for (const section of content.sections) {
+    if (section.heading.length > 0) {
+      parts.push(section.heading);
+    }
+    for (const block of section.blocks) {
+      const text = block.runs.map((run) => run.text).join('');
+      if (text.length > 0) {
+        parts.push(text);
+      }
+    }
+  }
+  return parts.join('\n');
+}
+
 export function codeToIdMap(items: readonly IndicatorListItemDto[]): ReadonlyMap<string, string> {
   const map = new Map<string, string>();
   for (const item of items) {

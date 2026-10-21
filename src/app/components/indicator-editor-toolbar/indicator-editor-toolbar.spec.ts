@@ -56,4 +56,36 @@ describe('IndicatorEditorToolbar', () => {
     ) as HTMLButtonElement[];
     expect(buttons.some((b) => (b.textContent ?? '').trim().startsWith('Regenerate'))).toBe(false);
   });
+
+  it('emits save and enables the Save button once an active version is loaded', () => {
+    state.loadProjectIndicators('project-1');
+    state.selectIndicator('A.1.1.1');
+
+    const fixture = create();
+    let emitted = false;
+    fixture.componentInstance.save.subscribe(() => {
+      emitted = true;
+    });
+
+    const buttons = Array.from(
+      fixture.nativeElement.querySelectorAll('button'),
+    ) as HTMLButtonElement[];
+    const saveButton = buttons.find((b) => (b.textContent ?? '').trim() === 'Save');
+
+    expect(saveButton).toBeDefined();
+    expect(saveButton?.disabled).toBe(false);
+
+    saveButton?.click();
+    expect(emitted).toBe(true);
+  });
+
+  it('disables the Save button when no active version is loaded', () => {
+    const fixture = create();
+    const buttons = Array.from(
+      fixture.nativeElement.querySelectorAll('button'),
+    ) as HTMLButtonElement[];
+    const saveButton = buttons.find((b) => (b.textContent ?? '').trim() === 'Save');
+
+    expect(saveButton?.disabled).toBe(true);
+  });
 });

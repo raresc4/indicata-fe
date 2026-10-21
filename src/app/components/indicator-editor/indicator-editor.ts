@@ -56,6 +56,10 @@ export class IndicatorEditor {
     this.state.generate();
   }
 
+  protected onSave(): void {
+    this.state.saveActiveVersion();
+  }
+
   protected onUploadSources(): void {
     this.state.setEvidenceTab('sources');
   }

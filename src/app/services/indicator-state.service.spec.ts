@@ -134,6 +134,83 @@ describe('IndicatorStateService autosave errors', () => {
   });
 });
 
+describe('IndicatorStateService save active version', () => {
+  let state: IndicatorStateService;
+  let api: IndicatorApiService;
+
+  function detailWithCurrent(content: IndicatorContent): IndicatorDetail {
+    return {
+      ...detailWith('ready', content),
+      currentVersionId: 'ver-current',
+      currentVersionContent: content,
+    };
+  }
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [provideHttpClient(), IndicatorStateService],
+    });
+    api = TestBed.inject(IndicatorApiService);
+    state = TestBed.inject(IndicatorStateService);
+    api.getProjectIndicators = () => of(LIST);
+    api.getIndicatorDetail = () => of(detailWithCurrent(INDICATOR_A111_CONTENT));
+    api.getIndicator = () => of(detailWithCurrent(INDICATOR_A111_CONTENT));
+    state.loadProjectIndicators('project-1');
+    state.selectIndicator('A.1.1.1');
+  });
+
+  it('puts the active version and repopulates state from the returned detail', () => {
+    const edited: IndicatorContent = {
+      sections: [
+        {
+          id: 'section-content',
+          heading: '',
+          blocks: [{ id: 'block-content', runs: [{ text: 'Overwritten text' }] }],
+        },
+      ],
+    };
+    const requested: Array<readonly [string, string, IndicatorContent]> = [];
+    api.saveVersion = (indicatorId: string, versionId: string, content: IndicatorContent) => {
+      requested.push([indicatorId, versionId, content]);
+      return of(detailWithCurrent(edited));
+    };
+
+    state.applyEdit(edited);
+    state.saveActiveVersion();
+
+    expect(requested).toEqual([['ind-test', 'ver-current', edited]]);
+    expect(state.snapshot.content).toEqual(edited);
+    expect(latest(state.saveStatus$)).toBe('saved');
+  });
+
+  it('sets the save status to error when saving fails', () => {
+    api.saveVersion = () => throwError(() => new Error('offline'));
+
+    state.saveActiveVersion();
+
+    expect(latest(state.saveStatus$)).toBe('error');
+  });
+
+  it('is a no-op when there is no active version', () => {
+    TestBed.resetTestingModule();
+    TestBed.configureTestingModule({
+      providers: [provideHttpClient(), IndicatorStateService],
+    });
+    const freshApi = TestBed.inject(IndicatorApiService);
+    const freshState = TestBed.inject(IndicatorStateService);
+
+    let called = false;
+    freshApi.saveVersion = () => {
+      called = true;
+      return of(detailWith('ready', INDICATOR_A111_CONTENT));
+    };
+
+    freshState.saveActiveVersion();
+
+    expect(called).toBe(false);
+  });
+});
+
 describe('IndicatorStateService project loading', () => {
   let state: IndicatorStateService;
   let api: IndicatorApiService;
